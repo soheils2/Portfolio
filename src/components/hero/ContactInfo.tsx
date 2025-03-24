@@ -25,20 +25,20 @@ function ContactItem({ icon, text, href }: ContactItemProps) {
 export function ContactInfo() {
   return (
     <div className="flex flex-col items-center gap-0">
-      <ContactItem
+      {/* <ContactItem
         icon={<Phone className="w-5 h-5" />}
         text="+91 8676842176"
         href="tel:+918676842176"
-      />
+      /> */}
       <ContactItem
         icon={<Mail className="w-5 h-5" />}
-        text="deepakmodidev@gmail.com"
-        href="mailto:deepakmodidev@gmail.com"
+        text="Info@soeil.net"
+        href="mailto:info@soeil.net"
       />
-      <ContactItem
+      {/* <ContactItem
         icon={<MapPin className="w-5 h-5" />}
         text="Gurgaon, India"
-      />
+      /> */}
     </div>
   );
 }

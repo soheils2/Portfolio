@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +13,7 @@
   body {
     @apply antialiased;
     text-rendering: optimizeLegibility;
+    cursor: none;
   }
 
   /* Reduce motion if user prefers it */
@@ -40,6 +42,9 @@
 
   .animate-wave {
     @apply motion-safe:animate-[wave_2s_ease-in-out_infinite];
+  }
+  .animate-star-fall {
+    @apply motion-safe:animate-[starFall_4s_linear_infinite];
   }
 }
 
@@ -97,3 +102,20 @@ img {
 .transition-all {
   @apply transform-gpu;
 }
+@keyframes starFall {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(200vh);
+  }
+}
+

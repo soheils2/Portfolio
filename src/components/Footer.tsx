@@ -39,7 +39,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 snap-start">
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5" />
 
@@ -59,7 +59,7 @@ export function Footer() {
 
           {/* Copyright */}
           <div className="text-sm text-gray-500 dark:text-gray-400 text-center">
-            <p>© {currentYear} Deepak Modi. All rights reserved.</p>
+            <p>© {currentYear} Soheil Asami. All rights reserved.</p>
             <p className="flex items-center justify-center gap-2">
               Built with <FaReact className="w-6 h-6 text-blue-500 animate-spin" /> using
               <SiVite className="w-6 h-6 text-yellow-500 animate-pulse" />

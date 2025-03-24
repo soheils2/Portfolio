@@ -3,7 +3,7 @@ import { SectionTitle } from './ui/SectionTitle';
 
 export function Leetcode() {
   return (
-    <section id="leetcode" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="leetcode" className="py-20 bg-gray-50 dark:bg-gray-800 snap-start">
       <div className="container mx-auto max-w-6xl px-8">
         <SectionTitle>Leetcode Progress</SectionTitle>
 

@@ -1,22 +1,17 @@
 import { Github, Linkedin, Instagram } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaTelegram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 
 const links = [
-  {
-    href: 'https://github.com/decodewithdeepak',
-    icon: <Github className="w-6 h-6 text-gray-900 dark:text-white" />,
-    label: 'GitHub',
-  },
   {
     href: 'https://linkedin.com/in/deepakmodi1',
     icon: <Linkedin className="w-6 h-6 text-[#0077B5]" />,
     label: 'LinkedIn',
   },
   {
-    href: 'https://instagram.com/deepakmodi.io',
-    icon: <Instagram className="w-6 h-6 text-[#E1306C]" />,
-    label: 'Instagram',
+    href: 'https://t.me/soeil',
+    icon: <FaTelegramPlane className="w-6 h-6 text-[#2CA5E0]" />,
+    label: 'Telegram',
   },
   {
     href: 'https://wa.me/918676842176',
@@ -28,12 +23,17 @@ const links = [
     icon: <FaXTwitter className="w-6 h-6 text-gray-900 dark:text-white" />,
     label: 'Twitter',
   },
+  {
+    href: 'https://github.com/decodewithdeepak',
+    icon: <Github className="w-6 h-6 text-gray-900 dark:text-white" />,
+    label: 'GitHub',
+  },
 ];
 
 export function SocialLinks() {
   return (
-    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-      {links.map(({ href, icon, label }) => (
+    <div className="flex flex-wrap gap-2 justify-center items-center md:fixed  md:left-0 md:flex-col">
+    {links.map(({ href, icon, label }) => (
         <a
           key={href}
           href={href}

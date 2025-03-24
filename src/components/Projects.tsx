@@ -28,7 +28,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="projects" className="min-h-screen  py-20 bg-gray-50 dark:bg-gray-800 snap-start">
       <div className="container mx-auto px-8">
         <SectionTitle>Projects</SectionTitle>
         

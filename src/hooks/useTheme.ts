@@ -6,7 +6,8 @@ export function useTheme() {
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false;
+    // return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   const updateTheme = useCallback((dark: boolean) => {

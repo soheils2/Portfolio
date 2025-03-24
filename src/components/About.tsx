@@ -47,11 +47,11 @@ const aboutSections = [
 
 export function About() {
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
+    <section id="about" className="min-h-screen py-20 relative overflow-hidden snap-start">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.06]" />
-      </div>
+      </div> */}
 
       <div className="container mx-auto px-6 relative">
         <SectionTitle>About Me</SectionTitle>

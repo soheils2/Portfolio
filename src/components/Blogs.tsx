@@ -7,7 +7,7 @@ export function Blogs() {
   const { blogs, loading } = useBlogs();
 
   return (
-    <section id="blogs" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="blogs" className="py-20 bg-gray-50 dark:bg-gray-800 snap-start">
       <div className="container mx-auto px-8">
         <SectionTitle>Latest Blogs</SectionTitle>
 

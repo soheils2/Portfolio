@@ -68,7 +68,7 @@ const badges = [
 
 export function Badges() {
   return (
-    <section id="badges" className="py-20">
+    <section id="badges" className="py-20 snap-start">
       <div className="container mx-auto max-w-6xl px-8">
         <SectionTitle>Coding Badges</SectionTitle>
 

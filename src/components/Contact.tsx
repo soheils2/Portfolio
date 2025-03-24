@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Contact() {
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800 snap-start">
       <div className="container mx-auto px-4">
         <SectionTitle>Get In Touch</SectionTitle>
         

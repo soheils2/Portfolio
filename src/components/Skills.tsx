@@ -35,7 +35,7 @@ const skills = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20">
+    <section id="skills" className="min-h-screen py-20 snap-start">
       <div className="container mx-auto px-6">
         <SectionTitle>Skills</SectionTitle>
 

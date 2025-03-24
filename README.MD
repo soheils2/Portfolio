@@ -1,4 +1,4 @@
-# Deepak Modi - Portfolio Website for a Full Stack Developer
+# Soheil Asami - Portfolio Website for a Full Stack Developer
 
 Welcome to **My Portfolio**! This is my personal portfolio for showcasing my skills, projects, experience, education, certifications, and more. It’s built using React, TypeScript, Tailwind CSS, and other modern web technologies. It fetches data from various APIs to display the latest information, such as GitHub repositories, LeetCode submissions, and blogs. The portfolio is responsive, interactive, and optimized for performance.
 
@@ -33,6 +33,7 @@ Check it out live at: [https://deepakmodi.vercel.app/](https://deepakmodi.vercel
 ---
 
 ## 📂 **Directory Structure**
+
 ```
 └── decodewithdeepak-portfolio/
     ├── README.MD
@@ -135,4 +136,4 @@ Feel free to reach out to me through any of the following channels:
 
 ---
 
-### 🔥 Made with ❤️ by **Deepak Modi**
+### 🔥 Made with ❤️ by **Soheil Asami**

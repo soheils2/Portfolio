@@ -54,7 +54,7 @@ export function Certifications() {
   };
 
   return (
-    <section id="certifications" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="certifications" className="py-20 bg-gray-50 dark:bg-gray-800 snap-start">
       <div className="container mx-auto px-8">
         <SectionTitle>Certifications</SectionTitle>
         <Slider {...settings} className="max-w-6xl mx-auto">
