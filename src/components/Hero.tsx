@@ -30,7 +30,7 @@ export function Hero() {
 
       {/* Animated background with particles */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.08]" />
+        <div className="fixed inset-0 bg-grid-pattern opacity-[0.08]" />
         {/* Animated gradient orbs */}
         {/* <div className="absolute top-1/4 left-1/5 w-64 h-64 bg-blue-400/30 dark:bg-blue-600/30 rounded-full blur-3xl animate-pulse" /> */}
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-400/30 dark:bg-purple-600/30 rounded-full blur-3xl animate-pulse delay-1000" />
