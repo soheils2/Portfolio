@@ -76,28 +76,7 @@ export function About() {
       </div> */}
 
       <div className="container mx-auto px-6 relative">
-        {/* <SectionTitle>About Me</SectionTitle> */}
 
-        {/* Introduction */}
-        {/* <div className="max-w-5xl mx-auto mb-16 text-center">
-          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-            Hey there! 👋 I'm <span className="text-blue-600 font-semibold">Deepak Modi</span>,
-            a Full-Stack Developer and final-year Computer Science Engineering student.
-            I love transforming ideas into scalable web applications and solving complex coding challenges. 
-            My journey in tech revolves around continuous learning, experimenting with new technologies, and building solutions that make an impact.
-          </p>
-
-          <div className="mt-6 flex justify-center">
-            <span className="text-sm sm:text-base inline-block bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-4 py-2 rounded-lg shadow">
-              🚀 I like to build products and solve problems
-            </span>
-          </div>
-        </div> */}
-        {/* <img
-          src="/assets/4hndsGreen.png"
-          alt="Soheil Asami"
-          className="hidden md:block md:absolute w-full max-w-lg mx-auto md:top-[35%] lg:top-[40%]  md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
-        /> */}
         <img  src={activeImage}
 
           alt="Soheil Asami"

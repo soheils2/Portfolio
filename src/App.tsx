@@ -28,9 +28,9 @@ function App() {
         isLoading={isLoading}
       />
 
-      <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-        {/* <div className="fixed inset-0 bg-grid-pattern opacity-[0.08]" /> */}
-      </div>
+      {/* <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="fixed inset-0 bg-grid-pattern opacity-[0.08]" />
+      </div> */}
 
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-10">
         {Array.from({ length: 120 }).map((_, i) => {
@@ -59,7 +59,7 @@ function App() {
       </div>
       <div
         // className={`min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
-        className={`h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}
+        className={`min-h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}
       >
 
         <CustomCursor />
