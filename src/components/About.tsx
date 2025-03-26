@@ -1,4 +1,3 @@
-
 import {
   User2,
   Code2,
@@ -263,7 +262,7 @@ export function About() {
   }, []);
 
   useEffect(() => {
-    const step = 1.5;
+    const step = 1;
     let animationFrameId: number;
     const initialScrollTop = window.scrollY;
 
@@ -300,16 +299,23 @@ export function About() {
     const gap = getGap();
     const cardWidth = cardRef.current.offsetWidth;
 
+    updateScrollPositions();
+  }, [cols, screenWidth]);
+
+  const updateScrollPositions = () => {
     rowRefs.current.forEach((rowRef, rowIndex) => {
       if (rowRef) {
-        const scrollIndex = rowIndex * cols + originalSkillsLength;
-        const scrollLeft = scrollIndex * (cardWidth + gap);
+        let scrollIndex = rowIndex * cols + baseSkills.length;
+        if (rowIndex % 2 === 0) {
+          scrollIndex =
+            originalSkillsLength - (rowIndex * cols + baseSkills.length);
+        }
+        const scrollLeft =
+          scrollIndex * (cardRef.current.offsetWidth + getGap());
         rowRef.scrollLeft = scrollLeft;
-
-        baseOffsets.current[rowIndex] = scrollLeft; // <--- store for scroll effect
       }
     });
-  }, [cols, screenWidth]);
+  };
 
   const calcCardWidth = () => {
     let gutter = 0;
@@ -325,7 +331,7 @@ export function About() {
 
   const numberOfRows = (() => {
     const colCount = getCols();
-    return 4
+    return 4;
     if (colCount === 8) return 3;
     if (colCount === 6) return 3;
     return 4;
@@ -361,61 +367,106 @@ export function About() {
     return () => observer.disconnect();
   }, [cols, screenWidth]);
 
+  let onTimePassed = false;
+  let hasCalledUpdate = false;
   useEffect(() => {
     const skillsEl = document.getElementById("skills-layer");
     const aboutEl = document.getElementById("about");
     const skillsSection = document.getElementById("skills");
-  
-    let animationFrameId: number;
-  
+
+    let animationFrameId;
+
     const update = () => {
       if (!skillsEl || !aboutEl || !skillsSection) return;
-  
+
       const aboutRect = aboutEl.getBoundingClientRect();
       const skillsRect = skillsSection.getBoundingClientRect();
-      const scrollY = window.scrollY;
-  
       const aboutHeight = aboutEl.offsetHeight;
       const windowHeight = window.innerHeight;
-  
       const scrollProgress =
         1 - Math.max(0, Math.min(aboutRect.bottom / windowHeight, 1));
-  
-      if (skillsRect.top <= 0) {
-        skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${aboutHeight}px)`;
-        skillsEl.style.opacity = "1";
-        skillsEl.style.pointerEvents = "auto";
+
+      if (window.innerWidth < 768) {
+        if (skillsRect.top <= 0.2) {
+          skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${aboutHeight}px)`;
+          skillsEl.style.opacity = "1";
+          skillsEl.style.pointerEvents = "auto";
+          onTimePassed = false;
+          hasCalledUpdate = false;
+        } else if (scrollProgress < 0.2) {
+          onTimePassed = false;
+          if (!hasCalledUpdate) {
+            updateScrollPositions();
+            hasCalledUpdate = true;
+          }
+          const translateY = aboutHeight / 3;
+          skillsEl.style.transform = `rotateX(15deg) scale(0.9) translateY(${translateY}px)`;
+          skillsEl.style.opacity = "0.3";
+          skillsEl.style.pointerEvents = "none";
+          skillsEl.style.zIndex = "2";
+        } else if (scrollProgress >= 0.2 && scrollProgress < 0.85) {
+          if (!onTimePassed) {
+            onTimePassed = true;
+            hasCalledUpdate = false;
+            const translateY = aboutHeight * 0.6;
+            skillsEl.style.transform = `rotateX(7.5deg) scale(0.95) translateY(${translateY}px)`;
+            skillsEl.style.opacity = "0.65";
+            skillsEl.style.pointerEvents = "none";
+            skillsEl.style.zIndex = "2";
+          }
+        } else if (scrollProgress >= 0.85 && scrollProgress < 0.88) {
+          onTimePassed = false;
+          skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
+            aboutHeight * 0.8
+          }px)`;
+          skillsEl.style.opacity = "1";
+          skillsEl.style.pointerEvents = "auto";
+
+          if (!hasCalledUpdate) {
+            updateScrollPositions();
+            hasCalledUpdate = true;
+          }
+        }
       } else {
-        const rotate = 15 - scrollProgress * 15;
-        const scale = 0.9 + scrollProgress * 0.1;
-        const opacity = 0.3 + scrollProgress * 0.7;
-        const translateY =
-          aboutHeight / 4 -
-          scrollProgress * (aboutHeight / (numberOfRows > 3 ? 4 : 6)) +
-          scrollProgress * (aboutHeight - skillsRect.top);
-  
-        skillsEl.style.transform = `rotateX(${rotate}deg) scale(${scale}) translateY(${translateY}px)`;
-        skillsEl.style.opacity = `${opacity}`;
-        skillsEl.style.pointerEvents = "none";
-        skillsEl.style.zIndex = "0";
+        if (skillsRect.top > 0.3 && skillsRect.top < 0.8) {
+          skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${aboutHeight}px)`;
+          skillsEl.style.opacity = "1";
+          skillsEl.style.pointerEvents = "auto";
+          hasCalledUpdate = false;
+        } else if (skillsRect.top > 0.8) {
+          const rotate = 15 - scrollProgress * 15;
+          const scale = 0.9 + scrollProgress * 0.1;
+          const opacity = 0.3 + scrollProgress * 0.7;
+          const translateY =
+            aboutHeight / 3 -
+            scrollProgress * (aboutHeight / 4) * 1.5 +
+            scrollProgress * (aboutHeight - skillsRect.top);
+          skillsEl.style.transform = `rotateX(${rotate}deg) scale(${scale}) translateY(${translateY}px)`;
+          skillsEl.style.opacity = `${opacity}`;
+          skillsEl.style.pointerEvents = "none";
+          skillsEl.style.zIndex = "2";
+
+          if (skillsRect.top >= 0.8 && !hasCalledUpdate) {
+            updateScrollPositions();
+            hasCalledUpdate = true;
+          } else if (skillsRect.top <= 0.81) {
+            hasCalledUpdate = false;
+          }
+        }
       }
-  
+
       animationFrameId = requestAnimationFrame(update);
     };
-  
+
     animationFrameId = requestAnimationFrame(update);
-  
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
-  
-  
-  
-  
+
   return (
     <section className="relative" style={{ perspective: "1000px" }}>
       <div
         id="skills-layer"
-        className="fixed left-0 w-full min-h-screen z-0 pointer-events-none overflow-hidden"
+        className="fixed left-0 w-full min-h-screen z-10 overflow-hidden"
         style={{
           transformOrigin: "top center",
           transform:
@@ -423,7 +474,6 @@ export function About() {
           transition: "transform 0.3s, opacity 0.3s",
           opacity: 0.3,
         }}
-        
       >
         <section id="sskills" className="min-h-screen py-20 snap-start z-2 ">
           <div className="container mx-auto px-6">
@@ -474,7 +524,7 @@ export function About() {
       </div>
       <section
         id="about"
-        className="min-h-screen  py-20 relative overflow-hidden snap-start"
+        className="min-h-screen  py-20 relative overflow-hidden snap-start z-10"
       >
         {/* Background Elements */}
         {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
@@ -538,8 +588,8 @@ export function About() {
       </section>
       <section
         id="skills"
-        className="h-screen snap-start relative z-10 overflow-hidden"
-        style={{ background: "transparent" }}
+        className="h-screen snap-start relative z-1 overflow-hidden bg-gray-50 dark:bg-gray-900"
+        // style={{ background: "transparent" }}
       />
     </section>
   );
