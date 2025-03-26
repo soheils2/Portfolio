@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden snap-start"
+      className="min-h-screen  flex items-center justify-center relative overflow-hidden snap-start"
     >
 
       {/* Animated background with particles */}

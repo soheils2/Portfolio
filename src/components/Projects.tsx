@@ -28,7 +28,9 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="min-h-screen  py-20 bg-gray-50 dark:bg-gray-800 snap-start">
+    <section id="projects" className="min-h-screen  py-20  bg-white dark:bg-gray-900 snap-start relative z-2">
+        <div className="fixed inset-0 bg-grid-pattern opacity-[0.04]" />
+
       <div className="container mx-auto px-8">
         <SectionTitle>Projects</SectionTitle>
         
