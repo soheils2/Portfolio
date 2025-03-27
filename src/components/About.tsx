@@ -262,28 +262,39 @@ export function About() {
   }, []);
 
   useEffect(() => {
+    let ticking = false;
     const step = 1;
     let animationFrameId: number;
     const initialScrollTop = window.scrollY;
 
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const delta = scrollTop - initialScrollTop;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollTop = window.scrollY;
+          const delta = scrollTop - initialScrollTop;
 
-      animationFrameId = requestAnimationFrame(() => {
-        rowRefs.current.forEach((row, index) => {
-          if (!row) return;
+          rowRefs.current.forEach((row, index) => {
+            // const scrollIndex = rowIndex * cols + originalSkillsLength;
+            // const scrollOffset = scrollIndex * (cardWidth + gap);
+            const baseOffset = baseOffsets.current[index] || 0;
+            const direction = index % 2 === 0 ? 1 : -1;
+            const scrollOffset = baseOffset + delta * step * direction;
 
-          const baseOffset = baseOffsets.current[index] || 0;
-          const direction = index % 2 === 0 ? 1 : -1;
-          const scrollOffset = baseOffset + delta * step * direction;
-
-          row.scrollTo({
-            left: scrollOffset,
-            behavior: "smooth", // don't animate on every scroll to avoid "rubbery" feel
+            // row.scrollLeft = scrollOffset;
+            if (screenWidth < 768 && false) {
+              row.scrollLeft = scrollOffset;
+            } else {
+              row.scrollTo({
+                left: scrollOffset,
+                behavior: "smooth",
+              });
+            }
           });
+
+          ticking = false;
         });
-      });
+        ticking = true;
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -302,19 +313,25 @@ export function About() {
     updateScrollPositions();
   }, [cols, screenWidth]);
 
+  let hasCalledUpdate = false;
+
   const updateScrollPositions = () => {
-    rowRefs.current.forEach((rowRef, rowIndex) => {
-      if (rowRef) {
-        let scrollIndex = rowIndex * cols + baseSkills.length;
-        if (rowIndex % 2 === 0) {
-          scrollIndex =
-            originalSkillsLength - (rowIndex * cols + baseSkills.length);
+    if (!hasCalledUpdate) {
+      rowRefs.current.forEach((rowRef, rowIndex) => {
+        if (rowRef) {
+          let scrollIndex = rowIndex * cols + baseSkills.length;
+          if (rowIndex % 2 === 0) {
+            scrollIndex =
+              originalSkillsLength - (rowIndex * cols + baseSkills.length);
+          }
+          const scrollLeft =
+            scrollIndex * (cardRef.current.offsetWidth + getGap());
+          rowRef.scrollLeft = scrollLeft;
         }
-        const scrollLeft =
-          scrollIndex * (cardRef.current.offsetWidth + getGap());
-        rowRef.scrollLeft = scrollLeft;
-      }
-    });
+      });
+
+      hasCalledUpdate = true;
+    }
   };
 
   const calcCardWidth = () => {
@@ -350,9 +367,9 @@ export function About() {
           rowRefs.current.forEach((rowRef, rowIndex) => {
             if (rowRef) {
               const scrollIndex = rowIndex * cols + originalSkillsLength;
-              const scrollLeft = scrollIndex * (cardWidth + gap);
-              rowRef.scrollLeft = scrollLeft;
-              baseOffsets.current[rowIndex] = scrollLeft;
+              const scrollOffset = scrollIndex * (cardWidth + gap);
+              rowRef.scrollLeft = scrollOffset;
+              baseOffsets.current[rowIndex] = scrollOffset;
             }
           });
         }
@@ -368,64 +385,63 @@ export function About() {
   }, [cols, screenWidth]);
 
   let onTimePassed = false;
-  let hasCalledUpdate = false;
+  let aboutHeight = 0;
+  let windowHeight = window.innerHeight;
   useEffect(() => {
+    // return
     const skillsEl = document.getElementById("skills-layer");
     const aboutEl = document.getElementById("about");
     const skillsSection = document.getElementById("skills");
 
+    if (!skillsEl || !aboutEl || !skillsSection) return;
+
+    aboutHeight = aboutEl.offsetHeight;
+
+    const observer = new ResizeObserver(() => {
+      aboutHeight = aboutEl.offsetHeight;
+      windowHeight = window.innerHeight;
+    });
+
+    observer.observe(aboutEl);
     let animationFrameId;
-
     const update = () => {
-      if (!skillsEl || !aboutEl || !skillsSection) return;
-
       const aboutRect = aboutEl.getBoundingClientRect();
       const skillsRect = skillsSection.getBoundingClientRect();
-      const aboutHeight = aboutEl.offsetHeight;
-      const windowHeight = window.innerHeight;
       const scrollProgress =
         1 - Math.max(0, Math.min(aboutRect.bottom / windowHeight, 1));
 
       if (window.innerWidth < 768) {
-        if (skillsRect.top <= 0.2) {
-          skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${aboutHeight}px)`;
-          skillsEl.style.opacity = "1";
+        if (scrollProgress <= 0.2) {
+          skillsEl.style.transform = `rotateX(15deg) scale(1) translateY(${aboutHeight*0.3}px)`;
+          skillsEl.style.opacity = "0.2";
           skillsEl.style.pointerEvents = "auto";
           onTimePassed = false;
           hasCalledUpdate = false;
-        } else if (scrollProgress < 0.2) {
+        } else if (scrollProgress >= 0.2 && scrollProgress < 0.4) {
           onTimePassed = false;
-          if (!hasCalledUpdate) {
-            updateScrollPositions();
-            hasCalledUpdate = true;
-          }
-          const translateY = aboutHeight / 3;
+          const translateY = aboutHeight*0.7;
           skillsEl.style.transform = `rotateX(15deg) scale(0.9) translateY(${translateY}px)`;
           skillsEl.style.opacity = "0.3";
           skillsEl.style.pointerEvents = "none";
           skillsEl.style.zIndex = "2";
-        } else if (scrollProgress >= 0.2 && scrollProgress < 0.85) {
+        } else if (scrollProgress >= 0.4 && scrollProgress < 0.85) {
           if (!onTimePassed) {
             onTimePassed = true;
             hasCalledUpdate = false;
-            const translateY = aboutHeight * 0.6;
+            const translateY = aboutHeight * 0.7;
             skillsEl.style.transform = `rotateX(7.5deg) scale(0.95) translateY(${translateY}px)`;
             skillsEl.style.opacity = "0.65";
             skillsEl.style.pointerEvents = "none";
             skillsEl.style.zIndex = "2";
           }
-        } else if (scrollProgress >= 0.85 && scrollProgress < 0.88) {
+        } else if (scrollProgress >= 0.85 && scrollProgress < 1) {
           onTimePassed = false;
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
-            aboutHeight * 0.8
+            aboutHeight * 1
           }px)`;
           skillsEl.style.opacity = "1";
           skillsEl.style.pointerEvents = "auto";
-
-          if (!hasCalledUpdate) {
-            updateScrollPositions();
-            hasCalledUpdate = true;
-          }
+          updateScrollPositions();
         }
       } else {
         if (skillsRect.top > 0.3 && skillsRect.top < 0.8) {
@@ -439,7 +455,7 @@ export function About() {
           const opacity = 0.3 + scrollProgress * 0.7;
           const translateY =
             aboutHeight / 3 -
-            scrollProgress * (aboutHeight / 4) * 1.5 +
+            scrollProgress * (aboutHeight / 7) * 1.5 +
             scrollProgress * (aboutHeight - skillsRect.top);
           skillsEl.style.transform = `rotateX(${rotate}deg) scale(${scale}) translateY(${translateY}px)`;
           skillsEl.style.opacity = `${opacity}`;
@@ -459,69 +475,14 @@ export function About() {
     };
 
     animationFrameId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
     <section className="relative" style={{ perspective: "1000px" }}>
-      <div
-        id="skills-layer"
-        className="fixed left-0 w-full min-h-screen z-10 overflow-hidden"
-        style={{
-          transformOrigin: "top center",
-          transform:
-            "perspective(3000px) rotateX(35deg) rotateY(0deg) translateZ(0px)  scale(0.85)",
-          transition: "transform 0.3s, opacity 0.3s",
-          opacity: 0.3,
-        }}
-      >
-        <section id="sskills" className="min-h-screen py-20 snap-start z-2 ">
-          <div className="container mx-auto px-6">
-            {/* <SectionTitle>Skills</SectionTitle> */}
-
-            <div className="max-w-6xl mx-auto mt-8 flex flex-col gap-4 sm:gap-6">
-              {Array.from({ length: numberOfRows }).map((_, rowIndex) => (
-                <div
-                  key={rowIndex}
-                  ref={(el) => (rowRefs.current[rowIndex] = el)}
-                  className="overflow-x-auto snap-x snap-mandatory justify-center overflow-y-hidden scrollbar-hide"
-                >
-                  <div className="flex gap-4 sm:gap-6 py-8 sm:py-6 md:py-5">
-                    {skills.map((tech, skillIndex) => (
-                      <div
-                        key={`${tech.name}-${rowIndex}-${skillIndex}`}
-                        ref={
-                          rowIndex === 0 && skillIndex === 0 ? cardRef : null
-                        }
-                        className="flex-shrink-0 snap-start"
-                        style={{
-                          width: `calc((100% - ${getGap()}px * (${
-                            getCols() - 1
-                          })) / ${getCols()})`,
-                        }}
-                      >
-                        <div
-                          className="relative w-full"
-                          style={{ paddingTop: "100%" }}
-                        >
-                          <div className="absolute top-0 left-0 w-full h-full">
-                            <SkillCard
-                              name={tech.name}
-                              icon={tech.icon}
-                              color={tech.color}
-                              url={tech.url}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
       <section
         id="about"
         className="min-h-screen  py-20 relative overflow-hidden snap-start z-10"
@@ -586,6 +547,64 @@ export function About() {
           </div>
         </div>
       </section>
+      <div
+        id="skills-layer"
+        className="fixed top-0 left-0 w-full min-h-screen z-8 overflow-hidden"
+        style={{
+          transformOrigin: "top center",
+          transform:
+            "perspective(3000px) rotateX(35deg) rotateY(0deg) translateZ(0px)  scale(0.85)",
+          transition: "transform 0.3s, opacity 0.3s",
+          opacity: 0.3,
+        }}
+      >
+        <section id="sskills" className="min-h-screen py-20 snap-start z-2 ">
+          <div className="container mx-auto px-6">
+            {/* <SectionTitle>Skills</SectionTitle> */}
+
+            <div className="max-w-6xl mx-auto mt-8 flex flex-col gap-4 sm:gap-6">
+              {Array.from({ length: numberOfRows }).map((_, rowIndex) => (
+                <div
+                  key={rowIndex}
+                  ref={(el) => (rowRefs.current[rowIndex] = el)}
+                  className="overflow-x-auto snap-x snap-mandatory justify-center overflow-y-hidden scrollbar-hide"
+                >
+                  <div className="flex gap-4 py-4 md:py-2">
+                    {skills.map((tech, skillIndex) => (
+                      <div
+                        key={`${tech.name}-${rowIndex}-${skillIndex}`}
+                        ref={
+                          rowIndex === 0 && skillIndex === 0 ? cardRef : null
+                        }
+                        className="flex-shrink-0 snap-start"
+                        style={{
+                          width: `calc((100% - ${getGap()}px * (${
+                            getCols() - 1
+                          })) / ${getCols()})`,
+                        }}
+                      >
+                        <div
+                          className="relative w-full"
+                          style={{ paddingTop: "100%" }}
+                        >
+                          <div className="absolute top-0 left-0 w-full h-full">
+                            <SkillCard
+                              name={tech.name}
+                              icon={tech.icon}
+                              color={tech.color}
+                              url={tech.url}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
       <section
         id="skills"
         className="min-h-screen snap-start relative z-1 overflow-hidden bg-gray-50 dark:bg-gray-900"
