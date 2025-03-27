@@ -588,7 +588,7 @@ export function About() {
       </section>
       <section
         id="skills"
-        className="h-screen snap-start relative z-1 overflow-hidden bg-gray-50 dark:bg-gray-900"
+        className="min-h-screen snap-start relative z-1 overflow-hidden bg-gray-50 dark:bg-gray-900"
         // style={{ background: "transparent" }}
       />
     </section>
