@@ -244,6 +244,14 @@ export function About() {
     return 16; // default gap-4 = 1rem = 16px
   };
 
+  const setInitialIndexes = () => {
+    const baseSkillsLength = baseSkills.length;
+    const cols = getCols();
+    
+    rows.forEach((row, index) => {
+      row.index = baseSkillsLength + (index * cols);
+    });
+  };
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;
@@ -348,10 +356,10 @@ export function About() {
 
   const numberOfRows = (() => {
     const colCount = getCols();
-    return 4;
-    if (colCount === 8) return 3;
+    // return 4;
+    if (colCount === 8) return 4;
     if (colCount === 6) return 3;
-    return 4;
+    return 6;
   })();
 
   useEffect(() => {
@@ -413,35 +421,21 @@ export function About() {
       if (window.innerWidth < 768) {
         if (scrollProgress <= 0.2) {
           skillsEl.style.transform = `rotateX(15deg) scale(1) translateY(${aboutHeight*0.3}px)`;
-          skillsEl.style.opacity = "0.2";
+          skillsEl.style.opacity = "0.4";
+          skillsEl.style.zIndex = "2";
           skillsEl.style.pointerEvents = "auto";
           onTimePassed = false;
           hasCalledUpdate = false;
-        } else if (scrollProgress >= 0.2 && scrollProgress < 0.4) {
-          onTimePassed = false;
-          const translateY = aboutHeight*0.7;
-          skillsEl.style.transform = `rotateX(15deg) scale(0.9) translateY(${translateY}px)`;
-          skillsEl.style.opacity = "0.3";
-          skillsEl.style.pointerEvents = "none";
-          skillsEl.style.zIndex = "2";
         } else if (scrollProgress >= 0.4 && scrollProgress < 0.85) {
-          if (!onTimePassed) {
-            onTimePassed = true;
-            hasCalledUpdate = false;
-            const translateY = aboutHeight * 0.7;
-            skillsEl.style.transform = `rotateX(7.5deg) scale(0.95) translateY(${translateY}px)`;
-            skillsEl.style.opacity = "0.65";
-            skillsEl.style.pointerEvents = "none";
-            skillsEl.style.zIndex = "2";
-          }
-        } else if (scrollProgress >= 0.85 && scrollProgress < 1) {
+
           onTimePassed = false;
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
-            aboutHeight * 1
+            aboutHeight * 0.93
           }px)`;
           skillsEl.style.opacity = "1";
           skillsEl.style.pointerEvents = "auto";
-          updateScrollPositions();
+          skillsEl.style.zIndex = "10";
+          // updateScrollPositions();
         }
       } else {
         if (skillsRect.top > 0.3 && skillsRect.top < 0.8) {
@@ -533,7 +527,7 @@ export function About() {
                     </ul>
                   </div>
                   {index == 1 && (
-                    <div className="block md:hidden w-full flex justify-center my-2">
+                    <div className="block md:hidden opacity-0 w-full flex justify-center my-2">
                       <img
                         src="/assets/4hnds.png"
                         alt="Soheil Asami"
