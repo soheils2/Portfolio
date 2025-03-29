@@ -48,7 +48,7 @@ function App() {
         <Education />
         <Contact />
         <Footer />
-        <Analytics />
+        {/* <Analytics /> */}
       </div>
     </>
   );

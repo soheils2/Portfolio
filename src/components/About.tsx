@@ -233,6 +233,7 @@ export function About() {
 
   useEffect(() => {
     rowRefs.current.forEach((row, rowIndex) => {
+      if (!row) return;
       row.dataset.initialIndex = (
         baseSkills.length +
         rowIndex * getCols()

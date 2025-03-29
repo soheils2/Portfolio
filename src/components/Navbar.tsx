@@ -45,12 +45,12 @@ export function Navbar() {
     { href: '#about', label: 'About' },
     { href: '#skills', label: 'Skills' },
     { href: '#projects', label: 'Projects' },
-    { href: '#github', label: 'GitHub' },
-    { href: '#leetcode', label: 'Leetcode' },
-    { href: '#badges', label: 'Badges' },
-    { href: '#blogs', label: 'Blogs' },
+    // { href: '#github', label: 'GitHub' },
+    // { href: '#leetcode', label: 'Leetcode' },
+    // { href: '#badges', label: 'Badges' },
+    // { href: '#blogs', label: 'Blogs' },
     { href: '#experience', label: 'Experience' },
-    { href: '#certifications', label: 'Certifications' },
+    // { href: '#certifications', label: 'Certifications' },
     { href: '#education', label: 'Education' },
   ];
 
@@ -61,14 +61,16 @@ export function Navbar() {
         className={`fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-[90%] max-w-6xl rounded-2xl
                     ${isScrolled ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md outline outline-1 outline-blue-600' : 'bg-transparent'}`}
       >
-        <div className="flex items-center justify-between h-12 px-4">
+        <div className="flex items-center justify-between h-12 px-4 ">
           {/* Logo */}
           <div className="cursor-pointer" onClick={handleLogoClick}>
             <img src="/assets/favicon.png" alt="Logo" className="h-8 w-auto" />
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex space-x-5 items-center relative">
+          <div className="hidden lg:flex flex-1 space-x-5 items-center relative ">
+            <div className="flex-1"/>
+            
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -85,13 +87,14 @@ export function Navbar() {
                 )}
               </Link>
             ))}
+            <div className="flex-1"/>
 
             <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
             <Link
               href="#contact"
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 hover:text-white dark:text-white dark:hover:text-white"
             >
-              Request a Project
+              Need Consult
               <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>
@@ -130,7 +133,7 @@ export function Navbar() {
                 className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 hover:text-white dark:text-white dark:hover:text-white"
                 onClick={() => setIsOpen(false)}
               >
-                Request a Project
+                Need Consult
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </Link>
             </div>

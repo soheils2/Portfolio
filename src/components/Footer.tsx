@@ -28,12 +28,12 @@ export function Footer() {
     { href: '#about', label: 'About' },
     { href: '#skills', label: 'Skills' },
     { href: '#projects', label: 'Projects' },
-    { href: '#github', label: 'GitHub' },
-    { href: '#leetcode', label: 'Leetcode' },
-    { href: '#badges', label: 'Badges' },
-    { href: '#blogs', label: 'Blogs' },
+    // { href: '#github', label: 'GitHub' },
+    // { href: '#leetcode', label: 'Leetcode' },
+    // { href: '#badges', label: 'Badges' },
+    // { href: '#blogs', label: 'Blogs' },
     { href: '#experience', label: 'Experience' },
-    { href: '#certifications', label: 'Certifications' },
+    // { href: '#certifications', label: 'Certifications' },
     { href: '#education', label: 'Education' },
     { href: '#contact', label: 'Contact' },
   ];
@@ -54,7 +54,7 @@ export function Footer() {
 
           {/* Social Links */}
           <div className="scale-90">
-            <SocialLinks />
+            <SocialLinks horezental />
           </div>
 
           {/* Copyright */}
