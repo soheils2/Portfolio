@@ -244,14 +244,18 @@ export function About() {
     return 16; // default gap-4 = 1rem = 16px
   };
 
-  const setInitialIndexes = () => {
-    const baseSkillsLength = baseSkills.length;
-    const cols = getCols();
-    
-    rows.forEach((row, index) => {
-      row.index = baseSkillsLength + (index * cols);
+  // NEW: Set initial scroll index for each row based on visible boxes
+  useEffect(() => {
+    // initialIndex = baseSkills.length + (rowIndex * getCols())
+    rowRefs.current.forEach((row, rowIndex) => {
+      // Store the initial index directly on the row element (or in a separate ref array)
+      row.dataset.initialIndex = (
+        baseSkills.length +
+        rowIndex * getCols()
+      ).toString();
     });
-  };
+  }, [cols]);
+
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;
@@ -270,47 +274,38 @@ export function About() {
   }, []);
 
   useEffect(() => {
-    let ticking = false;
-    const step = 1;
-    let animationFrameId: number;
     const initialScrollTop = window.scrollY;
-
+  
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollTop = window.scrollY;
-          const delta = scrollTop - initialScrollTop;
-
-          rowRefs.current.forEach((row, index) => {
-            // const scrollIndex = rowIndex * cols + originalSkillsLength;
-            // const scrollOffset = scrollIndex * (cardWidth + gap);
-            const baseOffset = baseOffsets.current[index] || 0;
-            const direction = index % 2 === 0 ? 1 : -1;
-            const scrollOffset = baseOffset + delta * step * direction;
-
-            // row.scrollLeft = scrollOffset;
-            if (screenWidth < 768 && false) {
-              row.scrollLeft = scrollOffset;
-            } else {
-              row.scrollTo({
-                left: scrollOffset,
-                behavior: "smooth",
-              });
-            }
-          });
-
-          ticking = false;
+      // Calculate the scroll delta relative to the initial top
+      const scrollDelta = window.scrollY - initialScrollTop;
+      if (!cardRef.current) return;
+  
+      const cardWidth = cardRef.current.offsetWidth;
+      const gap = getGap();
+      const stepSize = cardWidth + gap;
+      // Calculate how many steps (can be fractional) the user has scrolled
+      const steps = scrollDelta / stepSize;
+  
+      // Update each row’s scroll position
+      rowRefs.current.forEach((row, rowIndex) => {
+        // Retrieve the initial index that was stored on the row
+        const initialIndex = parseFloat(row.dataset.initialIndex || "0");
+        // For even rows add steps; for odd rows subtract steps
+        const direction = rowIndex % 2 === 0 ? 1 : -1;
+        const newIndex = initialIndex + steps * direction;
+        const newScrollLeft = newIndex * stepSize;
+        row.scrollTo({
+          left: newScrollLeft,
+          behavior: "smooth", // change to "smooth" if a smooth effect is desired
         });
-        ticking = true;
-      }
+      });
     };
-
+  
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [cols]);
+  
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -324,6 +319,7 @@ export function About() {
   let hasCalledUpdate = false;
 
   const updateScrollPositions = () => {
+    return;
     if (!hasCalledUpdate) {
       rowRefs.current.forEach((rowRef, rowIndex) => {
         if (rowRef) {
@@ -359,7 +355,7 @@ export function About() {
     // return 4;
     if (colCount === 8) return 4;
     if (colCount === 6) return 3;
-    return 6;
+    return 5;
   })();
 
   useEffect(() => {
@@ -420,14 +416,15 @@ export function About() {
 
       if (window.innerWidth < 768) {
         if (scrollProgress <= 0.2) {
-          skillsEl.style.transform = `rotateX(15deg) scale(1) translateY(${aboutHeight*0.3}px)`;
+          skillsEl.style.transform = `rotateX(15deg) scale(1) translateY(${
+            aboutHeight * 0.3
+          }px)`;
           skillsEl.style.opacity = "0.4";
           skillsEl.style.zIndex = "2";
           skillsEl.style.pointerEvents = "auto";
           onTimePassed = false;
           hasCalledUpdate = false;
         } else if (scrollProgress >= 0.4 && scrollProgress < 0.85) {
-
           onTimePassed = false;
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
             aboutHeight * 0.93
@@ -449,7 +446,7 @@ export function About() {
           const opacity = 0.3 + scrollProgress * 0.7;
           const translateY =
             aboutHeight / 3 -
-            scrollProgress * (aboutHeight / 7) * 1.5 +
+            scrollProgress * (aboutHeight / 5) * 1.5 +
             scrollProgress * (aboutHeight - skillsRect.top);
           skillsEl.style.transform = `rotateX(${rotate}deg) scale(${scale}) translateY(${translateY}px)`;
           skillsEl.style.opacity = `${opacity}`;
