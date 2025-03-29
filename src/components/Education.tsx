@@ -4,24 +4,13 @@ import { EducationCard } from './ui/EducationCard';
 
 const education = [
   {
-    degree: 'B.Tech in Computer Science Engineering',
-    institution: 'St. Andrews Institute of Technology and Management, Gurgaon',
-    period: '2022 - 2026',
-    score: '80%',
-  },
-  {
-    degree: 'Senior Secondary (XII)',
-    institution: 'Inter Science College, Hazaribagh',
-    period: '2019 - 2021',
-    score: '88%',
-  },
-  {
-    degree: 'Secondary (X)',
-    institution: "St. Paul's School, Hazaribagh",
-    period: '2017 - 2019',
-    score: '85.6%',
+    degree: 'Bachelor of Engineering in Electronic Engineering',
+    institution: 'Islamic Azad University, Isfahan, Iran',
+    period: 'Graduated Jun 2017',
+    score: '80%', // Not specified
   },
 ];
+
 
 export function Education() {
   return (

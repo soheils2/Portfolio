@@ -1,65 +1,86 @@
-import React from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { useState } from "react";
+import { BsGithub } from "react-icons/bs";
+import { ImageHoverFade } from "./imageSlider";
+import { IconType } from "react-icons";
+import { RiGlobalLine } from "react-icons/ri";
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  tags: string[];
+export interface StackItem {
+  icon: IconType;
+  color?: string;
 }
 
-export function ProjectCard({ title, description, image, link, tags }: ProjectCardProps) {
-  return (
-    <div className="relative group">
-      {/* Gradient Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-blue-500 rounded-xl blur-xl opacity-30 group-hover:opacity-60 pointer-events-none" />
+export interface ProjectCardProps {
+  title: string;
+  position: string;
+  description: string;
+  images: string[];
+  links: { type: "github" | "external"; url: string }[];
+  stack: StackItem[];
+}
 
-      {/* Card Content */}
-      <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden group hover:shadow-xl transition-transform duration-300">
-        {/* Image Section */}
-        <div className="relative overflow-hidden">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-            {/* External Link */}
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-white/20 rounded-full hover:bg-blue-600 hover:scale-110 transition-transform duration-300 ease-in-out shadow-lg"
-            >
-              <ExternalLink className="w-6 h-6 text-white" />
-            </a>
-            {/* GitHub Link */}
-            <a
-              href={`https://github.com/deepakmodi/${title.toLowerCase()}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-white/20 rounded-full hover:bg-gray-900 hover:scale-110 transition-transform duration-300 ease-in-out shadow-lg"
-            >
-              <Github className="w-6 h-6 text-white" />
-            </a>
-          </div>
+export function ProjectCard({
+  title,
+  position,
+  description,
+  images,
+  links,
+  stack,
+}: ProjectCardProps) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="relative group overflow-hidden rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-transform duration-300"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="p-2 sm:p-4 flex flex-col items-start justify-between h-full">
+        {/* Image / Slideshow */}
+        <div className="rounded-lg overflow-hidden mb-4 ">
+          <ImageHoverFade images={images} alt={title} hovered={hovered} />
         </div>
 
-        {/* Content Section */}
-        <div className="p-6">
-          <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{title}</h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-4 py-1 text-sm font-medium bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full shadow-sm transform hover:scale-105 transition-transform duration-300"
+        {/* Title and Links */}
+        <div className="flex items-center justify-between space-x-4 mb-1 w-full">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white flex-1">
+            {title}
+          </h3>
+          {links.map(({ type, url }) => {
+            const Icon = type === "github" ? BsGithub : RiGlobalLine;
+            return (
+              <a
+                key={url}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-orange-500 dark:hover:bg-red-600 transition-colors duration-300"
               >
-                {tag}
-              </span>
-            ))}
-          </div>
+                <Icon className="w-6 h-6 text-gray-700 dark:text-gray-100" />
+              </a>
+            );
+          })}
+        </div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">
+          {position}
+        </p>
+        {/* Description */}
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">
+          {description}
+        </p>
+
+        {/* Stack Icons */}
+        <div className="flex items-center gap-2">
+          {stack.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={index}
+                className="flex items-center justify-center w-10 h-10"
+              >
+                <Icon className="w-8 h-8" color={item.color} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

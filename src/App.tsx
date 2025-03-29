@@ -32,7 +32,6 @@ function App() {
       </div> */}
       {/* <SnowFall /> */}
       <div
-        // className={`min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         className={`min-h-screen overflow-y-scroll overflow-x-hidden scroll-smooth bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}
       >
         <CustomCursor />
@@ -40,12 +39,12 @@ function App() {
         <Hero />
         <About />
         <Projects />
-        <GitHub />
+        {/* <GitHub />
         <Leetcode />
         <Badges />
-        <Blogs />
+        <Blogs /> */}
         <Experience />
-        <Certifications />
+        {/* <Certifications /> */}
         <Education />
         <Contact />
         <Footer />
