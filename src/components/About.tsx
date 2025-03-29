@@ -1,19 +1,6 @@
-import {
-  User2,
-  Code2,
-  Lightbulb,
-  Laptop2,
-  Hammer,
-  Clock4,
-  Smile,
-  UserCheck,
-  HeartHandshake,
-  GlobeLock,
-} from "lucide-react";
-import { GoGoal } from "react-icons/go";
-import { SectionTitle } from "./ui/SectionTitle";
+import { Hammer, HeartHandshake } from "lucide-react";
 
-import { BadgeCheck, Wrench, Globe2, Handshake } from "lucide-react";
+import { BadgeCheck, Globe2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import {
   SiCplusplus,
@@ -240,15 +227,12 @@ export function About() {
   };
 
   const getGap = () => {
-    if (screenWidth >= 640) return 24; // sm:gap-6 = 1.5rem = 24px
-    return 16; // default gap-4 = 1rem = 16px
+    if (screenWidth >= 640) return 24;
+    return 16;
   };
 
-  // NEW: Set initial scroll index for each row based on visible boxes
   useEffect(() => {
-    // initialIndex = baseSkills.length + (rowIndex * getCols())
     rowRefs.current.forEach((row, rowIndex) => {
-      // Store the initial index directly on the row element (or in a separate ref array)
       row.dataset.initialIndex = (
         baseSkills.length +
         rowIndex * getCols()
@@ -275,23 +259,20 @@ export function About() {
 
   useEffect(() => {
     const initialScrollTop = window.scrollY;
-  
+
     const handleScroll = () => {
-      // Calculate the scroll delta relative to the initial top
       const scrollDelta = window.scrollY - initialScrollTop;
       if (!cardRef.current) return;
-  
+
       const cardWidth = cardRef.current.offsetWidth;
       const gap = getGap();
       const stepSize = cardWidth + gap;
-      // Calculate how many steps (can be fractional) the user has scrolled
+
       const steps = scrollDelta / stepSize;
-  
-      // Update each row’s scroll position
+
       rowRefs.current.forEach((row, rowIndex) => {
-        // Retrieve the initial index that was stored on the row
         const initialIndex = parseFloat(row.dataset.initialIndex || "0");
-        // For even rows add steps; for odd rows subtract steps
+
         const direction = rowIndex % 2 === 0 ? 1 : -1;
         const newIndex = initialIndex + steps * direction;
         const newScrollLeft = newIndex * stepSize;
@@ -301,42 +282,14 @@ export function About() {
         });
       });
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [cols]);
-  
 
-  useEffect(() => {
-    if (!cardRef.current) return;
 
-    const gap = getGap();
-    const cardWidth = cardRef.current.offsetWidth;
 
-    updateScrollPositions();
-  }, [cols, screenWidth]);
 
-  let hasCalledUpdate = false;
-
-  const updateScrollPositions = () => {
-    return;
-    if (!hasCalledUpdate) {
-      rowRefs.current.forEach((rowRef, rowIndex) => {
-        if (rowRef) {
-          let scrollIndex = rowIndex * cols + baseSkills.length;
-          if (rowIndex % 2 === 0) {
-            scrollIndex =
-              originalSkillsLength - (rowIndex * cols + baseSkills.length);
-          }
-          const scrollLeft =
-            scrollIndex * (cardRef.current.offsetWidth + getGap());
-          rowRef.scrollLeft = scrollLeft;
-        }
-      });
-
-      hasCalledUpdate = true;
-    }
-  };
 
   const calcCardWidth = () => {
     let gutter = 0;
@@ -423,7 +376,6 @@ export function About() {
           skillsEl.style.zIndex = "2";
           skillsEl.style.pointerEvents = "auto";
           onTimePassed = false;
-          hasCalledUpdate = false;
         } else if (scrollProgress >= 0.4 && scrollProgress < 0.85) {
           onTimePassed = false;
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
@@ -432,14 +384,12 @@ export function About() {
           skillsEl.style.opacity = "1";
           skillsEl.style.pointerEvents = "auto";
           skillsEl.style.zIndex = "10";
-          // updateScrollPositions();
         }
       } else {
         if (skillsRect.top > 0.3 && skillsRect.top < 0.8) {
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${aboutHeight}px)`;
           skillsEl.style.opacity = "1";
           skillsEl.style.pointerEvents = "auto";
-          hasCalledUpdate = false;
         } else if (skillsRect.top > 0.8) {
           const rotate = 15 - scrollProgress * 15;
           const scale = 0.9 + scrollProgress * 0.1;
@@ -452,13 +402,6 @@ export function About() {
           skillsEl.style.opacity = `${opacity}`;
           skillsEl.style.pointerEvents = "none";
           skillsEl.style.zIndex = "2";
-
-          if (skillsRect.top >= 0.8 && !hasCalledUpdate) {
-            updateScrollPositions();
-            hasCalledUpdate = true;
-          } else if (skillsRect.top <= 0.81) {
-            hasCalledUpdate = false;
-          }
         }
       }
 
@@ -599,7 +542,6 @@ export function About() {
       <section
         id="skills"
         className="min-h-screen snap-start relative z-1 overflow-hidden bg-gray-50 dark:bg-gray-900"
-        // style={{ background: "transparent" }}
       />
     </section>
   );
