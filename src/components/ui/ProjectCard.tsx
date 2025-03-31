@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsGithub } from "react-icons/bs";
 import { ImageHoverFade } from "./imageSlider";
 import { IconType } from "react-icons";
@@ -27,9 +27,36 @@ export function ProjectCard({
   stack,
 }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHovered(true);
+        } else {
+          setHovered(false);
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the card is visible
+      }
+    );
+
+    const currentCard = cardRef.current;
+    if (currentCard) observer.observe(currentCard);
+
+    return () => {
+      if (currentCard) observer.unobserve(currentCard);
+    };
+  }, []);
 
   return (
     <div
+      ref={cardRef}
       className="relative group overflow-hidden rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 transition-transform duration-300"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

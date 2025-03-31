@@ -272,6 +272,7 @@ export function About() {
       const steps = scrollDelta / stepSize;
 
       rowRefs.current.forEach((row, rowIndex) => {
+        if (!row) return;
         const initialIndex = parseFloat(row.dataset.initialIndex || "0");
 
         const direction = rowIndex % 2 === 0 ? 1 : -1;
@@ -287,22 +288,6 @@ export function About() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [cols]);
-
-
-
-
-
-  const calcCardWidth = () => {
-    let gutter = 0;
-    if (screenWidth >= 1280) gutter = 13 * 16; // 13rem in px
-    else if (screenWidth >= 1024) gutter = 6 * 16;
-    else if (screenWidth >= 768) gutter = 4 * 16;
-    else gutter = 2 * 16;
-
-    const width = `calc((100vw - ${gutter}px) / ${cols})`;
-    return width;
-  };
-  const cardWidth = calcCardWidth();
 
   const numberOfRows = (() => {
     const colCount = getCols();
@@ -342,7 +327,6 @@ export function About() {
     return () => observer.disconnect();
   }, [cols, screenWidth]);
 
-  let onTimePassed = false;
   let aboutHeight = 0;
   let windowHeight = window.innerHeight;
   useEffect(() => {
@@ -361,7 +345,7 @@ export function About() {
     });
 
     observer.observe(aboutEl);
-    let animationFrameId;
+    let animationFrameId: number;
     const update = () => {
       const aboutRect = aboutEl.getBoundingClientRect();
       const skillsRect = skillsSection.getBoundingClientRect();
@@ -376,9 +360,7 @@ export function About() {
           skillsEl.style.opacity = "0.4";
           skillsEl.style.zIndex = "2";
           skillsEl.style.pointerEvents = "auto";
-          onTimePassed = false;
         } else if (scrollProgress >= 0.4 && scrollProgress < 0.85) {
-          onTimePassed = false;
           skillsEl.style.transform = `rotateX(0deg) scale(1) translateY(${
             aboutHeight * 0.93
           }px)`;
@@ -433,7 +415,6 @@ export function About() {
             alt="Soheil Asami"
             className="hidden md:block md:absolute w-full max-w-lg mx-auto md:top-[55%] lg:top-[60%]  md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
           />
-          {/* About Section Cards */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-80 max-w-full mx-auto items-center">
             {aboutSections.map(
               ({ icon: Icon, title, description, color, image }, index) => (
@@ -441,19 +422,15 @@ export function About() {
                   onMouseEnter={() => setActiveImage(image)}
                   onMouseLeave={() => setActiveImage("/assets/4hndsfull.png")}
                   key={title}
-                  className="relative group max-w-md md:w-full md:max-w-full mx-auto"
+                  className="relative group w-full max-w-md md:w-full md:max-w-full mx-auto"
                 >
-                  {/* Card Content */}
                   <div
                     className={`relative p-6 border md:border-0 bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700 rounded-xl shadow-md hover:shadow-lg transition-transform duration-300 transform hover:-translate-y-1`}
                   >
-                    {/* Background Effect */}
                     <div
                       className={`absolute inset-0 ${color} rounded-xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none`}
                     />
                     <div className={`flex items-center mb-4 space-x-4 }`}>
-                      {/* <div className={`flex items-center mb-4 space-x-4 ${index === 0 || index === 2 ? 'items-end flex-row-reverse' : ''}`}> */}
-                      {/* Icon */}
                       <div className={`p-3 ${color} rounded-lg`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
@@ -495,7 +472,6 @@ export function About() {
       >
         <section id="sskills" className="min-h-screen py-20 snap-start z-2 ">
           <div className="container mx-auto px-6">
-            {/* <SectionTitle>Skills</SectionTitle> */}
 
             <div className="max-w-6xl mx-auto mt-8 flex flex-col gap-4 sm:gap-6">
               {Array.from({ length: numberOfRows }).map((_, rowIndex) => (
@@ -504,7 +480,7 @@ export function About() {
                   ref={(el) => (rowRefs.current[rowIndex] = el)}
                   className="overflow-x-auto snap-x snap-mandatory justify-center overflow-y-hidden scrollbar-hide"
                 >
-                  <div className="flex gap-4 py-4 md:py-2">
+                  <div className="flex gap-4 py-6 md:py-2">
                     {skills.map((tech, skillIndex) => (
                       <div
                         key={`${tech.name}-${rowIndex}-${skillIndex}`}
@@ -519,8 +495,8 @@ export function About() {
                         }}
                       >
                         <div
-                          className="relative w-full"
-                          style={{ paddingTop: "100%" }}
+                          className="relative w-full h-full aspect-[1/1] rounded-xl"
+                          style={{ }}
                         >
                           <div className="absolute top-0 left-0 w-full h-full">
                             <SkillCard

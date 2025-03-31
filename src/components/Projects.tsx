@@ -164,6 +164,7 @@ const projects = [
       "Led the development of a comprehensive attendance management system using Flutter, Metabase and Node.js...",
     images: [
       "/assets/mirana-1.jpg",
+      "/assets/mirana-1.jpg",
       "/assets/mirana-2.jpg",
       "/assets/mirana-3.jpg",
     ],
@@ -186,6 +187,7 @@ const projects = [
       "/assets/acorex-1.jpg",
       "/assets/acorex-2.jpg",
       "/assets/acorex-3.jpg",
+      "/assets/acorex-1.jpg",
     ],
     links: [
       { type: "website", url: "https://acorexui.com/" },
@@ -208,6 +210,7 @@ const projects = [
       "/assets/freelance-3.jpg",
       "/assets/freelance-1.jpg",
       "/assets/freelance-2.jpg",
+      "/assets/freelance-3.jpg",
     ],
     links: [
       // Leave empty or include links if available
@@ -228,9 +231,6 @@ export function Projects() {
       id="projects"
       className="min-h-screen py-20 bg-white dark:bg-gray-900 snap-start relative z-2"
     >
-      {/* Faint grid pattern in the background (if you still want it) */}
-      <div className="fixed inset-0 opacity-[0.04]" />
-
       <div className="container mx-auto px-8">
         <SectionTitle>Projects and Contributions</SectionTitle>
 
