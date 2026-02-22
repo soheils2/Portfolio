@@ -1,12 +1,12 @@
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import { TrustedBy } from "./components/TrustedBy";
 import { About } from "./components/About";
 import { SelectedWork } from "./components/SelectedWork";
 import { Experience } from "./components/Experience";
 import { TechStack } from "./components/TechStack";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { EasterEgg } from "./components/EasterEgg";
 import { LoadingScreen } from "./components/loading/LoadingScreen";
 import { useLoading } from "./hooks/useLoading";
 import { useTheme } from "./hooks/useTheme";
@@ -28,11 +28,12 @@ function App() {
             Skip to main content
           </a>
 
-          <Navbar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+          <header role="banner">
+            <Navbar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+          </header>
 
-          <main id="main-content">
+          <main id="main-content" role="main">
             <Hero />
-            <TrustedBy />
             <About />
             <SelectedWork />
             <Experience />
@@ -41,6 +42,7 @@ function App() {
           </main>
 
           <Footer />
+          <EasterEgg />
         </div>
       )}
     </>

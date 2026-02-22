@@ -34,7 +34,7 @@ const fallbackColor = {
 
 export function TechStack() {
   return (
-    <section id="stack" className="py-24 md:py-32 relative">
+    <section id="stack" aria-label="Technical skills and expertise" className="py-24 md:py-32 relative">
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/[0.02] to-transparent pointer-events-none" />
 

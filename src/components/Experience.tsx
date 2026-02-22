@@ -5,7 +5,7 @@ import { experienceGroups } from "../data/portfolio";
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 md:py-32">
+    <section id="experience" aria-label="Professional experience and career history" className="py-24 md:py-32">
       <div className="max-w-5xl mx-auto px-6">
         <SectionHeading label="Experience" title="Where I've worked" />
 

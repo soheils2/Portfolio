@@ -4,11 +4,9 @@ import App from './App.tsx';
 import './index.css';
 
 // Apply initial theme before render to prevent flash
+// Default: light mode on first visit, unless user previously chose dark
 const savedTheme = localStorage.getItem('theme');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
-
-if (isDark) {
+if (savedTheme === 'dark') {
   document.documentElement.classList.add('dark');
 }
 

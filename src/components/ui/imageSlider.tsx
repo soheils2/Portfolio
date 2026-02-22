@@ -39,7 +39,8 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
         src={images[0]}
         alt={alt}
         loading="lazy"
-        className={`w-full h-full object-cover transition-opacity duration-500 ${
+        draggable={false}
+        className={`w-full h-full object-cover transition-opacity duration-500 select-none ${
           currentIndex === 0 ? "opacity-100" : "opacity-0"
         }`}
       />
@@ -51,7 +52,8 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
             src={src}
             alt={`${alt} - screenshot ${imageIndex + 1}`}
             loading="lazy"
-            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+            draggable={false}
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 select-none ${
               imageIndex === currentIndex ? "opacity-100" : "opacity-0"
             }`}
           />

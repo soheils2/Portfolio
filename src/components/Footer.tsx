@@ -5,7 +5,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-zinc-200 dark:border-zinc-800">
+    <footer role="contentinfo" className="border-t border-zinc-200 dark:border-zinc-800">
       {/* CTA strip — strong last impression (recency bias) */}
       <div className="max-w-5xl mx-auto px-6 py-12 text-center">
         <p className="text-sm text-zinc-400 dark:text-zinc-500 mb-2">

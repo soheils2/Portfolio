@@ -1,35 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
   <!-- Primary Meta Tags -->
   <title>Soheil Asami — Senior Software Developer | React, TypeScript, Full-Stack</title>
   <meta name="title" content="Soheil Asami — Senior Software Developer | React, TypeScript, Full-Stack" />
   <meta name="description"
-    content="Senior full-stack TypeScript developer with 6+ years shipping 30+ production systems — React, Node.js, React Native, Flutter. AR pipelines, VR catalogues, full-stack platforms. Available for hire." />
+    content="Senior full-stack TypeScript developer with 6+ years shipping 30+ production systems — React, Node.js, React Native, Flutter. AR pipelines, enterprise component libraries, full-stack platforms. Available for hire." />
   <meta name="keywords"
-    content="Soheil Asami, Senior Software Developer, TypeScript Developer, React Developer, Full-Stack Developer, Node.js Developer, React Native Developer, Flutter Developer, Frontend Architect, Component Library Author, Ireland Developer, UK Developer, Hire Developer, Portfolio" />
+    content="Soheil Asami, Senior Software Developer, TypeScript Developer, React Developer, Full-Stack Developer, Node.js Developer, React Native Developer, Flutter Developer, Frontend Architect, Component Library Author, Mobile App Developer, Angular Developer, Svelte Developer, Next.js Developer, Software Engineer, Hire Developer, Freelance Developer, Remote Developer, Portfolio, AR Developer, VR Developer" />
   <meta name="author" content="Soheil Asami" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow" />
   <meta name="google-site-verification" content="uyCRqzUXdgtcU2ebwR312zQPjzYqh-t-bHoDfvP4QE0" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="referrer" content="origin-when-cross-origin" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://soeil.net/" />
 
+  <!-- Alternate hreflang — signals English content globally -->
+  <link rel="alternate" hreflang="en" href="https://soeil.net/" />
+  <link rel="alternate" hreflang="x-default" href="https://soeil.net/" />
+
   <!-- Open Graph / Facebook / LinkedIn -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://soeil.net/" />
-  <meta property="og:title" content="Soheil Asami — Senior Software Developer" />
+  <meta property="og:title" content="Soheil Asami — Senior Software Developer | React & TypeScript" />
   <meta property="og:description"
-    content="6+ years shipping production systems for client teams across Ireland and the UK. From AR camera pipelines to VR catalogues and full-stack platforms shipped to both app stores." />
+    content="6+ years shipping 30+ production systems for distributed client teams worldwide. AR camera pipelines, enterprise component libraries, full-stack platforms shipped to both app stores. Available for hire." />
   <meta property="og:image" content="https://soeil.net/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:alt" content="Soheil Asami — Senior Software Developer Portfolio" />
-  <meta property="og:site_name" content="Soheil Asami" />
+  <meta property="og:site_name" content="Soheil Asami — Developer Portfolio" />
   <meta property="og:locale" content="en_US" />
 
   <!-- Twitter -->
@@ -37,27 +47,36 @@
   <meta name="twitter:url" content="https://soeil.net/" />
   <meta name="twitter:title" content="Soheil Asami — Senior Software Developer" />
   <meta name="twitter:description"
-    content="6+ years shipping production systems for client teams across Ireland and the UK. From AR camera pipelines to VR catalogues and full-stack platforms shipped to both app stores." />
+    content="6+ years shipping 30+ production systems for distributed client teams worldwide. AR camera pipelines, enterprise component libraries, full-stack platforms. Available for hire." />
   <meta name="twitter:image" content="https://soeil.net/assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Soheil Asami developer portfolio preview" />
   <meta name="twitter:creator" content="@_soeil" />
+  <meta name="twitter:site" content="@_soeil" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/assets/favicon.png" />
-  <link rel="apple-touch-icon" href="/assets/favicon.png" />
+  <!-- Favicon — multiple sizes for broad compatibility -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon.png" />
+  <link rel="manifest" href="/manifest.json" />
 
-  <!-- Theme color for browser chrome -->
-  <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <!-- Theme color for browser chrome — default light since first visit is light -->
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="msapplication-TileColor" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Soheil Asami" />
 
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://rsms.me" crossorigin />
   <link rel="dns-prefetch" href="https://rsms.me" />
   <link rel="preconnect" href="https://formspree.io" crossorigin />
+  <link rel="dns-prefetch" href="https://formspree.io" />
 
-  <!-- Font -->
+  <!-- Preload critical font -->
+  <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" />
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
 
-  <!-- JSON-LD Structured Data: ProfilePage + Person -->
+  <!-- JSON-LD Structured Data: ProfilePage + Person (enhanced) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -67,23 +86,37 @@
     "mainEntity": {
       "@type": "Person",
       "name": "Soheil Asami",
-      "alternateName": "soeil",
+      "alternateName": ["soeil", "Soheil"],
+      "givenName": "Soheil",
+      "familyName": "Asami",
       "jobTitle": "Senior Software Developer",
-      "description": "Senior full-stack TypeScript developer with 6+ years building production systems across Ireland and the UK.",
+      "description": "Senior full-stack TypeScript developer with 6+ years shipping 30+ production systems for distributed teams worldwide — React, Node.js, React Native, Flutter. AR pipelines, enterprise component libraries, full-stack platforms.",
       "url": "https://soeil.net",
       "email": "info@soeil.net",
-      "image": "https://soeil.net/assets/avtg.png",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://soeil.net/assets/avtg.png",
+        "width": 400,
+        "height": 400
+      },
       "sameAs": [
         "https://github.com/soheils2",
         "https://linkedin.com/in/soheil-asami/",
-        "https://x.com/_soeil"
+        "https://x.com/_soeil",
+        "https://t.me/soeil"
       ],
       "knowsAbout": [
         "React", "TypeScript", "Node.js", "React Native", "Flutter",
-        "Angular", "Next.js", "PostgreSQL", "MongoDB", "Docker",
-        "AWS", "Full-Stack Development", "Component Libraries",
-        "AR Development", "Mobile Development"
+        "Angular", "Next.js", "Vue.js", "Svelte", "PostgreSQL", "MongoDB",
+        "Docker", "AWS", "Full-Stack Development", "Component Libraries",
+        "AR Development", "VR Development", "Mobile Development",
+        "Progressive Web Apps", "CI/CD", "REST APIs", "WebSocket"
       ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Senior Software Developer",
+        "skills": "React, TypeScript, Node.js, React Native, Flutter, Angular, PostgreSQL, MongoDB, Docker, AWS"
+      },
       "worksFor": {
         "@type": "Organization",
         "name": "Tribes Digital",
@@ -95,25 +128,121 @@
       },
       "workLocation": {
         "@type": "Place",
-        "name": "Ireland & United Kingdom"
+        "name": "Remote — Worldwide"
+      },
+      "nationality": {
+        "@type": "Country",
+        "name": "Iran"
       }
     }
   }
   </script>
 
-  <!-- JSON-LD: WebSite -->
+  <!-- JSON-LD: WebSite with potential search action -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Soheil Asami — Senior Software Developer",
+    "name": "Soheil Asami — Senior Software Developer Portfolio",
+    "alternateName": "soeil.net",
     "url": "https://soeil.net",
-    "description": "Portfolio of Soheil Asami, Senior Full-Stack TypeScript Developer"
+    "description": "Portfolio of Soheil Asami — Senior Full-Stack TypeScript Developer specialising in React, Node.js, and mobile development",
+    "inLanguage": "en",
+    "creator": {
+      "@type": "Person",
+      "name": "Soheil Asami"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: ItemList — Featured Projects (helps Google display rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Featured Software Projects by Soheil Asami",
+    "description": "Selected production projects shipped by Soheil Asami",
+    "numberOfItems": 4,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Chupachups AR Brand Activation",
+          "description": "Live AR photo booth with real-time face detection deployed to touchscreen kiosks at brand activations",
+          "applicationCategory": "WebApplication",
+          "operatingSystem": "Web",
+          "url": "https://selfie.shoppar.io/chupachupsantalya"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "ACoreX UI Framework",
+          "description": "Enterprise Angular UI framework with 100+ components including RTL support and dark/light theming",
+          "applicationCategory": "DeveloperApplication",
+          "url": "https://ui.acorex.io"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Mirana / VioraHR",
+          "description": "AI-powered HR attendance platform with React Native app, Node.js backend, and OpenAI integration",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "iOS, Android"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Princess Yachts VR Catalogue",
+          "description": "Luxury VR/3D yacht catalogue React Native application maintained through a 3-year lifecycle",
+          "applicationCategory": "LifestyleApplication",
+          "operatingSystem": "iOS, Android",
+          "url": "https://princessyachts.com"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList — helps search engines understand site structure -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://soeil.net/" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://soeil.net/#about" },
+      { "@type": "ListItem", "position": 3, "name": "Projects", "item": "https://soeil.net/#work" },
+      { "@type": "ListItem", "position": 4, "name": "Experience", "item": "https://soeil.net/#experience" },
+      { "@type": "ListItem", "position": 5, "name": "Tech Stack", "item": "https://soeil.net/#stack" },
+      { "@type": "ListItem", "position": 6, "name": "Contact", "item": "https://soeil.net/#contact" }
+    ]
   }
   </script>
 </head>
 
 <body>
+  <!-- Noscript fallback — essential for SEO crawlers that don't run JS -->
+  <noscript>
+    <div style="padding:2rem;text-align:center;font-family:system-ui,sans-serif;">
+      <h1>Soheil Asami — Senior Software Developer</h1>
+      <p>Senior full-stack TypeScript developer with 6+ years shipping 30+ production systems — React, Node.js, React Native, Flutter. AR pipelines, enterprise component libraries, full-stack platforms.</p>
+      <p><strong>Technologies:</strong> React, TypeScript, Node.js, React Native, Flutter, Angular, Next.js, PostgreSQL, MongoDB, Docker, AWS</p>
+      <p><strong>Currently:</strong> Senior Developer at Tribes Digital (Remote) | Co-Founder at Mirana/VioraHR (Canada)</p>
+      <p>Contact: <a href="mailto:info@soeil.net">info@soeil.net</a> | <a href="https://github.com/soheils2">GitHub</a> | <a href="https://linkedin.com/in/soheil-asami/">LinkedIn</a></p>
+    </div>
+  </noscript>
+
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

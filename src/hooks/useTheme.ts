@@ -2,12 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 
 export function useTheme() {
   const [isDark, setIsDark] = useState(() => {
+    // Default: light mode on first visit. Only dark if user explicitly chose it before.
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    return false;
-    // return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return savedTheme === 'dark';
   });
 
   const updateTheme = useCallback((dark: boolean) => {

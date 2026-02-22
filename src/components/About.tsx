@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
+
 import { FadeIn } from "./ui/FadeIn";
 import { SectionHeading } from "./ui/SectionHeading";
-import { personalInfo, stats } from "../data/portfolio";
+import { personalInfo } from "../data/portfolio";
 
 export function About() {
   return (
-    <section id="about" className="py-24 md:py-32 relative">
+    <section id="about" aria-label="About Soheil Asami" className="py-24 md:py-32 relative">
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/[0.02] to-transparent pointer-events-none" />
 
@@ -38,31 +38,13 @@ export function About() {
                 src="/assets/avtg.png"
                 alt="Soheil Asami — Senior Software Developer"
                 loading="lazy"
-                className="relative w-full rounded-2xl object-cover border border-zinc-200 dark:border-zinc-800"
+                draggable={false}
+                className="relative w-full rounded-2xl object-cover border border-zinc-200 dark:border-zinc-800 select-none"
               />
             </div>
           </FadeIn>
         </div>
 
-        {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {stats.map((stat, i) => (
-            <FadeIn key={stat.label} delay={i * 0.1}>
-              <motion.div
-                className="relative p-5 sm:p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 text-center group hover:border-blue-500/30 dark:hover:border-blue-500/20 transition-colors duration-300"
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.25 }}
-              >
-                <p className="text-3xl sm:text-4xl font-bold tracking-tight bg-gradient-to-br from-zinc-900 to-zinc-600 dark:from-zinc-50 dark:to-zinc-400 bg-clip-text text-transparent">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">
-                  {stat.label}
-                </p>
-              </motion.div>
-            </FadeIn>
-          ))}
-        </div>
       </div>
     </section>
   );

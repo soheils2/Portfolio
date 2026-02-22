@@ -63,10 +63,10 @@ export const personalInfo = {
   location: "Isfahan",
   resumeUrl: "/assets/SOHEIL_ASAMI_Resume.pdf",
   heroTagline:
-    "I ship production systems for client teams across Ireland and the UK — from AR camera pipelines and VR catalogues to full-stack platforms shipped to both app stores.",
+    "I ship production systems for distributed client teams across timezones — from AR camera pipelines and VR catalogues to full-stack platforms shipped to both app stores.",
   aboutParagraphs: [
     "I contributed to building a component library that powers 10+ enterprise projects. Not consumed it — helped write it. That's how I think about software: not features, but the systems that make features consistent, scalable, and shippable.",
-    "6+ years deep in TypeScript across the full stack — React, Next.js, Angular, Node.js, React Native, Flutter. At Tribes Digital I'm embedded directly inside client engineering teams across Ireland and the UK, delivering production UIs: AR camera pipelines deployed to live event hardware, CMS-driven brand theming, real-time financial dashboards, VR catalogues for luxury brands. I also co-founded Mirana (VioraHR) in Canada — solo-architected the entire stack and shipped to both app stores within year one.",
+    "6+ years deep in TypeScript across the full stack — React, Next.js, Angular, Node.js, React Native, Flutter. At Tribes Digital I'm embedded directly inside distributed client engineering teams, delivering production UIs: AR camera pipelines deployed to live event hardware, CMS-driven brand theming, real-time financial dashboards, VR catalogues for luxury brands. I also co-founded Mirana (VioraHR) in Canada — solo-architected the entire stack and shipped to both app stores within year one.",
     "Self-taught. Started as a programming teacher. Now I leave every codebase more consistent, more tested, and more maintainable than I found it.",
   ],
 };
@@ -114,6 +114,7 @@ export interface ClientBrand {
 
 export const clientBrands: ClientBrand[] = [
   { name: "Tribes Digital" },
+  { name: "Nestlé" },
   { name: "Chupachups" },
   { name: "Princess Yachts" },
   { name: "Manna Aero" },
@@ -144,11 +145,11 @@ export const caseStudies: CaseStudy[] = [
     title: "Chupachups Brand Activation",
     images: ["/assets/portfolio-1.jpg", "/assets/portfolio-2.jpg", "/assets/portfolio-3.jpg"],
     context:
-      "Live AR photo booth deployed to touchscreen kiosks across the UK for Chupachups brand activations. Campaign managers needed to swap brand assets, colours, and copy without developer intervention.",
+      "Live AR photo booth deployed to touchscreen kiosks for Chupachups brand activations. Campaign managers needed to swap brand assets, colours, and copy without developer intervention.",
     role:
       "Sole developer. Built real-time AR camera pipeline using MediaPipe for face detection and landmark tracking, with virtual backgrounds and face masks via Fabric.js canvas. Architected a headless CMS (Strapi 5) so campaign managers configure experiences without code. Runtime CSS custom property injection enables instant campaign switching\u2009—\u2009zero rebuilds.",
     impact:
-      "PWA with offline support, WCAG 2.1 AA compliant, deployed to live touchscreen event hardware across the UK.",
+      "PWA with offline support, WCAG 2.1 AA compliant, deployed to live touchscreen event hardware at brand activations.",
     stack: [
       "React 19",
       "TypeScript",
@@ -290,7 +291,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "Tribes Digital",
         period: "Sep 2023 \u2013 Present",
         description:
-          "Embedded remote developer inside client engineering teams across Ireland and the UK. Each engagement is a separate client\u2009—\u2009I join, architect the UI layer, and leave a codebase others can build on.",
+          "Embedded remote developer inside distributed client engineering teams across timezones. Each engagement is a separate client\u2009—\u2009I join, architect the UI layer, and leave a codebase others can build on.",
         skills: ["React", "TypeScript", "Svelte", "React Native", "MediaPipe", "Strapi"],
         current: true,
       },

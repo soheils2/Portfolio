@@ -1,7 +1,36 @@
+import { useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, FileText } from "lucide-react";
 import { TypeWriter } from "./ui/TypeWriter";
-import { personalInfo, heroRoles, socialLinks, stats } from "../data/portfolio";
+import { personalInfo, heroRoles, socialLinks, stats, clientBrands } from "../data/portfolio";
+
+const CODE_SNIPPETS = [
+  "const ship = () => deploy();",
+  "git push origin main",
+  "type Safety = TypeScript;",
+  "useEffect(() => hustle(), []);",
+  "while(awake) { code(); }",
+  "export default Passion;",
+  "async function dream() {}",
+  "// TODO: sleep",
+  "Easter egg: 🥚 Type : 'sudo'",
+  "Tripple click the name for a surprise! 😉",
+  "const life = { code, repeat };",
+  "Promise.all([learn, build]);",
+  "yield* grind();",
+  "if (!bug) celebrate();",
+  "docker compose up -d",
+  "npm run build && ship",
+  "console.log('shipped 🚀');",
+  "<Component isAwesome />",
+  "new Array(365).fill(code);",
+  "sudo rm -rf doubts/",
+  "await build(future);",
+  "interface Life { code: true }",
+  "return <Ship fast />;",
+  "Object.freeze(determination);",
+  "try { break(); } finally { fix(); }",
+];
 
 const stagger = {
   hidden: {},
@@ -13,19 +42,97 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
+/* ─── Floating code snippets — readable lines drifting upward on left/right ─── */
+function FloatingCode() {
+  const snippets = useMemo(() => {
+    const items: {
+      text: string;
+      side: "left" | "right";
+      x: number;
+      y: number;
+      speed: number;
+      delay: number;
+      opacity: number;
+      size: number;
+    }[] = [];
+
+    const leftLines = [...CODE_SNIPPETS].sort(() => Math.random() - 0.5);
+    const rightLines = [...CODE_SNIPPETS].sort(() => Math.random() - 0.5);
+
+    // Left side — 10 snippets
+    for (let i = 0; i < 10; i++) {
+      items.push({
+        text: leftLines[i % leftLines.length],
+        side: "left",
+        x: 1 + Math.random() * 18,
+        y: 3 + i * 10 + Math.random() * 3,
+        speed: 18 + Math.random() * 14,
+        delay: i * 1.2 + Math.random() * 2,
+        opacity: 0.18 + Math.random() * 0.14,
+        size: 12 + Math.floor(Math.random() * 2),
+      });
+    }
+
+    // Right side — 10 snippets
+    for (let i = 0; i < 10; i++) {
+      items.push({
+        text: rightLines[i % rightLines.length],
+        side: "right",
+        x: 58 + Math.random() * 18,
+        y: 3 + i * 10 + Math.random() * 3,
+        speed: 20 + Math.random() * 14,
+        delay: i * 1.2 + Math.random() * 3,
+        opacity: 0.18 + Math.random() * 0.14,
+        size: 12 + Math.floor(Math.random() * 2),
+      });
+    }
+
+    return items;
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none" aria-hidden="true" style={{ userSelect: "none", WebkitUserSelect: "none" }}>
+      {snippets.map((s, i) => (
+        <motion.span
+          key={i}
+          className="absolute font-mono whitespace-nowrap select-none pointer-events-none text-blue-600 dark:text-blue-400"
+          draggable={false}
+          style={{
+            left: `${s.x}%`,
+            fontSize: `${s.size}px`,
+          }}
+          initial={{ y: `${s.y + 10}vh`, opacity: 0 }}
+          animate={{
+            y: [`${s.y + 10}vh`, `${s.y - 20}vh`],
+            opacity: [0, s.opacity, s.opacity, 0],
+          }}
+          transition={{
+            duration: s.speed,
+            delay: s.delay,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          {s.text}
+        </motion.span>
+      ))}
+    </div>
+  );
+}
+
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Ambient gradient mesh */}
+    <section aria-label="Introduction — Soheil Asami, Senior Software Developer" className="relative min-h-screen flex flex-col justify-center px-6 overflow-hidden">
+      {/* Background layers */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-br from-blue-500/8 via-violet-500/6 to-transparent rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-blue-600/6 to-transparent rounded-full blur-3xl" />
-        {/* Subtle grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+        <FloatingCode />
       </div>
 
+      {/* Main content */}
       <motion.div
-        className="max-w-4xl mx-auto text-center relative z-10"
+        className="max-w-4xl mx-auto text-center relative z-10 pt-24"
         variants={stagger}
         initial="hidden"
         animate="visible"
@@ -43,7 +150,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Name — large, confident, gradient accent */}
+        {/* Name */}
         <motion.h1
           variants={fadeUp}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4"
@@ -63,7 +170,7 @@ export function Hero() {
           ))}
         </motion.h1>
 
-        {/* TypeWriter subtitle — dynamic role authority */}
+        {/* TypeWriter */}
         <motion.div
           variants={fadeUp}
           className="text-lg sm:text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-6 h-8"
@@ -71,7 +178,7 @@ export function Hero() {
           <TypeWriter words={heroRoles} delay={80} infinite gradient={false} />
         </motion.div>
 
-        {/* Tagline — specific, outcome-driven */}
+        {/* Tagline */}
         <motion.p
           variants={fadeUp}
           className="text-base sm:text-lg md:text-xl leading-relaxed text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto mb-8 text-balance"
@@ -79,12 +186,12 @@ export function Hero() {
           {personalInfo.heroTagline}
         </motion.p>
 
-        {/* Quick stats strip — social proof above the fold */}
+        {/* Stats */}
         <motion.div
           variants={fadeUp}
           className="flex items-center justify-center gap-6 sm:gap-8 mb-10"
         >
-          {stats.slice(0, 3).map((stat) => (
+          {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
                 {stat.value}
@@ -96,7 +203,7 @@ export function Hero() {
           ))}
         </motion.div>
 
-        {/* CTAs — primary + secondary */}
+        {/* CTAs */}
         <motion.div
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6"
@@ -116,7 +223,7 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* Social links — subtle, professional */}
+        {/* Social links */}
         <motion.div
           variants={fadeUp}
           className="flex items-center justify-center gap-4"
@@ -145,23 +252,27 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.a
-        href="#about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-pointer"
-        aria-label="Scroll to next section"
+      {/* Trusted By — integrated into hero bottom */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="relative z-10 mt-auto pb-10 pt-16"
       >
-        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown className="w-4 h-4" />
-        </motion.div>
-      </motion.a>
+        <p className="text-center text-[10px] font-semibold tracking-widest uppercase text-zinc-400/60 dark:text-zinc-500/60 mb-5">
+          Trusted by teams at
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-12">
+          {clientBrands.map((brand) => (
+            <span
+              key={brand.name}
+              className="text-xs sm:text-sm font-medium tracking-tight text-zinc-400/50 dark:text-zinc-500/50 hover:text-zinc-600 dark:hover:text-zinc-400 transition-colors duration-300 select-none"
+            >
+              {brand.name}
+            </span>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

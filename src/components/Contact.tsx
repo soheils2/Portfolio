@@ -6,7 +6,7 @@ import { personalInfo, socialLinks } from "../data/portfolio";
 
 export function Contact() {
   return (
-    <section id="contact" className="py-24 md:py-32 relative">
+    <section id="contact" aria-label="Contact Soheil Asami" className="py-24 md:py-32 relative">
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/[0.02] to-transparent pointer-events-none" />
 
