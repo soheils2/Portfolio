@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const text = "SOHEIL ASAMI";
@@ -43,13 +43,13 @@ export function HandwritingAnimation({ onComplete }: { onComplete: () => void })
             initial={false}
             animate={startExit ? "exit" : "static"}
             variants={panelVariants}
-            className="h-full w-1/10 dark:bg-white bg-gray-900  "
+            className="h-full w-[10%] dark:bg-white bg-[#0a0a0b]"
           />
         ))}
       </div>
 
       {/* Handwriting Text */}
-      <div className="relative z-[100] text-white dark:text-gray-900 text-[10vw] font-exo2 font-bold tracking-[-0.02em] leading-none flex overflow-hidden">
+      <div className="relative z-[100] text-white dark:text-[#0a0a0b] text-[10vw] font-bold tracking-[-0.02em] leading-none flex overflow-hidden">
         {text.split("").map((char, index) => (
           <motion.span
             key={index}

@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HandwritingAnimation } from './HandwritingAnimation';
 
@@ -15,7 +14,7 @@ export function LoadingScreen({ isLoading }: LoadingScreenProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-gray-900 "
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-[#0a0a0b]"
         >
           <HandwritingAnimation onComplete={() => {}} />
         </motion.div>

@@ -5,29 +5,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        exo2: ['"Exo 2"', "sans-serif"],
-        sans: ["Inter var", "sans-serif"],
+        sans: ['"Inter"', '"Inter var"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', '"Fira Code"', "monospace"],
       },
-      keyframes: {
-        "scroll-bounce": {
-          "0%, 100%": { transform: "translateY(0) scale(1, 0.6)" },
-          "50%": { transform: "translateY(8px) scale(1, 1)" },
+      colors: {
+        surface: {
+          DEFAULT: "#ffffff",
+          dark: "#0a0a0b",
+        },
+        card: {
+          DEFAULT: "#f4f4f5",
+          dark: "#18181b",
         },
       },
-      animation: {
-        "scroll-bounce": "scroll-bounce 3s  infinite",
-      },
-
-      width: {
-        "1/10": "10%",
-      },
-    },
-  },
-
-  variants: {
-    extend: {
-      scrollSnapType: ["responsive"],
-      scrollSnapAlign: ["responsive"],
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],

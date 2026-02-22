@@ -1,70 +1,51 @@
-import React from 'react';
-import { Link } from './Link';
-import { SocialLinks } from './hero/SocialLinks';
-import { FaReact } from 'react-icons/fa';
-import { SiVite } from 'react-icons/si';
-
-interface FooterLinkProps {
-  href: string;
-  children: React.ReactNode;
-}
-
-function FooterLink({ href, children }: FooterLinkProps) {
-  return (
-    <Link
-      href={href}
-      className="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
-    >
-      {children}
-    </Link>
-  );
-}
+import { ArrowUp } from "lucide-react";
+import { socialLinks } from "../data/portfolio";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const links = [
-    { href: '#home', label: 'Home' },
-    { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    // { href: '#github', label: 'GitHub' },
-    // { href: '#leetcode', label: 'Leetcode' },
-    // { href: '#badges', label: 'Badges' },
-    // { href: '#blogs', label: 'Blogs' },
-    { href: '#experience', label: 'Experience' },
-    // { href: '#certifications', label: 'Certifications' },
-    { href: '#education', label: 'Education' },
-    { href: '#contact', label: 'Contact' },
-  ];
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 snap-start">
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5" />
+    <footer className="border-t border-zinc-200 dark:border-zinc-800">
+      {/* CTA strip — strong last impression (recency bias) */}
+      <div className="max-w-5xl mx-auto px-6 py-12 text-center">
+        <p className="text-sm text-zinc-400 dark:text-zinc-500 mb-2">
+          Ready to start a project?
+        </p>
+        <a
+          href="#contact"
+          className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+        >
+          Let's talk.
+        </a>
+      </div>
 
-      <div className="container mx-auto px-6 py-8 relative">
-        <div className="flex flex-col items-center gap-6">
-          {/* Navigation Links */}
-          <nav className="flex flex-wrap gap-4 justify-center">
-            {links.map(({ href, label }) => (
-              <FooterLink key={href} href={href}>{label}</FooterLink>
+      {/* Bottom bar */}
+      <div className="border-t border-zinc-100 dark:border-zinc-800/50">
+        <div className="max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-zinc-400 dark:text-zinc-500">
+            &copy; {year} Soheil Asami. Built with React + TypeScript.
+          </p>
+
+          <div className="flex items-center gap-5">
+            {socialLinks.map(({ label, url }) => (
+              <a
+                key={url}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-zinc-400 dark:text-zinc-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+              >
+                {label}
+              </a>
             ))}
-          </nav>
 
-          {/* Social Links */}
-          <div className="scale-90">
-            <SocialLinks horezental />
-          </div>
-
-          {/* Copyright */}
-          <div className="text-sm text-gray-500 dark:text-gray-400 text-center">
-            <p>© {currentYear} Soheil Asami. All rights reserved.</p>
-            <p className="flex items-center justify-center gap-2">
-              Built with <FaReact className="w-6 h-6 text-blue-500 animate-spin" /> using
-              <SiVite className="w-6 h-6 text-yellow-500 animate-pulse" />
-            </p>
-
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="ml-2 p-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 hover:border-blue-500/30 dark:hover:text-blue-400 dark:hover:border-blue-500/30 transition-all"
+              aria-label="Back to top"
+            >
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>

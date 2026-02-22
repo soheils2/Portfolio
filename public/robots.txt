@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /assets/SOHEIL_ASAMI_Resume.pdf
+
+Sitemap: https://soeil.net/sitemap.xml

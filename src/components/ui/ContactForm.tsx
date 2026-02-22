@@ -1,55 +1,48 @@
-import React, { useState } from 'react';
-import { LuMessageSquareShare } from "react-icons/lu";
+import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
-    setStatus('submitting');
-    setErrorMessage('');
+    e.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
 
     try {
-      const response = await fetch('https://formspree.io/f/mldjwvre', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("https://formspree.io/f/mldjwvre", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' }); // Reset the form
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.error || 'Something went wrong. Please try again.');
-        setStatus('error');
+        setErrorMessage(errorData.error || "Something went wrong. Please try again.");
+        setStatus("error");
       }
-    } catch (error) {
-      setErrorMessage('An unexpected error occurred. Please try again.');
-      setStatus('error');
+    } catch {
+      setErrorMessage("An unexpected error occurred. Please try again.");
+      setStatus("error");
     }
   };
 
+  const inputClasses =
+    "w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none text-sm transition-colors";
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
+        <label htmlFor="name" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
           Name
         </label>
         <input
@@ -59,13 +52,13 @@ export function ContactForm() {
           value={formData.name}
           onChange={handleChange}
           required
-          placeholder="Enter your name"
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          placeholder="Your name"
+          className={inputClasses}
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
+        <label htmlFor="email" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
           Email
         </label>
         <input
@@ -75,13 +68,13 @@ export function ContactForm() {
           value={formData.email}
           onChange={handleChange}
           required
-          placeholder="Enter your email"
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          placeholder="your@email.com"
+          className={inputClasses}
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium mb-2">
+        <label htmlFor="message" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
           Message
         </label>
         <textarea
@@ -90,30 +83,26 @@ export function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           required
-          placeholder="Enter your message"
+          placeholder="Tell me about your project..."
           rows={4}
-          className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          className={inputClasses}
         />
       </div>
 
       <button
         type="submit"
-        disabled={status === 'submitting'}
-        className={`w-full py-3 px-6 rounded-lg flex items-center justify-center gap-2 ${
-          status === 'submitting'
-            ? 'bg-blue-400'
-            : 'bg-blue-600 hover:bg-blue-700 text-white'
-        }`}
+        disabled={status === "submitting"}
+        className="w-full py-3 px-6 rounded-lg flex items-center justify-center gap-2 text-sm font-medium bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50 transition-colors"
       >
-        {status === 'submitting' ? 'Sending...' : 'Send Message'}
-        {status !== 'submitting' && <LuMessageSquareShare className="w-5 h-5" />}
+        {status === "submitting" ? "Sending..." : "Send Message"}
+        {status !== "submitting" && <ArrowRight className="w-4 h-4" />}
       </button>
 
-      {status === 'success' && (
-        <p className="text-green-600 text-center mt-4">Message sent successfully!</p>
+      {status === "success" && (
+        <p className="text-sm text-emerald-500 text-center">Message sent successfully!</p>
       )}
-      {status === 'error' && (
-        <p className="text-red-600 text-center mt-4">{errorMessage}</p>
+      {status === "error" && (
+        <p className="text-sm text-red-500 text-center">{errorMessage}</p>
       )}
     </form>
   );

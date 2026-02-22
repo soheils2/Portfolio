@@ -1,37 +1,45 @@
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
+import { TrustedBy } from "./components/TrustedBy";
 import { About } from "./components/About";
-import { Projects } from "./components/Projects";
+import { SelectedWork } from "./components/SelectedWork";
 import { Experience } from "./components/Experience";
-import { Education } from "./components/Education";
+import { TechStack } from "./components/TechStack";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { LoadingScreen } from "./components/loading/LoadingScreen";
 import { useLoading } from "./hooks/useLoading";
-import { CustomCursor } from "./components/ui/CustomCursor";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const isLoading = useLoading();
+  const { isDark, setIsDark } = useTheme();
 
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      {/* <div className="fixed inset-0 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="fixed inset-0 bg-grid-pattern opacity-[0.08]" />
-      </div> */}
-      {/* <SnowFall /> */}
       {!isLoading && (
-        <div
-          className={`min-h-screen overflow-y-scroll overflow-x-hidden scroll-smooth bg-white dark:bg-gray-900 text-gray-900 dark:text-white `}
-        >
-          <CustomCursor />
-          <Navbar />
-          <Hero />
-          <About />
-          <Projects />
-          <Experience />
-          <Education />
-          <Contact />
+        <div className="min-h-screen scroll-smooth">
+          {/* Skip to main content — accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-blue-500 focus:text-white focus:text-sm focus:font-medium"
+          >
+            Skip to main content
+          </a>
+
+          <Navbar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+
+          <main id="main-content">
+            <Hero />
+            <TrustedBy />
+            <About />
+            <SelectedWork />
+            <Experience />
+            <TechStack />
+            <Contact />
+          </main>
+
           <Footer />
         </div>
       )}

@@ -1,79 +1,170 @@
-import { TypeWriter } from './ui/TypeWriter';
-import { SocialLinks } from './hero/SocialLinks';
-import { ActionButtons } from './hero/ActionButtons';
+import { motion } from "framer-motion";
+import { ArrowDown, Github, Linkedin, FileText } from "lucide-react";
+import { TypeWriter } from "./ui/TypeWriter";
+import { personalInfo, heroRoles, socialLinks, stats } from "../data/portfolio";
+
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
 
 export function Hero() {
-    const roles = [
-      "Full Stack",
-      "Software",
-      "React Native",
-      "Flutter",
-      "MERN Stack",
-      "Nextjs",
-      "API Architecture",
-      "Web App",
-      "TinyML",
-      "Embedded System & IOT",
-    ];
-
-  
-
   return (
-    <section
-      id="home"
-      className="min-h-screen  flex items-center justify-center relative overflow-hidden snap-start"
-    >
-
-      {/* Animated background with particles */}
-      <div className="absolute inset-0">
-        {/* <div className="fixed inset-0 bg-grid-pattern opacity-[0.08]" /> */}
-        {/* <div className="absolute top-1/4 left-1/5 w-64 h-64 bg-blue-400/30 dark:bg-blue-600/30 rounded-full blur-3xl animate-pulse" /> */}
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-400/30 dark:bg-purple-600/30 rounded-full blur-3xl animate-pulse delay-1000" />
+    <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+      {/* Ambient gradient mesh */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-br from-blue-500/8 via-violet-500/6 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-blue-600/6 to-transparent rounded-full blur-3xl" />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
 
-      <div className="container mx-auto px-10 py-16 relative z-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left Column - Content */}
-          <div className="flex flex-col items-start justify-center text-left space-y-4 order-2 md:order-1">
-            <div className="space-y-2 md:mb-12">
+      <motion.div
+        className="max-w-4xl mx-auto text-center relative z-10"
+        variants={stagger}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Status badge — anchoring with availability + location authority */}
+        <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+              Available for hire
+            </span>
+          </div>
+          <span className="text-xs text-zinc-400 dark:text-zinc-500">
+            Based in Ireland & UK
+          </span>
+        </motion.div>
 
-              <div className="text-xl md:text-3xl text-gray-600 dark:text-gray-300 font-exo2">
-                I'm a <TypeWriter words={roles} delay={100} />
-              </div>
-              <h1 className="text-4xl font-exo2 lg:text-6xl font-bold  animate-gradient">
-                Developer.
-              </h1>
-              <h1 className="text-4xl lg:text-6xl font-exo2 font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                Soheil Asami
-              </h1>
+        {/* Name — large, confident, gradient accent */}
+        <motion.h1
+          variants={fadeUp}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4"
+        >
+          {personalInfo.name.split(" ").map((word, i) => (
+            <span key={i}>
+              {i === 1 && <br className="sm:hidden" />}
+              {i > 0 && " "}
+              {i === 1 ? (
+                <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
+                  {word}
+                </span>
+              ) : (
+                word
+              )}
+            </span>
+          ))}
+        </motion.h1>
+
+        {/* TypeWriter subtitle — dynamic role authority */}
+        <motion.div
+          variants={fadeUp}
+          className="text-lg sm:text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 mb-6 h-8"
+        >
+          <TypeWriter words={heroRoles} delay={80} infinite gradient={false} />
+        </motion.div>
+
+        {/* Tagline — specific, outcome-driven */}
+        <motion.p
+          variants={fadeUp}
+          className="text-base sm:text-lg md:text-xl leading-relaxed text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto mb-8 text-balance"
+        >
+          {personalInfo.heroTagline}
+        </motion.p>
+
+        {/* Quick stats strip — social proof above the fold */}
+        <motion.div
+          variants={fadeUp}
+          className="flex items-center justify-center gap-6 sm:gap-8 mb-10"
+        >
+          {stats.slice(0, 3).map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+                {stat.value}
+              </p>
+              <p className="text-[10px] sm:text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">
+                {stat.label}
+              </p>
             </div>
-            <ActionButtons />
-            <SocialLinks />
-          </div>
+          ))}
+        </motion.div>
 
-          {/* Right Column - Profile Image */}
-          <div className="relative order-1 md:order-2 scale-20 md:scale-100">
-            <div className="absolute w-16 h-16 bg-green-600 top-0 left-0 rounded-full animate-floating" />
-            <div className="absolute w-16 h-16 bg-yellow-600 bottom-0 right-0 rounded-full animate-floating delay-150" />
+        {/* CTAs — primary + secondary */}
+        <motion.div
+          variants={fadeUp}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6"
+        >
+          <a
+            href="#work"
+            className="group px-7 py-3 rounded-full text-sm font-medium bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all duration-200 flex items-center gap-2"
+          >
+            View my work
+            <ArrowDown className="w-3.5 h-3.5 transition-transform group-hover:translate-y-0.5" />
+          </a>
+          <a
+            href="#contact"
+            className="px-7 py-3 rounded-full text-sm font-medium border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-blue-500/30 dark:hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+          >
+            Get in touch
+          </a>
+        </motion.div>
 
-            <div className="absolute  rounded-full " />
-            <img
-              src="/assets/avtg.png"
-              alt="Soheil Asami"
-              className="relative w-2/3 md:w-full max-w-lg mx-auto shadow-lg rounded-full transform scale-65 hover:scale-110 transition-transform duration-500"
-            />
-          </div>
+        {/* Social links — subtle, professional */}
+        <motion.div
+          variants={fadeUp}
+          className="flex items-center justify-center gap-4"
+        >
+          {socialLinks.slice(0, 2).map(({ label, url }) => (
+            <a
+              key={url}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+              aria-label={label}
+            >
+              {label === "GitHub" && <Github className="w-3.5 h-3.5" />}
+              {label === "LinkedIn" && <Linkedin className="w-3.5 h-3.5" />}
+              <span>{label}</span>
+            </a>
+          ))}
+          <a
+            href={personalInfo.resumeUrl}
+            className="flex items-center gap-1.5 text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Resume</span>
+          </a>
+        </motion.div>
+      </motion.div>
 
-        </div>
-
-        {/* Scroll Indicator */}
-        <div onClick={() => window.location.href = "#about"} className="absolute bottom-[-3rem] left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer">
-              <p className=" dark:text-white text-gray-400 text-sm mb-4">Scroll Down</p>
-          <div className="w-8 h-12 rounded-full border-2 dark:border-white border-gray-800 flex items-start justify-center relative">
-            <div className="w-1 h-2 dark:bg-white bg-gray-800 rounded-full animate-scroll-bounce mt-1" />
-          </div>
-        </div>
-      </div>
+      {/* Scroll indicator */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-pointer"
+        aria-label="Scroll to next section"
+      >
+        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ArrowDown className="w-4 h-4" />
+        </motion.div>
+      </motion.a>
     </section>
   );
 }

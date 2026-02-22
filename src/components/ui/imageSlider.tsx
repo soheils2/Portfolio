@@ -1,16 +1,16 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-interface ImageHoverFadeProps {
+interface ImageSliderProps {
   images: string[];
   alt: string;
   hovered: boolean;
 }
 
-export function ImageHoverFade({ images, alt, hovered }: ImageHoverFadeProps) {
+export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    let intervalId: NodeJs.Timeout | null = null;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
     if (hovered && images.length > 1) {
       setCurrentIndex(1);
       let nextIndex = 2;
@@ -30,20 +30,18 @@ export function ImageHoverFade({ images, alt, hovered }: ImageHoverFadeProps) {
   }, [hovered, images.length]);
 
   if (!images.length) {
-    return <div className="bg-gray-200 w-full h-64" />;
+    return <div className="bg-zinc-200 dark:bg-zinc-800 w-full h-64 rounded-lg" />;
   }
 
-  const baseImageSrc = images[0];
-
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden">
       <img
-        src={baseImageSrc}
+        src={images[0]}
         alt={alt}
-        className={`
-          w-full h-full object-cover transition-opacity duration-500
-          ${currentIndex === 0 ? "opacity-100" : "opacity-0"}
-        `}
+        loading="lazy"
+        className={`w-full h-full object-cover transition-opacity duration-500 ${
+          currentIndex === 0 ? "opacity-100" : "opacity-0"
+        }`}
       />
       {images.slice(1).map((src, idx) => {
         const imageIndex = idx + 1;
@@ -51,11 +49,11 @@ export function ImageHoverFade({ images, alt, hovered }: ImageHoverFadeProps) {
           <img
             key={src}
             src={src}
-            alt={alt}
-            className={`
-              absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 
-              ${imageIndex === currentIndex ? "opacity-100" : "opacity-0"}
-            `}
+            alt={`${alt} - screenshot ${imageIndex + 1}`}
+            loading="lazy"
+            className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+              imageIndex === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
           />
         );
       })}

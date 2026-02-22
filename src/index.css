@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Optimize animations and transitions */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -11,12 +9,12 @@
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased bg-white text-zinc-900 dark:bg-[#0a0a0b] dark:text-zinc-50;
     text-rendering: optimizeLegibility;
-    cursor: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Reduce motion if user prefers it */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -28,104 +26,37 @@
 }
 
 @layer utilities {
-  .bg-grid-pattern {
-    @apply [background-size:24px_24px] [background-image:linear-gradient(to_right,#6366f1_1px,transparent_1px),linear-gradient(to_bottom,#6366f1_1px,transparent_1px)];
-  }
-
-  .animate-fade-in {
-    @apply motion-safe:animate-[fade-in_1s_ease-out_forwards];
-  }
-
-  .animate-gradient {
-    @apply bg-[length:200%_auto] motion-safe:animate-[gradient_8s_linear_infinite];
-  }
-
-  .animate-wave {
-    @apply motion-safe:animate-[wave_2s_ease-in-out_infinite];
-  }
-  .animate-star-fall {
-    @apply motion-safe:animate-[starFall_4s_linear_infinite];
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes floating {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes wave {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(14deg); }
-  20% { transform: rotate(-8deg); }
-  30% { transform: rotate(14deg); }
-  40% { transform: rotate(-4deg); }
-  50% { transform: rotate(10deg); }
-  60% { transform: rotate(0deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.animate-floating {
-  @apply motion-safe:animate-[floating_4s_ease-in-out_infinite];
-}
-
-/* Optimize mobile performance */
+/* Prevent horizontal overflow */
 html, body {
   overflow-x: hidden;
   width: 100%;
-  overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: touch;
 }
 
-/* Optimize images and transitions */
-img {
-  @apply transform-gpu;
-}
-
+/* GPU-accelerate transforms */
+img,
 .transition-transform,
 .transition-all {
   @apply transform-gpu;
 }
-@keyframes starFall {
-  0% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(200vh);
-  }
+
+/* Font display swap — prevent FOIT */
+:root {
+  font-display: swap;
 }
 
-
-/* full-hide for both vertical and horizontal scrollbars */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+/* Selection color */
+::selection {
+  @apply bg-blue-500/30;
 }
 
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE + Edge */
-  scrollbar-width: none; /* Firefox */
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition-property: background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
 }
