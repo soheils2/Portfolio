@@ -63,9 +63,9 @@ export const personalInfo = {
   location: "Isfahan",
   resumeUrl: "/assets/SOHEIL_ASAMI_Resume.pdf",
   heroTagline:
-    "I ship production systems for client teams across Ireland and the UK — 30+ live applications, from AR camera pipelines to a component library with 2,700+ weekly downloads.",
+    "I ship production systems for client teams across Ireland and the UK — from AR camera pipelines and VR catalogues to full-stack platforms shipped to both app stores.",
   aboutParagraphs: [
-    "I built a component library that powers 10+ enterprise projects and gets 2,700 downloads every week. Not consumed it — wrote it. That's how I think about software: not features, but the systems that make features consistent, scalable, and shippable.",
+    "I contributed to building a component library that powers 10+ enterprise projects. Not consumed it — helped write it. That's how I think about software: not features, but the systems that make features consistent, scalable, and shippable.",
     "6+ years deep in TypeScript across the full stack — React, Next.js, Angular, Node.js, React Native, Flutter. At Tribes Digital I'm embedded directly inside client engineering teams across Ireland and the UK, delivering production UIs: AR camera pipelines deployed to live event hardware, CMS-driven brand theming, real-time financial dashboards, VR catalogues for luxury brands. I also co-founded Mirana (VioraHR) in Canada — solo-architected the entire stack and shipped to both app stores within year one.",
     "Self-taught. Started as a programming teacher. Now I leave every codebase more consistent, more tested, and more maintainable than I found it.",
   ],
@@ -89,8 +89,7 @@ export const heroRoles = [
 export const stats: Stat[] = [
   { value: "6+", label: "Years of Experience" },
   { value: "10+", label: "Production Clients" },
-  { value: "100+", label: "Components Authored" },
-  { value: "2,700+", label: "Weekly npm Downloads" },
+  { value: "30+", label: "Live Applications" },
 ];
 
 // ──────────────────────────────────────────────
@@ -127,6 +126,7 @@ export const clientBrands: ClientBrand[] = [
 // ──────────────────────────────────────────────
 
 export const navLinks = [
+  { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
   { href: "#stack", label: "Stack" },
@@ -174,7 +174,7 @@ export const caseStudies: CaseStudy[] = [
     role:
       "Core contributor writing the component library itself\u2009—\u2009not consuming it, building it. Angular 17 components with full RTL support, dark/light theming, and strict TypeScript throughout. Led the form builder module: datetime pickers, country selectors, chip inputs, configurable dialogs.",
     impact:
-      "100+ components, 2,700+ weekly npm downloads, integrated in 10+ enterprise projects.",
+      "Contributed to 100+ components, adopted across 10+ enterprise projects company-wide.",
     stack: [
       "Angular 17",
       "TypeScript",
@@ -321,7 +321,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "DemisCo",
         period: "Aug 2023 \u2013 Jun 2024",
         description:
-          "Core contributor to ACoreX\u2009—\u2009Angular UI framework with 100+ components and 2,700+ weekly downloads.",
+          "Core contributor to ACoreX\u2009—\u2009Angular UI framework with 100+ components adopted across 10+ enterprise projects.",
         skills: ["Angular 17", "TypeScript", "RxJS", "Component Library"],
       },
       {

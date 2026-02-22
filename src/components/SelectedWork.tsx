@@ -12,15 +12,15 @@ export function SelectedWork() {
       <div className="max-w-6xl mx-auto px-6">
         <SectionHeading label="Selected Work" title="Projects I've shipped" />
 
-        {/* Featured case studies */}
-        <div className="space-y-8">
+        {/* Featured case studies — 2-column grid on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {caseStudies.map((study, i) => (
             <CaseStudy key={study.slug} study={study} index={i} />
           ))}
         </div>
 
         {/* Divider */}
-        <FadeIn className="mt-24 mb-12">
+        <FadeIn className="mt-20 mb-10">
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-zinc-300 dark:via-zinc-700 to-transparent" />
             <p className="text-xs font-semibold tracking-widest uppercase text-zinc-400 dark:text-zinc-500">
@@ -30,7 +30,7 @@ export function SelectedWork() {
           </div>
         </FadeIn>
 
-        {/* Compact projects — interactive cards */}
+        {/* Compact projects — clean list style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {compactProjects.map((project, i) => (
             <CompactCard key={project.title} project={project} index={i} />
@@ -53,7 +53,7 @@ function CompactCard({
   return (
     <FadeIn delay={index * 0.06}>
       <motion.div
-        className="group relative rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/30 dark:hover:border-blue-500/20 transition-all duration-300"
+        className="group relative rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/20 dark:hover:border-blue-500/15 bg-white dark:bg-zinc-900/60 transition-all duration-300"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         whileHover={{ y: -2 }}
@@ -96,7 +96,7 @@ function CompactCard({
             {project.stack.slice(0, 3).map((tech) => (
               <span
                 key={tech}
-                className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
+                className="px-1.5 py-0.5 text-[9px] font-mono rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400"
               >
                 {tech}
               </span>

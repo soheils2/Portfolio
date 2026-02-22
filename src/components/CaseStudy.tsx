@@ -13,7 +13,6 @@ interface CaseStudyProps {
 export function CaseStudy({ study, index }: CaseStudyProps) {
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const isEven = index % 2 === 0;
 
   useEffect(() => {
     const isMobile = window.innerWidth <= 768;
@@ -32,81 +31,76 @@ export function CaseStudy({ study, index }: CaseStudyProps) {
     <FadeIn delay={index * 0.08}>
       <motion.div
         ref={cardRef}
-        className="group relative rounded-2xl overflow-hidden bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/30 dark:hover:border-blue-500/20 transition-all duration-500"
+        className="group relative rounded-2xl overflow-hidden bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/20 dark:hover:border-blue-500/15 transition-all duration-500"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        whileHover={{ y: -4 }}
+        whileHover={{ y: -3 }}
         transition={{ duration: 0.3 }}
       >
-        {/* Hover glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        {/* Full-width image — taller, more visual impact */}
+        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
+          <ImageSlider images={study.images} alt={study.title} hovered={hovered} />
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent pointer-events-none" />
 
-        <div className={`grid grid-cols-1 lg:grid-cols-2 ${isEven ? "" : "lg:direction-rtl"}`}>
-          {/* Image — alternates sides on desktop */}
-          <div className={`relative h-56 sm:h-64 lg:h-auto lg:min-h-[360px] overflow-hidden ${!isEven ? "lg:order-2" : ""}`}>
-            <ImageSlider images={study.images} alt={study.title} hovered={hovered} />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-transparent pointer-events-none" />
+          {/* Label badge on image */}
+          <div className="absolute top-4 left-4">
+            <span className="px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-white/90 dark:bg-zinc-900/90 text-blue-600 dark:text-blue-400 backdrop-blur-sm">
+              {study.label}
+            </span>
           </div>
 
-          {/* Content */}
-          <div className={`relative p-6 sm:p-8 flex flex-col justify-center ${!isEven ? "lg:order-1" : ""}`}>
-            {/* Label */}
-            <p className="text-[11px] font-semibold tracking-widest uppercase text-blue-500 mb-3">
-              {study.label}
-            </p>
-
-            {/* Title */}
-            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
-              {study.title}
-            </h3>
-
-            {/* Context — compact */}
-            <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-3">
-              {study.context}
-            </p>
-
-            {/* Impact highlight */}
-            <div className="flex items-start gap-3 mb-4 p-3 rounded-lg bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/10">
-              <div className="w-1 h-full min-h-[20px] bg-blue-500 rounded-full flex-shrink-0" />
-              <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                {study.impact}
-              </p>
-            </div>
-
-            {/* Stack pills */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {study.stack.slice(0, 6).map((tech) => (
-                <span
-                  key={tech}
-                  className="px-2 py-0.5 text-[10px] font-mono font-medium rounded-full bg-zinc-200/60 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+          {/* Links on image */}
+          {study.links.length > 0 && (
+            <div className="absolute top-4 right-4 flex gap-2">
+              {study.links.map(({ label, url }) => (
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-medium bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 backdrop-blur-sm hover:bg-blue-500 hover:text-white transition-all duration-200"
                 >
-                  {tech}
-                </span>
+                  {label}
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
               ))}
-              {study.stack.length > 6 && (
-                <span className="px-2 py-0.5 text-[10px] font-mono text-zinc-400">
-                  +{study.stack.length - 6}
-                </span>
-              )}
             </div>
+          )}
+        </div>
 
-            {/* Links */}
-            {study.links.length > 0 && (
-              <div className="flex gap-3">
-                {study.links.map(({ label, url }) => (
-                  <a
-                    key={url}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors group/link"
-                  >
-                    {label}
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                  </a>
-                ))}
-              </div>
+        {/* Content — clean, scannable */}
+        <div className="p-5 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-2">
+            {study.title}
+          </h3>
+
+          <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 mb-4 line-clamp-2">
+            {study.context}
+          </p>
+
+          {/* Impact — highlighted */}
+          <div className="flex items-start gap-2.5 mb-4 p-3 rounded-lg bg-blue-500/5 dark:bg-blue-500/8">
+            <div className="w-0.5 h-full min-h-[16px] bg-blue-500 rounded-full flex-shrink-0 mt-0.5" />
+            <p className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 leading-relaxed">
+              {study.impact}
+            </p>
+          </div>
+
+          {/* Stack pills */}
+          <div className="flex flex-wrap gap-1.5">
+            {study.stack.slice(0, 5).map((tech) => (
+              <span
+                key={tech}
+                className="px-2 py-0.5 text-[10px] font-mono font-medium rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+              >
+                {tech}
+              </span>
+            ))}
+            {study.stack.length > 5 && (
+              <span className="px-2 py-0.5 text-[10px] font-mono text-zinc-400">
+                +{study.stack.length - 5}
+              </span>
             )}
           </div>
         </div>

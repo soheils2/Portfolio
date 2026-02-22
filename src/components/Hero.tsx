@@ -30,8 +30,8 @@ export function Hero() {
         initial="hidden"
         animate="visible"
       >
-        {/* Status badge — anchoring with availability + location authority */}
-        <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-10">
+        {/* Status badge */}
+        <motion.div variants={fadeUp} className="flex items-center justify-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -41,9 +41,6 @@ export function Hero() {
               Available for hire
             </span>
           </div>
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">
-            Based in Ireland & UK
-          </span>
         </motion.div>
 
         {/* Name — large, confident, gradient accent */}
