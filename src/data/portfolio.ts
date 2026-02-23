@@ -2,22 +2,18 @@
 // Portfolio Data - Single source of truth
 // ──────────────────────────────────────────────
 
-export interface CaseStudy {
-  slug: string;
-  label: string;
-  title: string;
-  images: string[];
-  context: string;
-  role: string;
-  impact: string;
-  stack: string[];
-  links: { label: string; url: string }[];
-}
+export type PlatformType = "PWA" | "Native Mobile" | "Web App" | "Cross-Platform";
 
-export interface CompactProject {
+export interface Project {
+  slug: string;
+  category: string;        // e.g. "AR Platform", "Co-Founded"
+  company: string;         // e.g. "Tribes Digital", "Self-Founded"
   title: string;
-  description: string;
-  image: string;
+  platform: PlatformType;
+  images: string[];
+  headline: string;        // one-liner hook
+  delivered: string[];     // bullet-point deliverables (what I shipped)
+  result: string;          // quantified outcome
   stack: string[];
   links: { label: string; url: string }[];
 }
@@ -136,14 +132,16 @@ export const navLinks = [
 ];
 
 // ──────────────────────────────────────────────
-// Featured Case Studies
+// Projects (Unified — ordered by recruiter impact)
 // ──────────────────────────────────────────────
 
-export const caseStudies: CaseStudy[] = [
+export const projects: Project[] = [
   {
     slug: "shoppar-ar",
-    label: "AR Platform \u00B7 Tribes Digital",
+    category: "AR Platform",
+    company: "Tribes Digital",
     title: "Shoppar AR Photo Booth",
+    platform: "PWA",
     images: [
       "/assets/chupachups-platform-overview.png",
       "/assets/chupachups-kiosk-mall.png",
@@ -153,146 +151,200 @@ export const caseStudies: CaseStudy[] = [
       "/assets/chupachups-kitkat-campaign.png",
       "/assets/chupachups-ar-selfie-cam.png",
     ],
-    context:
-      "White-label AR photo booth platform deployed to touchscreen kiosks for Chupachups, KitKat, and Nike brand activations. One codebase, infinite campaigns. Campaign managers swap the entire brand identity through the CMS without touching code.",
-    role:
-      "Sole developer on the full system. Built a real-time AR camera pipeline with MediaPipe face detection, landmark tracking, and selfie segmentation. Interactive face masks and sticker canvas via Fabric.js. Headless CMS in Strapi 5 with runtime theming through CSS custom properties. Campaign managers swap colours, fonts, backgrounds, masks, and copy, all live, no rebuilds.",
-    impact:
-      "PWA with offline support, WCAG 2.1 AA, deployed to live touchscreen kiosks at brand events across the UK and Turkey.",
-    stack: [
-      "React 19",
-      "TypeScript",
-      "MediaPipe",
-      "Fabric.js",
-      "Strapi 5",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "PWA",
-      "Vite",
+    headline:
+      "White-label AR photo booth on live touchscreen kiosks. One codebase powers every brand campaign.",
+    delivered: [
+      "Real-time AR camera pipeline: MediaPipe face detection, landmark tracking, selfie segmentation",
+      "Interactive face masks and sticker canvas with Fabric.js",
+      "CMS-driven brand theming: colours, fonts, masks, copy swap live with zero rebuilds",
+      "Offline-capable PWA, WCAG 2.1 AA accessible",
     ],
-    links: [
-      { label: "Live Demo", url: "https://selfie.shoppar.io/chupachupsantalya" },
-    ],
+    result:
+      "Deployed to kiosks at Chupachups, KitKat, and Nike events across the UK and Turkey. Sole developer on the full system.",
+    stack: ["React 19", "TypeScript", "MediaPipe", "Fabric.js", "Strapi 5", "PostgreSQL", "Tailwind", "Vite"],
+    links: [],
   },
   {
     slug: "mirana",
-    label: "Co-Founded \u00B7 Full Stack",
-    title: "Mirana (VioraHR)",
+    category: "Co-Founded",
+    company: "Mirana Group",
+    title: "VioraHR",
+    platform: "Native Mobile",
     images: [
       "/assets/mirana-brand.jpg",
       "/assets/mirana-dashboard.jpg",
       "/assets/mirana-mobile-screens.jpg",
     ],
-    context:
-      "AI-powered HR platform I co-founded. Configurable attendance workflows, geofenced check-in/out, internal messaging, and an OpenAI-powered HR assistant. Built the entire product solo from database schema to app store submission.",
-    role:
-      "Co-Founder and sole architect. React Native mobile app, Node.js/Express API, PostgreSQL with Metabase analytics, OpenAI integration for an HR assistant. Managed the full release cycle: App Store Connect, Gradle builds, signing, versioning, staged rollouts. Shipped trilingual (EN/FA/FR).",
-    impact:
-      "5 enterprise clients in year one. Published to both app stores. Multilingual MVP live by April 2025.",
-    stack: [
-      "React Native",
-      "TypeScript",
-      "Node.js",
-      "PostgreSQL",
-      "OpenAI API",
-      "FCM",
-      "AWS",
+    headline:
+      "AI-powered HR platform I co-founded and built solo. From database schema to app store submission.",
+    delivered: [
+      "React Native app with geofenced check-in/out, messaging, and configurable attendance workflows",
+      "Node.js/Express API with PostgreSQL and Metabase analytics dashboards",
+      "OpenAI-powered HR assistant for employee queries",
+      "Full release pipeline: App Store Connect, Gradle builds, staged rollouts, trilingual (EN/FA/FR)",
     ],
+    result:
+      "5 enterprise clients in year one. Published to both app stores. Multilingual MVP shipped solo.",
+    stack: ["React Native", "TypeScript", "Node.js", "PostgreSQL", "OpenAI API", "FCM", "AWS"],
     links: [],
   },
   {
     slug: "acorex",
-    label: "Library Author \u00B7 DemisCo",
+    category: "Library Author",
+    company: "DemisCo",
     title: "ACoreX UI Framework",
+    platform: "Web App",
     images: [
       "/assets/acorex-logo.jpg",
       "/assets/acorex-docs-light.jpg",
       "/assets/acorex-docs-dark.jpg",
     ],
-    context:
-      "Enterprise Angular component library I helped build from scratch. Not a consumer of a library, but the author. 100+ components with full RTL support, dark/light theming, and strict TypeScript. Used across 10+ enterprise projects internally.",
-    role:
-      "Core contributor writing the library itself. Owned the form builder module: datetime pickers with calendar and time wheel, country selectors, chip inputs, switch controls, configurable dialogs. Improved real-time data sync with a hybrid REST/WebSocket approach and Firestore for live updates.",
-    impact:
-      "100+ components, 2,700+ weekly npm downloads, adopted across the entire Demis holding group.",
-    stack: [
-      "Angular 17",
-      "TypeScript",
-      "RxJS",
-      "RTL",
-      "WebSocket",
-      "Firestore",
+    headline:
+      "Enterprise component library I helped author. 100+ components, full RTL, dark/light theming.",
+    delivered: [
+      "Core library contributor: datetime pickers, country selectors, chip inputs, configurable dialogs",
+      "Full RTL support and dark/light theming with strict TypeScript",
+      "Hybrid REST/WebSocket data sync with Firestore for live updates",
+      "Published npm package with automated docs generation",
     ],
+    result:
+      "2,700+ weekly npm downloads. Adopted across 10+ enterprise projects in the Demis holding group.",
+    stack: ["Angular 17", "TypeScript", "RxJS", "RTL", "WebSocket", "Firestore"],
     links: [{ label: "Live Docs", url: "https://ui.acorex.io" }],
   },
   {
     slug: "princess",
-    label: "VR Catalogue \u00B7 Tribes Digital",
+    category: "VR Catalogue",
+    company: "Tribes Digital",
     title: "Princess Yachts",
+    platform: "Native Mobile",
     images: [
       "/assets/princess-multidevice.jpg",
       "/assets/princess-menu-gallery.jpg",
       "/assets/princess-showroom-vr.jpg",
     ],
-    context:
-      "Luxury VR/3D yacht catalogue in React Native. Not a quick build and move on, this was a 3-year maintenance engagement. I understood the intent behind code I didn't write, and refactored it when it needed it.",
-    role:
-      "Improved Core Web Vitals: reduced LCP through asset caching, cut TTI with lazy-loaded routes and deferred non-critical assets. Refactored UI components and kept the application stable through iOS/Android OS updates, API deprecations, and device fragmentation.",
-    impact:
-      "30% faster load time. Application stable and maintained across 3 years of platform changes.",
-    stack: [
-      "React Native",
-      "TypeScript",
-      "Redux",
-      "iOS",
-      "Android",
+    headline:
+      "Luxury VR/3D yacht catalogue. Not a sprint, a 3-year maintenance engagement.",
+    delivered: [
+      "Cut LCP with asset caching and lazy-loaded routes",
+      "Refactored UI components and stabilised through iOS/Android OS updates",
+      "Managed API deprecations and device fragmentation across 3 years",
     ],
+    result:
+      "30% faster load time. App stable through 3 years of platform changes without breaking.",
+    stack: ["React Native", "TypeScript", "Redux", "iOS", "Android"],
     links: [{ label: "Website", url: "https://princessyachts.com" }],
   },
-];
-
-// ──────────────────────────────────────────────
-// Compact Projects
-// ──────────────────────────────────────────────
-
-export const compactProjects: CompactProject[] = [
   {
+    slug: "manna",
+    category: "Drone Logistics",
+    company: "Manna Aero",
     title: "Manna Drone Delivery",
-    description:
-      "Runner-side app for Manna's live drone service. Real-time Firebase order sync, location tracking, and handoff confirmation between runner, hub, and dispatch.",
-    image: "/assets/manna-runner-screens.jpg",
-    stack: ["React Native", "TypeScript", "Firebase"],
+    platform: "Native Mobile",
+    images: [
+      "/assets/manna-runner-screens.jpg",
+      "/assets/manna-hero-drone.jpg",
+      "/assets/manna-delivery-flow.jpg",
+    ],
+    headline:
+      "Runner-side app for a live commercial drone delivery service.",
+    delivered: [
+      "Real-time order state machine with Firebase",
+      "GPS-based handoff radius detection between runner, hub, and dispatch",
+      "Push notification orchestration for the full delivery flow",
+    ],
+    result:
+      "Live in production handling real drone deliveries. Sub-second state sync across all parties.",
+    stack: ["React Native", "TypeScript", "Firebase", "Maps SDK"],
     links: [{ label: "Website", url: "https://manna.aero" }],
   },
   {
+    slug: "seeyoo",
+    category: "Health Tech",
+    company: "Tribes Digital",
     title: "SeeYoo Health",
-    description:
-      "Digital triage platform. AI assesses patient urgency and books GP appointments. Built the full patient journey UI in Flutter with MVP architecture.",
-    image: "/assets/seeyoo-ai-triage.jpg",
-    stack: ["Flutter", "Dart", "GetX", "MVP"],
+    platform: "Cross-Platform",
+    images: [
+      "/assets/seeyoo-ai-triage.jpg",
+      "/assets/seeyoo-patient-flow.jpg",
+      "/assets/seeyoo-multidevice.jpg",
+    ],
+    headline:
+      "AI triage platform that assesses patient urgency and books GP appointments.",
+    delivered: [
+      "Patient-facing triage flow with symptom questionnaire engine",
+      "Established shared MVP architecture and GetX patterns across the dev team",
+      "Appointment booking interface with real-time availability",
+    ],
+    result:
+      "AI-powered triage reducing GP wait times. Architecture patterns adopted team-wide.",
+    stack: ["Flutter", "Dart", "GetX", "REST API"],
     links: [{ label: "Website", url: "https://consiliaris.co.uk" }],
   },
   {
+    slug: "scoremy",
+    category: "FinTech",
+    company: "ScoreMy",
     title: "ScoreMy Financial",
-    description:
-      "Score-based financial advisory platform. Custom gauge components, animated scorecards, PDF report generators, and real-time push notifications.",
-    image: "/assets/scoremy-dashboard.jpg",
+    platform: "Web App",
+    images: [
+      "/assets/scoremy-dashboard.jpg",
+      "/assets/scoremy-gauges.jpg",
+    ],
+    headline:
+      "Score-based financial advisory platform. Custom charts, PDF reports, real-time push.",
+    delivered: [
+      "Full Svelte frontend shipped solo",
+      "Custom SVG gauge components with animated score transitions",
+      "PDF report generation pipeline",
+      "Firebase push notification integration",
+    ],
+    result:
+      "Entire frontend delivered solo. Custom charting and PDF generation live in production.",
     stack: ["Svelte", "TypeScript", "Firebase", "FCM"],
     links: [{ label: "Website", url: "https://scoremy.co.uk" }],
   },
   {
+    slug: "pots",
+    category: "Community App",
+    company: "SGTL",
     title: "POTS by SGTL",
-    description:
-      "Community gardening app. Built the full React Native app from scratch with Node.js backend. UX designed for non-technical gardeners, not developers.",
-    image: "/assets/pots-brand.jpg",
+    platform: "Native Mobile",
+    images: [
+      "/assets/pots-brand.jpg",
+      "/assets/pots-app-screens.jpg",
+    ],
+    headline:
+      "Community gardening app designed for people who don't live on their phones.",
+    delivered: [
+      "Full React Native app from scratch with Node.js/Express backend",
+      "Firebase auth and real-time sync",
+      "UX flow designed for non-technical gardeners",
+    ],
+    result:
+      "Shipped from zero to app store. UX validated with real gardening communities.",
     stack: ["React Native", "TypeScript", "Node.js", "Firebase"],
     links: [{ label: "Website", url: "https://potsbysgtl.com" }],
   },
   {
-    title: "Ramzineh & Contracts",
-    description:
-      "Led a 3-person team building a multi-platform attendance system with IoT integration, OAuth 2.0 auth, and banking-grade security standards.",
-    image: "/assets/freelance-dashboards.jpg",
+    slug: "ramzineh",
+    category: "Team Lead",
+    company: "Matin-Ramz-Negar",
+    title: "Ramzineh Attendance",
+    platform: "Cross-Platform",
+    images: [
+      "/assets/freelance-dashboards.jpg",
+    ],
+    headline:
+      "IoT attendance system. Led a 3-person team with banking-grade security.",
+    delivered: [
+      "Architected multi-platform system across mobile and web",
+      "Integrated IoT attendance hardware",
+      "OAuth 2.0 auth flows, banking-grade security audit",
+      "Introduced Scrum, improved sprint velocity 15%",
+    ],
+    result:
+      "Delivered on time. Banking-grade security audit passed. 15% faster sprints after Scrum adoption.",
     stack: ["React Native", "Node.js", "OAuth 2.0", "IoT"],
     links: [],
   },
