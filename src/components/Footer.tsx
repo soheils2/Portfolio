@@ -13,7 +13,7 @@ export function Footer() {
         </p>
         <a
           href="#contact"
-          className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+          className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 rounded-md"
         >
           Let's talk.
         </a>
@@ -26,14 +26,14 @@ export function Footer() {
             &copy; {year} Soheil Asami. Built with React + TypeScript.
           </p>
 
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3">
             {socialLinks.map(({ label, url }) => (
               <a
                 key={url}
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-zinc-400 dark:text-zinc-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                className="text-xs min-h-[44px] flex items-center py-2 px-2 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 rounded-md"
               >
                 {label}
               </a>
@@ -41,7 +41,7 @@ export function Footer() {
 
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="ml-2 p-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 hover:border-blue-500/30 dark:hover:text-blue-400 dark:hover:border-blue-500/30 transition-all"
+              className="ml-1 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 hover:text-blue-500 hover:border-blue-500/30 dark:hover:text-blue-400 dark:hover:border-blue-500/30 transition-all focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
               aria-label="Back to top"
             >
               <ArrowUp className="w-3.5 h-3.5" />

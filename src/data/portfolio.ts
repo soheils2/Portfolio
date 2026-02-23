@@ -63,11 +63,12 @@ export const personalInfo = {
   location: "Isfahan",
   resumeUrl: "/assets/SOHEIL_ASAMI_Resume.pdf",
   heroTagline:
-    "I ship production systems for distributed client teams across timezones — from AR camera pipelines and VR catalogues to full-stack platforms shipped to both app stores.",
+    "The developer teams call when the deadline was yesterday. I've shipped 30+ production apps across AR, VR, mobile, and full-stack — and left every codebase cleaner than I found it.",
   aboutParagraphs: [
-    "I contributed to building a component library that powers 10+ enterprise projects. Not consumed it — helped write it. That's how I think about software: not features, but the systems that make features consistent, scalable, and shippable.",
-    "6+ years deep in TypeScript across the full stack — React, Next.js, Angular, Node.js, React Native, Flutter. At Tribes Digital I'm embedded directly inside distributed client engineering teams, delivering production UIs: AR camera pipelines deployed to live event hardware, CMS-driven brand theming, real-time financial dashboards, VR catalogues for luxury brands. I also co-founded Mirana (VioraHR) in Canada — solo-architected the entire stack and shipped to both app stores within year one.",
-    "Self-taught. Started as a programming teacher. Now I leave every codebase more consistent, more tested, and more maintainable than I found it.",
+    "I solve the problems that stall your team — whether that's architecting a system from zero, rescuing a legacy codebase, or shipping an MVP before the runway dries up.",
+    "I write the code that the next developer will thank me for. Every component library I build gets adopted company-wide. Every backend I architect handles scale without the 3am wake-up calls. Every mobile app I ship passes store review on the first try.",
+    "I think in systems, not just features. When I join a team, I don't just close tickets — I identify the architectural bottlenecks, establish patterns that prevent entire categories of bugs, and leave behind documentation that actually gets read.",
+    "Self-taught from day one. Started teaching programming before I ever got paid to write it. That foundation means I communicate complex technical decisions clearly — to designers, PMs, and stakeholders, not just other engineers.",
   ],
 };
 
@@ -76,10 +77,10 @@ export const personalInfo = {
 // ──────────────────────────────────────────────
 
 export const heroRoles = [
-  "Frontend Architect",
-  "Full-Stack Developer",
-  "Mobile Engineer",
-  "Component Library Author",
+  "Senior Full-Stack TypeScript Engineer",
+  "Production-Shipped Mobile Developer",
+  "Component Library Architect",
+  "The One Who Fixes the Build",
 ];
 
 // ──────────────────────────────────────────────
@@ -87,9 +88,9 @@ export const heroRoles = [
 // ──────────────────────────────────────────────
 
 export const stats: Stat[] = [
-  { value: "6+", label: "Years of Experience" },
-  { value: "10+", label: "Production Clients" },
-  { value: "30+", label: "Live Applications" },
+  { value: "6+", label: "Years Shipping Code" },
+  { value: "10+", label: "Client Teams Embedded In" },
+  { value: "30+", label: "Apps Live in Production" },
 ];
 
 // ──────────────────────────────────────────────

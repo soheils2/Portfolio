@@ -10,42 +10,41 @@ import { EasterEgg } from "./components/EasterEgg";
 import { LoadingScreen } from "./components/loading/LoadingScreen";
 import { useLoading } from "./hooks/useLoading";
 import { useTheme } from "./hooks/useTheme";
+import { TerminalProvider } from "./context/TerminalContext";
 
 function App() {
   const isLoading = useLoading();
   const { isDark, setIsDark } = useTheme();
 
   return (
-    <>
+    <TerminalProvider>
       <LoadingScreen isLoading={isLoading} />
-      {!isLoading && (
-        <div className="min-h-screen scroll-smooth">
-          {/* Skip to main content — accessibility */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-blue-500 focus:text-white focus:text-sm focus:font-medium"
-          >
-            Skip to main content
-          </a>
+      <div className="min-h-screen scroll-smooth">
+        {/* Skip to main content — accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-blue-500 focus:text-white focus:text-sm focus:font-medium"
+        >
+          Skip to main content
+        </a>
 
-          <header role="banner">
-            <Navbar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
-          </header>
+        <header role="banner">
+          <Navbar isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />
+        </header>
 
-          <main id="main-content" role="main">
-            <Hero />
-            <About />
-            <SelectedWork />
-            <Experience />
-            <TechStack />
-            <Contact />
-          </main>
+        <main id="main-content" role="main">
+          <Hero />
+          <About />
+          <SelectedWork />
+          <Experience />
+          <TechStack />
+          <Contact />
+        </main>
 
-          <Footer />
-          <EasterEgg />
-        </div>
-      )}
-    </>
+        <Footer />
+        <EasterEgg />
+      </div>
+    </TerminalProvider>
   );
 }
 

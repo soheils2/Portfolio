@@ -40,10 +40,10 @@ export function ContactForm() {
     "w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none text-sm transition-colors";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
-          Name
+          Name <span className="text-red-500" aria-hidden="true">*</span>
         </label>
         <input
           type="text"
@@ -52,6 +52,7 @@ export function ContactForm() {
           value={formData.name}
           onChange={handleChange}
           required
+          aria-required="true"
           autoComplete="name"
           placeholder="Your name"
           className={inputClasses}
@@ -60,7 +61,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
-          Email
+          Email <span className="text-red-500" aria-hidden="true">*</span>
         </label>
         <input
           type="email"
@@ -69,6 +70,7 @@ export function ContactForm() {
           value={formData.email}
           onChange={handleChange}
           required
+          aria-required="true"
           autoComplete="email"
           placeholder="your@email.com"
           className={inputClasses}
@@ -77,7 +79,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
-          Message
+          Message <span className="text-red-500" aria-hidden="true">*</span>
         </label>
         <textarea
           id="message"
@@ -85,6 +87,7 @@ export function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           required
+          aria-required="true"
           placeholder="Tell me about your project..."
           rows={4}
           className={inputClasses}
@@ -94,18 +97,25 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full py-3 px-6 rounded-lg flex items-center justify-center gap-2 text-sm font-medium bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50 transition-colors"
+        className="w-full py-3 px-6 rounded-lg flex items-center justify-center gap-2 text-sm font-medium bg-zinc-900 dark:bg-zinc-50 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-60 disabled:cursor-not-allowed transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
       >
         {status === "submitting" ? "Sending..." : "Send Message"}
         {status !== "submitting" && <ArrowRight className="w-4 h-4" />}
       </button>
 
-      {status === "success" && (
-        <p className="text-sm text-emerald-500 text-center">Message sent successfully!</p>
-      )}
-      {status === "error" && (
-        <p className="text-sm text-red-500 text-center">{errorMessage}</p>
-      )}
+      {/* Status messages with aria-live for screen readers */}
+      <div role="status" aria-live="polite" className="min-h-[20px]">
+        {status === "success" && (
+          <p className="text-sm text-emerald-600 dark:text-emerald-400 text-center">
+            Message sent successfully!
+          </p>
+        )}
+        {status === "error" && (
+          <p className="text-sm text-red-600 dark:text-red-400 text-center" role="alert">
+            {errorMessage}
+          </p>
+        )}
+      </div>
     </form>
   );
 }

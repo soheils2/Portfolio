@@ -134,7 +134,7 @@ function CompactCard({
               href={project.links[0].url}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-blue-500 hover:text-white shadow-lg shadow-black/10 border border-white/20 dark:border-zinc-700/50"
+              className="absolute top-3 right-3 p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-blue-500 hover:text-white shadow-lg shadow-black/10 border border-white/20 dark:border-zinc-700/50 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500 focus:opacity-100"
             >
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>

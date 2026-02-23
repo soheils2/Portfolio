@@ -72,9 +72,9 @@
   <link rel="preconnect" href="https://formspree.io" crossorigin />
   <link rel="dns-prefetch" href="https://formspree.io" />
 
-  <!-- Preload critical font -->
-  <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" />
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <!-- Non-render-blocking font loading -->
+  <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://rsms.me/inter/inter.css" /></noscript>
 
   <!-- JSON-LD Structured Data: ProfilePage + Person (enhanced) -->
   <script type="application/ld+json">

@@ -88,8 +88,54 @@ select,
   @apply bg-blue-500/30;
 }
 
-/* Smooth theme transitions */
-*, *::before, *::after {
+/* Liquid glass text — shine sweep animation */
+@keyframes glassShine {
+  0%, 100% {
+    background-position: 200% center;
+  }
+  50% {
+    background-position: -200% center;
+  }
+}
+
+.glass-text-shine {
+  animation: glassShine 5s ease-in-out infinite;
+}
+
+/* Matrix rain — snippets drop top to bottom */
+@keyframes matrixDrop {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  96% {
+    opacity: 0.22;
+  }
+  100% {
+    transform: translateY(105vh);
+    opacity: 0;
+  }
+}
+
+/* Terminal fullscreen — ensure scrollbar is hidden */
+.terminal-fullscreen .scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Theme transitions — targeted, not global wildcard */
+body,
+nav,
+section,
+header,
+footer,
+.dark body {
   transition-property: background-color, border-color;
   transition-duration: 150ms;
   transition-timing-function: ease;

@@ -13,8 +13,8 @@ const panelVariants = {
     y: "100%",
     opacity: 0,
     transition: {
-      delay: i * 0.1,
-      duration: 0.6,
+      delay: i * 0.03,
+      duration: 0.3,
       ease: "easeInOut",
     },
   }),
@@ -26,8 +26,8 @@ export function HandwritingAnimation({ onComplete }: { onComplete: () => void })
   useEffect(() => {
     const timer = setTimeout(() => {
       setStartExit(true);
-      setTimeout(() =>{ onComplete(); }, 1500); // Allow time for exit animations to complete
-    }, 2000);
+      setTimeout(() => { onComplete(); }, 400);
+    }, 500);
     return () => clearTimeout(timer);
   }, [onComplete]);
 

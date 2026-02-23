@@ -80,7 +80,7 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
             {/* Image section — cinematic */}
-            <div className="relative h-64 sm:h-72 lg:h-auto lg:min-h-[420px] overflow-hidden">
+            <div className="relative h-48 sm:h-56 lg:h-auto lg:min-h-[320px] overflow-hidden">
               <motion.div
                 className="absolute inset-0"
                 animate={{ scale: hovered ? 1.05 : 1 }}
@@ -107,25 +107,25 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
             </div>
 
             {/* Content section */}
-            <div className="relative p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
+            <div className="relative p-5 sm:p-6 lg:p-7 flex flex-col justify-center">
               {/* Label */}
-              <span className="hidden lg:inline-block w-fit px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-blue-500/8 text-blue-600 dark:text-blue-400 border border-blue-500/15 mb-4">
+              <span className="hidden lg:inline-block w-fit px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-blue-500/8 text-blue-600 dark:text-blue-400 border border-blue-500/15 mb-3">
                 {study.label}
               </span>
 
               {/* Title */}
-              <h3 className="hidden lg:block text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-4">
+              <h3 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
                 {study.title}
               </h3>
 
               {/* Context */}
-              <p className="text-sm sm:text-base leading-relaxed text-zinc-500 dark:text-zinc-400 mb-5">
+              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 mb-4">
                 {study.context}
               </p>
 
               {/* Role */}
-              <div className="mb-5">
-                <p className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-2">
+              <div className="mb-4">
+                <p className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-1.5">
                   What I Built
                 </p>
                 <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 line-clamp-3">
@@ -239,7 +239,7 @@ function LinkBadges({ study }: { study: CaseStudyType }) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-medium bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 backdrop-blur-md border border-white/20 dark:border-zinc-700/50 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-200 shadow-lg shadow-black/10"
+          className="flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-full text-[10px] font-medium bg-white/90 dark:bg-zinc-900/90 text-zinc-700 dark:text-zinc-300 backdrop-blur-md border border-white/20 dark:border-zinc-700/50 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-200 shadow-lg shadow-black/10 focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
         >
           {label}
           <ExternalLink className="w-2.5 h-2.5" />

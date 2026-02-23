@@ -34,7 +34,12 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
   }
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div
+      className="relative w-full h-full overflow-hidden"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={`${alt} — ${images.length} screenshots`}
+    >
       <img
         src={images[0]}
         alt={alt}
@@ -53,6 +58,7 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
             alt={`${alt} - screenshot ${imageIndex + 1}`}
             loading="lazy"
             draggable={false}
+            aria-hidden={imageIndex !== currentIndex}
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 select-none ${
               imageIndex === currentIndex ? "opacity-100" : "opacity-0"
             }`}
