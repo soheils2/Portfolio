@@ -29,7 +29,7 @@ export function SelectedWork() {
             Projects I've shipped
           </h2>
           <p className="text-base md:text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl">
-            From AR camera systems to enterprise component libraries — each project built to solve real problems at scale.
+            From AR camera systems to enterprise component libraries. Each one built to solve real problems at scale.
           </p>
         </FadeIn>
 
@@ -97,7 +97,7 @@ function CompactCard({
         <div className="relative h-44 overflow-hidden">
           <motion.img
             src={project.image}
-            alt={`${project.title} — project screenshot`}
+            alt={`${project.title} - project screenshot`}
             loading="lazy"
             draggable={false}
             className="w-full h-full object-cover select-none"

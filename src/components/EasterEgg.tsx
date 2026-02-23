@@ -106,7 +106,7 @@ export function EasterEgg() {
     : [];
 
   const messages = [
-    "I code like I live — with a little madness.",
+    "I code like I live. With a little madness.",
     "sudo make me a sandwich",
     "There's no place like 127.0.0.1",
     "Works on my machine ™",

@@ -125,7 +125,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      aria-label="Introduction — Soheil Asami, Senior Software Developer"
+      aria-label="Introduction - Soheil Asami, Senior Software Developer"
       className="relative min-h-screen flex flex-col justify-center px-6 overflow-hidden"
     >
       {/* Background layers */}

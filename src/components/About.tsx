@@ -9,22 +9,22 @@ import type { Line } from "../context/TerminalContext";
 const signals = [
   {
     title: "Zero to Production",
-    desc: "Hand me a blank repo and a deadline — I'll ship a tested, deployed product.",
+    desc: "Give me a blank repo and a deadline. I'll ship a tested, deployed product.",
     accent: "blue" as const,
   },
   {
     title: "Async & Self-Directed",
-    desc: "I don't need hand-holding. I write clear PRs, document decisions, and unblock myself.",
+    desc: "I don't need hand-holding. Clear PRs, documented decisions, I unblock myself.",
     accent: "violet" as const,
   },
   {
     title: "Systems Thinker",
-    desc: "I design architectures that prevent bugs — not just fix them after the fact.",
+    desc: "I build architectures that prevent bugs, not just patch them after the fact.",
     accent: "emerald" as const,
   },
   {
     title: "Cross-Platform Fluent",
-    desc: "Web, mobile, AR, VR — same quality bar, same TypeScript-first approach.",
+    desc: "Web, mobile, AR, VR. Same quality bar, same TypeScript-first approach.",
     accent: "amber" as const,
   },
 ];
@@ -37,7 +37,12 @@ const accentMap = {
 };
 
 /* ─── Shared Terminal Lines Renderer ─── */
-function TerminalLines({ lines, fontSize = "text-[11px]" }: { lines: Line[]; fontSize?: string }) {
+function TerminalLines({ lines, fontSize = "text-[11px]", variant = "dark" }: { lines: Line[]; fontSize?: string; variant?: "dark" | "fullscreen" }) {
+  // Always dark theme styling since terminal is always dark
+  const inputColor = "text-emerald-100";
+  const outputColor = variant === "fullscreen" ? "text-zinc-400" : "text-zinc-400";
+  const systemColor = "text-cyan-400/70";
+
   return (
     <>
       {lines.map((line, i) => (
@@ -45,14 +50,14 @@ function TerminalLines({ lines, fontSize = "text-[11px]" }: { lines: Line[]; fon
           {line.type === "input" && (
             <p>
               <span className="text-emerald-500">❯</span>{" "}
-              <span className="text-zinc-800 dark:text-zinc-200">{line.text}</span>
+              <span className={inputColor}>{line.text}</span>
             </p>
           )}
           {line.type === "output" && (
-            <p className={`text-zinc-600 dark:text-zinc-400 pl-3 ${fontSize}`}>{line.text}</p>
+            <p className={`${outputColor} pl-3 ${fontSize}`}>{line.text}</p>
           )}
           {line.type === "system" && (
-            <p className={`text-blue-500/70 dark:text-blue-400/60 ${fontSize}`}>{line.text}</p>
+            <p className={`${systemColor} ${fontSize}`}>{line.text}</p>
           )}
         </div>
       ))}
@@ -86,13 +91,14 @@ function TerminalCard() {
     }
   }, [terminal.lines]);
 
-  // Don't render inline card when fullscreen is active
+  // Placeholder when fullscreen
   if (terminal.isFullscreen) {
     return (
       <FadeIn delay={0.15} className="lg:col-span-5 flex flex-col">
-        <div className="relative flex-1 flex flex-col rounded-2xl border border-zinc-200/60 dark:border-white/[0.06] bg-[#fafafa] dark:bg-[#0c0c0e] overflow-hidden max-h-[480px] min-h-[320px] items-center justify-center">
-          <p className="text-xs text-zinc-400 dark:text-zinc-500 font-mono">
-            Terminal is in fullscreen mode
+        <div className="relative flex-1 flex flex-col rounded-2xl border border-emerald-500/20 bg-[#0d1117] overflow-hidden max-h-[480px] min-h-[320px] items-center justify-center">
+          <div className="w-3 h-3 rounded-full bg-emerald-500/30 animate-pulse mb-3" />
+          <p className="text-xs text-emerald-500/50 font-mono">
+            terminal running in fullscreen
           </p>
         </div>
       </FadeIn>
@@ -107,47 +113,66 @@ function TerminalCard() {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => { setIsHovering(false); setMousePos({ x: 50, y: 50 }); }}
         onClick={() => localInputRef.current?.focus()}
-        className="relative flex-1 flex flex-col rounded-2xl border border-zinc-200/60 dark:border-white/[0.06] bg-[#fafafa] dark:bg-[#0c0c0e] overflow-hidden cursor-text max-h-[480px] min-h-[320px]"
+        className="relative flex-1 flex flex-col rounded-2xl border overflow-hidden cursor-text max-h-[480px] min-h-[320px]"
         style={{
+          background: "#0d1117",
+          borderColor: isHovering ? "rgba(16,185,129,0.3)" : "rgba(16,185,129,0.12)",
           boxShadow: isHovering
-            ? "0 8px 50px -10px rgba(59,130,246,0.12), 0 4px 20px -4px rgba(0,0,0,0.08)"
-            : "0 4px 30px -8px rgba(0,0,0,0.06)",
-          transition: "box-shadow 0.5s ease",
+            ? "0 0 40px -10px rgba(16,185,129,0.2), 0 8px 40px -10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(16,185,129,0.06)"
+            : "0 0 20px -10px rgba(16,185,129,0.08), 0 4px 30px -8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(16,185,129,0.04)",
+          transition: "border-color 0.4s ease, box-shadow 0.5s ease",
         }}
       >
-        {/* Mouse-reactive gradient spotlight */}
+        {/* Mouse-reactive green glow */}
         <div
           className="absolute inset-0 pointer-events-none transition-opacity duration-500"
           style={{
             opacity: isHovering ? 1 : 0,
-            background: `radial-gradient(500px circle at ${mousePos.x}% ${mousePos.y}%, rgba(59,130,246,0.06), transparent 70%)`,
+            background: `radial-gradient(400px circle at ${mousePos.x}% ${mousePos.y}%, rgba(16,185,129,0.06), transparent 70%)`,
           }}
           aria-hidden="true"
         />
 
-        {/* Title bar — click green dot to fullscreen */}
-        <div className="flex items-center gap-2 px-4 py-2.5 border-b border-zinc-200/60 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02]">
+        {/* Subtle scanline texture */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(16,185,129,0.15) 2px, rgba(16,185,129,0.15) 4px)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Title bar */}
+        <div className="relative flex items-center gap-2 px-4 py-2.5 border-b border-emerald-500/10 bg-[#0a0e14] flex-shrink-0">
           <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-400/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+            <button
+              onClick={(e) => { e.stopPropagation(); }}
+              className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all"
+              aria-label="Close"
+            />
+            <button
+              onClick={(e) => { e.stopPropagation(); }}
+              className="w-2.5 h-2.5 rounded-full bg-[#febc2e] hover:brightness-110 transition-all"
+              aria-label="Minimize"
+            />
             <button
               onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(true); }}
-              className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 hover:bg-emerald-500 transition-colors cursor-pointer relative group"
+              className="w-2.5 h-2.5 rounded-full bg-[#28c840] hover:brightness-110 transition-all cursor-pointer relative group"
               aria-label="Expand terminal to fullscreen"
             >
-              <Maximize2 className="w-1.5 h-1.5 absolute inset-0 m-auto opacity-0 group-hover:opacity-100 transition-opacity text-emerald-900" />
+              <Maximize2 className="w-1.5 h-1.5 absolute inset-0 m-auto opacity-0 group-hover:opacity-100 transition-opacity text-green-900" />
             </button>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(true); }}
-            className="flex-1 text-center text-[10px] font-medium text-zinc-400 dark:text-zinc-500 font-mono hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-pointer"
+            className="flex-1 text-center text-[10px] font-medium text-zinc-500 font-mono hover:text-emerald-400 transition-colors cursor-pointer"
             aria-label="Expand terminal"
           >
-            soheil@portfolio ~ % <span className="text-zinc-300 dark:text-zinc-600 ml-1">click to expand</span>
+            soheil@portfolio <span className="text-emerald-500/40">~</span> <span className="text-zinc-600">%</span>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(true); }}
-            className="p-1 rounded hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors text-zinc-400 dark:text-zinc-500"
+            className="p-1 rounded hover:bg-emerald-500/10 transition-colors text-zinc-600 hover:text-emerald-400"
             aria-label="Fullscreen"
           >
             <Maximize2 className="w-3 h-3" />
@@ -162,7 +187,7 @@ function TerminalCard() {
         >
           <TerminalLines lines={terminal.lines} />
 
-          {/* Active input line */}
+          {/* Active input line with blinking cursor effect */}
           <div className="flex items-center gap-1.5 mt-1">
             <span className="text-emerald-500 flex-shrink-0">❯</span>
             <input
@@ -171,12 +196,25 @@ function TerminalCard() {
               value={terminal.input}
               onChange={(e) => terminal.setInput(e.target.value)}
               onKeyDown={terminal.handleKeyDown}
-              className="flex-1 bg-transparent text-zinc-800 dark:text-zinc-200 outline-none caret-emerald-500 text-[11px] font-mono"
+              className="flex-1 bg-transparent text-emerald-100 outline-none caret-emerald-400 text-[11px] font-mono placeholder:text-zinc-700"
               spellCheck={false}
               autoComplete="off"
               aria-label="Terminal input"
+              placeholder="type help..."
             />
           </div>
+        </div>
+
+        {/* Bottom bar - interactive hint */}
+        <div className="flex-shrink-0 px-4 py-1.5 border-t border-emerald-500/8 bg-[#0a0e14] flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+            </span>
+            <span className="text-[9px] font-mono text-emerald-500/50 uppercase tracking-wider">interactive</span>
+          </div>
+          <span className="text-[9px] font-mono text-zinc-700">click to expand</span>
         </div>
       </div>
     </FadeIn>
@@ -233,9 +271,9 @@ function TerminalFullscreen() {
             onClick={() => terminal.setFullscreen(false)}
           />
 
-          {/* Terminal window — scales up from card size */}
+          {/* Terminal window */}
           <motion.div
-            className="relative w-[95vw] h-[90vh] sm:w-[90vw] sm:h-[85vh] max-w-[1200px] max-h-[800px] flex flex-col rounded-2xl border border-zinc-200/40 dark:border-white/10 bg-[#fafafa] dark:bg-[#0c0c0e] overflow-hidden"
+            className="relative w-[95vw] h-[90vh] sm:w-[90vw] sm:h-[85vh] max-w-[1200px] max-h-[800px] flex flex-col rounded-2xl border border-emerald-500/20 overflow-hidden"
             initial={{ scale: 0.4, opacity: 0, y: 80, borderRadius: 24 }}
             animate={{ scale: 1, opacity: 1, y: 0, borderRadius: 16 }}
             exit={{ scale: 0.4, opacity: 0, y: 80, borderRadius: 24 }}
@@ -246,44 +284,45 @@ function TerminalFullscreen() {
               mass: 0.8,
             }}
             style={{
-              boxShadow: "0 25px 100px -20px rgba(0,0,0,0.5), 0 0 60px -10px rgba(59,130,246,0.15)",
+              background: "#0d1117",
+              boxShadow: "0 0 80px -20px rgba(16,185,129,0.15), 0 25px 100px -20px rgba(0,0,0,0.6)",
             }}
             onClick={() => fullscreenInputRef.current?.focus()}
           >
-            {/* Subtle scanline overlay */}
+            {/* Scanline overlay */}
             <div
-              className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.04]"
+              className="absolute inset-0 pointer-events-none opacity-[0.03]"
               style={{
-                backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)",
+                backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(16,185,129,0.15) 2px, rgba(16,185,129,0.15) 4px)",
               }}
               aria-hidden="true"
             />
 
             {/* Title bar */}
-            <div className="flex items-center gap-2 px-5 py-3 border-b border-zinc-200/60 dark:border-white/[0.06] bg-white/80 dark:bg-white/[0.02] flex-shrink-0">
+            <div className="flex items-center gap-2 px-5 py-3 border-b border-emerald-500/10 bg-[#0a0e14] flex-shrink-0">
               <div className="flex gap-2">
                 <button
                   onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(false); }}
-                  className="w-3 h-3 rounded-full bg-red-400/80 hover:bg-red-500 transition-colors cursor-pointer relative group"
+                  className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all cursor-pointer relative group"
                   aria-label="Close fullscreen"
                 >
                   <X className="w-2 h-2 absolute inset-0 m-auto opacity-0 group-hover:opacity-100 transition-opacity text-red-900" />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(false); }}
-                  className="w-3 h-3 rounded-full bg-yellow-400/80 hover:bg-yellow-500 transition-colors cursor-pointer relative group"
+                  className="w-3 h-3 rounded-full bg-[#febc2e] hover:brightness-110 transition-all cursor-pointer relative group"
                   aria-label="Minimize terminal"
                 >
                   <Minimize2 className="w-2 h-2 absolute inset-0 m-auto opacity-0 group-hover:opacity-100 transition-opacity text-yellow-900" />
                 </button>
-                <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
+                <span className="w-3 h-3 rounded-full bg-[#28c840]" />
               </div>
-              <p className="flex-1 text-center text-xs font-medium text-zinc-400 dark:text-zinc-500 font-mono">
-                soheil@portfolio ~ %
+              <p className="flex-1 text-center text-xs font-medium text-zinc-500 font-mono">
+                soheil@portfolio <span className="text-emerald-500/40">~</span> <span className="text-zinc-600">%</span>
               </p>
               <button
                 onClick={(e) => { e.stopPropagation(); terminal.setFullscreen(false); }}
-                className="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors text-zinc-400 dark:text-zinc-500"
+                className="p-1.5 rounded-lg hover:bg-emerald-500/10 transition-colors text-zinc-600 hover:text-emerald-400"
                 aria-label="Minimize"
               >
                 <Minimize2 className="w-4 h-4" />
@@ -296,7 +335,7 @@ function TerminalFullscreen() {
               className="flex-1 overflow-y-auto p-6 sm:p-8 font-mono text-xs sm:text-sm leading-relaxed space-y-1 min-h-0 scrollbar-hide cursor-text"
               style={{ userSelect: "text", WebkitUserSelect: "text" }}
             >
-              <TerminalLines lines={terminal.lines} fontSize="text-xs sm:text-sm" />
+              <TerminalLines lines={terminal.lines} fontSize="text-xs sm:text-sm" variant="fullscreen" />
 
               {/* Active input */}
               <div className="flex items-center gap-2 mt-2">
@@ -307,7 +346,7 @@ function TerminalFullscreen() {
                   value={terminal.input}
                   onChange={(e) => terminal.setInput(e.target.value)}
                   onKeyDown={terminal.handleKeyDown}
-                  className="flex-1 bg-transparent text-zinc-800 dark:text-zinc-200 outline-none caret-emerald-500 text-xs sm:text-sm font-mono"
+                  className="flex-1 bg-transparent text-emerald-100 outline-none caret-emerald-400 text-xs sm:text-sm font-mono placeholder:text-zinc-700"
                   spellCheck={false}
                   autoComplete="off"
                   aria-label="Terminal input (fullscreen)"
@@ -317,13 +356,13 @@ function TerminalFullscreen() {
             </div>
 
             {/* Footer hint */}
-            <div className="flex-shrink-0 px-5 py-2 border-t border-zinc-200/40 dark:border-white/[0.04] bg-white/40 dark:bg-white/[0.01]">
-              <p className="text-[10px] font-mono text-zinc-400/60 dark:text-zinc-600 text-center">
+            <div className="flex-shrink-0 px-5 py-2 border-t border-emerald-500/8 bg-[#0a0e14]">
+              <p className="text-[10px] font-mono text-zinc-600 text-center">
                 type <span className="text-emerald-500/60">help</span> for commands
                 {" · "}
-                <span className="text-zinc-400/40 dark:text-zinc-600">esc</span> to minimize
+                <span className="text-zinc-700">esc</span> to minimize
                 {" · "}
-                <span className="text-zinc-400/40 dark:text-zinc-600">↑↓</span> history
+                <span className="text-zinc-700">↑↓</span> history
               </p>
             </div>
           </motion.div>

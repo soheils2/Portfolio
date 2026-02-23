@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────
-// Portfolio Data — Single source of truth
+// Portfolio Data - Single source of truth
 // ──────────────────────────────────────────────
 
 export interface CaseStudy {
@@ -63,12 +63,12 @@ export const personalInfo = {
   location: "Isfahan",
   resumeUrl: "/assets/SOHEIL_ASAMI_Resume.pdf",
   heroTagline:
-    "The developer teams call when the deadline was yesterday. I've shipped 30+ production apps across AR, VR, mobile, and full-stack — and left every codebase cleaner than I found it.",
+    "The developer teams call when the deadline was yesterday. 30+ production apps shipped across AR, VR, mobile, and full-stack. I leave every codebase cleaner than I found it.",
   aboutParagraphs: [
-    "I solve the problems that stall your team — whether that's architecting a system from zero, rescuing a legacy codebase, or shipping an MVP before the runway dries up.",
-    "I write the code that the next developer will thank me for. Every component library I build gets adopted company-wide. Every backend I architect handles scale without the 3am wake-up calls. Every mobile app I ship passes store review on the first try.",
-    "I think in systems, not just features. When I join a team, I don't just close tickets — I identify the architectural bottlenecks, establish patterns that prevent entire categories of bugs, and leave behind documentation that actually gets read.",
-    "Self-taught from day one. Started teaching programming before I ever got paid to write it. That foundation means I communicate complex technical decisions clearly — to designers, PMs, and stakeholders, not just other engineers.",
+    "I fix the problems that slow your team down. Need a system built from scratch? A legacy codebase rescued? An MVP out the door before funding runs out? That's what I do.",
+    "My component libraries get adopted company-wide. My backends don't wake anyone up at 3am. My mobile apps pass store review the first time. The next dev who touches my code will actually understand it.",
+    "I think in systems, not tickets. When I join a team, I find the architectural bottlenecks, set up patterns that kill whole classes of bugs, and write docs people actually read.",
+    "Self-taught from day one. I was teaching programming before I ever got paid to write it. So yeah, I can explain a complex technical decision to a designer, a PM, or a stakeholder without making their eyes glaze over.",
   ],
 };
 
@@ -148,7 +148,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "Live AR photo booth deployed to touchscreen kiosks for Chupachups brand activations. Campaign managers needed to swap brand assets, colours, and copy without developer intervention.",
     role:
-      "Sole developer. Built real-time AR camera pipeline using MediaPipe for face detection and landmark tracking, with virtual backgrounds and face masks via Fabric.js canvas. Architected a headless CMS (Strapi 5) so campaign managers configure experiences without code. Runtime CSS custom property injection enables instant campaign switching\u2009—\u2009zero rebuilds.",
+      "Sole developer. Built the real-time AR camera pipeline with MediaPipe for face detection and landmark tracking, plus virtual backgrounds and face masks on Fabric.js canvas. Set up a headless CMS (Strapi 5) so campaign managers can swap experiences without code. CSS custom properties let them switch campaigns instantly, no rebuilds needed.",
     impact:
       "PWA with offline support, WCAG 2.1 AA compliant, deployed to live touchscreen event hardware at brand activations.",
     stack: [
@@ -174,7 +174,7 @@ export const caseStudies: CaseStudy[] = [
     context:
       "Enterprise Angular UI framework built from scratch to replace fragmented libraries that lacked RTL support, localisation, and performance at scale.",
     role:
-      "Core contributor writing the component library itself\u2009—\u2009not consuming it, building it. Angular 17 components with full RTL support, dark/light theming, and strict TypeScript throughout. Led the form builder module: datetime pickers, country selectors, chip inputs, configurable dialogs.",
+      "I wrote the component library, not just used it. Angular 17 components with full RTL support, dark/light theming, strict TypeScript. I owned the form builder module: datetime pickers, country selectors, chip inputs, configurable dialogs.",
     impact:
       "Contributed to 100+ components, adopted across 10+ enterprise projects company-wide.",
     stack: [
@@ -193,7 +193,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Mirana / VioraHR",
     images: ["/assets/mirana-1.jpg", "/assets/mirana-2.jpg", "/assets/mirana-3.jpg"],
     context:
-      "AI-powered HR attendance and communication platform\u2009—\u2009configurable workflows, attendance automation, and internal communication for organisations replacing legacy HR infrastructure.",
+      "AI-powered HR platform for attendance tracking and team communication. Configurable workflows, attendance automation, and internal messaging for companies replacing old HR systems.",
     role:
       "Co-Founder. Solo-architected the entire TypeScript stack: React Native app, Node.js/Express backend, PostgreSQL schema, Metabase analytics, OpenAI API integration. Managed full App Store and Google Play release cycle independently. Shipped multilingual MVP (EN/FA/FR).",
     impact:
@@ -216,7 +216,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Princess Yachts",
     images: ["/assets/princess-1.jpg", "/assets/princess-2.jpg", "/assets/princess-3.jpg"],
     context:
-      "Luxury VR/3D yacht catalogue\u2009—\u2009a React Native application maintained through a 3-year lifecycle across multiple iOS and Android OS updates.",
+      "Luxury VR/3D yacht catalogue built in React Native. Kept this app alive and stable through 3 years of iOS and Android OS updates.",
     role:
       "Improved Core Web Vitals: reduced LCP through asset caching, cut TTI via lazy-loaded routes and deferred non-critical assets. Refactored UI components and kept the application stable through API deprecations and platform changes.",
     impact:
@@ -240,7 +240,7 @@ export const compactProjects: CompactProject[] = [
   {
     title: "Manna Drone Delivery",
     description:
-      "Runner-side app for live drone delivery\u2009—\u2009real-time Firebase order tracking and location sync.",
+      "Runner-side app for live drone delivery. Real-time Firebase order tracking and location sync.",
     image: "/assets/manna-1.jpg",
     stack: ["React Native", "TypeScript", "Firebase"],
     links: [{ label: "Website", url: "https://manna.aero" }],
@@ -256,7 +256,7 @@ export const compactProjects: CompactProject[] = [
   {
     title: "SeeYoo Health",
     description:
-      "Digital triage platform\u2009—\u2009AI assesses patient urgency and books GP appointments.",
+      "Digital triage platform where AI assesses patient urgency and books GP appointments.",
     image: "/assets/seeyoo-1.jpg",
     stack: ["Flutter", "Dart", "GetX", "MVP"],
     links: [{ label: "Website", url: "https://consiliaris.co.uk" }],
@@ -292,7 +292,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "Tribes Digital",
         period: "Sep 2023 \u2013 Present",
         description:
-          "Embedded remote developer inside distributed client engineering teams across timezones. Each engagement is a separate client\u2009—\u2009I join, architect the UI layer, and leave a codebase others can build on.",
+          "Embedded remote developer working inside distributed client teams across timezones. Every engagement is a different client. I come in, architect the UI layer, and leave a codebase others can actually build on.",
         skills: ["React", "TypeScript", "Svelte", "React Native", "MediaPipe", "Strapi"],
         current: true,
       },
@@ -323,7 +323,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "DemisCo",
         period: "Aug 2023 \u2013 Jun 2024",
         description:
-          "Core contributor to ACoreX\u2009—\u2009Angular UI framework with 100+ components adopted across 10+ enterprise projects.",
+          "Core contributor to ACoreX, an Angular UI framework with 100+ components used across 10+ enterprise projects.",
         skills: ["Angular 17", "TypeScript", "RxJS", "Component Library"],
       },
       {
@@ -344,7 +344,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "Matin-Ramz-Negar Group",
         period: "Sep 2022 \u2013 Mar 2023",
         description:
-          "Led 3-person team building multi-platform attendance system with IoT integration. Introduced Scrum\u2009—\u2009improved delivery speed by 15%.",
+          "Led 3-person team building multi-platform attendance system with IoT integration. Brought in Scrum and improved delivery speed by 15%.",
         skills: ["React Native", "Node.js", "OAuth 2.0", "JWT", "IoT", "Scrum"],
       },
       {
@@ -352,7 +352,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "Kherad Fan-Avaran Anahid",
         period: "Aug 2019 \u2013 Nov 2022",
         description:
-          "Led R&D department building full HR and work management system. Championed automated testing\u2009—\u2009bug rate dropped significantly.",
+          "Led the R&D department building a full HR and work management system. Pushed hard for automated testing and the bug rate dropped big time.",
         skills: ["React Native", "Node.js", "TypeScript", "Automated Testing"],
       },
       {
@@ -373,7 +373,7 @@ export const experienceGroups: ExperienceGroup[] = [
         company: "Ministry of Education",
         period: "Jun 2017 \u2013 Jun 2019",
         description:
-          "Civilian service teaching OOP, HTML5, JavaScript, and clean code. Ran concurrently with developer role\u2009—\u2009two of the most formative years.",
+          "Civilian service teaching OOP, HTML5, JavaScript, and clean code. Did this while working as a developer at the same time. Two of the most intense years of my life.",
         skills: ["JavaScript", "HTML5", "OOP", "Clean Code"],
       },
       {

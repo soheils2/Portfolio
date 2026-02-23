@@ -38,7 +38,7 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
       className="relative w-full h-full overflow-hidden"
       role="group"
       aria-roledescription="carousel"
-      aria-label={`${alt} — ${images.length} screenshots`}
+      aria-label={`${alt}, ${images.length} screenshots`}
     >
       <img
         src={images[0]}
