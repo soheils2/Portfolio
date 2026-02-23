@@ -141,42 +141,80 @@ export const navLinks = [
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "chupachups",
+    slug: "shoppar-ar",
     label: "AR Platform \u00B7 Tribes Digital",
-    title: "Chupachups Brand Activation",
-    images: ["/assets/portfolio-1.jpg", "/assets/portfolio-2.jpg", "/assets/portfolio-3.jpg"],
+    title: "Shoppar AR Photo Booth",
+    images: [
+      "/assets/chupachups-platform-overview.png",
+      "/assets/chupachups-kiosk-mall.png",
+      "/assets/chupachups-ar-phone-mockup.png",
+      "/assets/chupachups-nike-campaign.png",
+      "/assets/chupachups-sticker-editor.png",
+      "/assets/chupachups-kitkat-campaign.png",
+      "/assets/chupachups-ar-selfie-cam.png",
+    ],
     context:
-      "Live AR photo booth deployed to touchscreen kiosks for Chupachups brand activations. Campaign managers needed to swap brand assets, colours, and copy without developer intervention.",
+      "White-label AR photo booth platform deployed to touchscreen kiosks for Chupachups, KitKat, and Nike brand activations. One codebase, infinite campaigns. Campaign managers swap the entire brand identity through the CMS without touching code.",
     role:
-      "Sole developer. Built the real-time AR camera pipeline with MediaPipe for face detection and landmark tracking, plus virtual backgrounds and face masks on Fabric.js canvas. Set up a headless CMS (Strapi 5) so campaign managers can swap experiences without code. CSS custom properties let them switch campaigns instantly, no rebuilds needed.",
+      "Sole developer on the full system. Built a real-time AR camera pipeline with MediaPipe face detection, landmark tracking, and selfie segmentation. Interactive face masks and sticker canvas via Fabric.js. Headless CMS in Strapi 5 with runtime theming through CSS custom properties. Campaign managers swap colours, fonts, backgrounds, masks, and copy, all live, no rebuilds.",
     impact:
-      "PWA with offline support, WCAG 2.1 AA compliant, deployed to live touchscreen event hardware at brand activations.",
+      "PWA with offline support, WCAG 2.1 AA, deployed to live touchscreen kiosks at brand events across the UK and Turkey.",
     stack: [
       "React 19",
       "TypeScript",
-      "Vite",
-      "Tailwind CSS",
       "MediaPipe",
       "Fabric.js",
       "Strapi 5",
       "PostgreSQL",
+      "Tailwind CSS",
       "PWA",
+      "Vite",
     ],
     links: [
-      { label: "Live Site", url: "https://selfie.shoppar.io/chupachupsantalya" },
+      { label: "Live Demo", url: "https://selfie.shoppar.io/chupachupsantalya" },
     ],
   },
   {
-    slug: "acorex",
-    label: "Component Library \u00B7 DemisCo",
-    title: "ACoreX UI Framework",
-    images: ["/assets/acorex-1.jpg", "/assets/acorex-2.jpg", "/assets/acorex-3.jpg"],
+    slug: "mirana",
+    label: "Co-Founded \u00B7 Full Stack",
+    title: "Mirana (VioraHR)",
+    images: [
+      "/assets/mirana-brand.jpg",
+      "/assets/mirana-dashboard.jpg",
+      "/assets/mirana-mobile-screens.jpg",
+    ],
     context:
-      "Enterprise Angular UI framework built from scratch to replace fragmented libraries that lacked RTL support, localisation, and performance at scale.",
+      "AI-powered HR platform I co-founded. Configurable attendance workflows, geofenced check-in/out, internal messaging, and an OpenAI-powered HR assistant. Built the entire product solo from database schema to app store submission.",
     role:
-      "I wrote the component library, not just used it. Angular 17 components with full RTL support, dark/light theming, strict TypeScript. I owned the form builder module: datetime pickers, country selectors, chip inputs, configurable dialogs.",
+      "Co-Founder and sole architect. React Native mobile app, Node.js/Express API, PostgreSQL with Metabase analytics, OpenAI integration for an HR assistant. Managed the full release cycle: App Store Connect, Gradle builds, signing, versioning, staged rollouts. Shipped trilingual (EN/FA/FR).",
     impact:
-      "Contributed to 100+ components, adopted across 10+ enterprise projects company-wide.",
+      "5 enterprise clients in year one. Published to both app stores. Multilingual MVP live by April 2025.",
+    stack: [
+      "React Native",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "OpenAI API",
+      "FCM",
+      "AWS",
+    ],
+    links: [],
+  },
+  {
+    slug: "acorex",
+    label: "Library Author \u00B7 DemisCo",
+    title: "ACoreX UI Framework",
+    images: [
+      "/assets/acorex-logo.jpg",
+      "/assets/acorex-docs-light.jpg",
+      "/assets/acorex-docs-dark.jpg",
+    ],
+    context:
+      "Enterprise Angular component library I helped build from scratch. Not a consumer of a library, but the author. 100+ components with full RTL support, dark/light theming, and strict TypeScript. Used across 10+ enterprise projects internally.",
+    role:
+      "Core contributor writing the library itself. Owned the form builder module: datetime pickers with calendar and time wheel, country selectors, chip inputs, switch controls, configurable dialogs. Improved real-time data sync with a hybrid REST/WebSocket approach and Firestore for live updates.",
+    impact:
+      "100+ components, 2,700+ weekly npm downloads, adopted across the entire Demis holding group.",
     stack: [
       "Angular 17",
       "TypeScript",
@@ -188,39 +226,20 @@ export const caseStudies: CaseStudy[] = [
     links: [{ label: "Live Docs", url: "https://ui.acorex.io" }],
   },
   {
-    slug: "mirana",
-    label: "Co-Founded \u00B7 Canada",
-    title: "Mirana / VioraHR",
-    images: ["/assets/mirana-1.jpg", "/assets/mirana-2.jpg", "/assets/mirana-3.jpg"],
-    context:
-      "AI-powered HR platform for attendance tracking and team communication. Configurable workflows, attendance automation, and internal messaging for companies replacing old HR systems.",
-    role:
-      "Co-Founder. Solo-architected the entire TypeScript stack: React Native app, Node.js/Express backend, PostgreSQL schema, Metabase analytics, OpenAI API integration. Managed full App Store and Google Play release cycle independently. Shipped multilingual MVP (EN/FA/FR).",
-    impact:
-      "5 enterprise clients within year one. Published to both app stores.",
-    stack: [
-      "React Native",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "OpenAI API",
-      "FCM",
-      "AWS",
-    ],
-    links: [],
-  },
-  {
     slug: "princess",
     label: "VR Catalogue \u00B7 Tribes Digital",
     title: "Princess Yachts",
-    images: ["/assets/princess-1.jpg", "/assets/princess-2.jpg", "/assets/princess-3.jpg"],
+    images: [
+      "/assets/princess-multidevice.jpg",
+      "/assets/princess-menu-gallery.jpg",
+      "/assets/princess-showroom-vr.jpg",
+    ],
     context:
-      "Luxury VR/3D yacht catalogue built in React Native. Kept this app alive and stable through 3 years of iOS and Android OS updates.",
+      "Luxury VR/3D yacht catalogue in React Native. Not a quick build and move on, this was a 3-year maintenance engagement. I understood the intent behind code I didn't write, and refactored it when it needed it.",
     role:
-      "Improved Core Web Vitals: reduced LCP through asset caching, cut TTI via lazy-loaded routes and deferred non-critical assets. Refactored UI components and kept the application stable through API deprecations and platform changes.",
+      "Improved Core Web Vitals: reduced LCP through asset caching, cut TTI with lazy-loaded routes and deferred non-critical assets. Refactored UI components and kept the application stable through iOS/Android OS updates, API deprecations, and device fragmentation.",
     impact:
-      "Load time improved by 30%. Application maintained and stable across 3 years of OS updates.",
+      "30% faster load time. Application stable and maintained across 3 years of platform changes.",
     stack: [
       "React Native",
       "TypeScript",
@@ -240,41 +259,41 @@ export const compactProjects: CompactProject[] = [
   {
     title: "Manna Drone Delivery",
     description:
-      "Runner-side app for live drone delivery. Real-time Firebase order tracking and location sync.",
-    image: "/assets/manna-1.jpg",
+      "Runner-side app for Manna's live drone service. Real-time Firebase order sync, location tracking, and handoff confirmation between runner, hub, and dispatch.",
+    image: "/assets/manna-runner-screens.jpg",
     stack: ["React Native", "TypeScript", "Firebase"],
     links: [{ label: "Website", url: "https://manna.aero" }],
   },
   {
-    title: "ScoreMy Financial",
-    description:
-      "Score-based financial advisory UI with interactive gauges, PDF generators, and real-time push notifications.",
-    image: "/assets/score-1.jpg",
-    stack: ["Svelte", "TypeScript", "Firebase", "FCM"],
-    links: [{ label: "Website", url: "https://scoremy.co.uk" }],
-  },
-  {
     title: "SeeYoo Health",
     description:
-      "Digital triage platform where AI assesses patient urgency and books GP appointments.",
-    image: "/assets/seeyoo-1.jpg",
+      "Digital triage platform. AI assesses patient urgency and books GP appointments. Built the full patient journey UI in Flutter with MVP architecture.",
+    image: "/assets/seeyoo-ai-triage.jpg",
     stack: ["Flutter", "Dart", "GetX", "MVP"],
     links: [{ label: "Website", url: "https://consiliaris.co.uk" }],
   },
   {
+    title: "ScoreMy Financial",
+    description:
+      "Score-based financial advisory platform. Custom gauge components, animated scorecards, PDF report generators, and real-time push notifications.",
+    image: "/assets/scoremy-dashboard.jpg",
+    stack: ["Svelte", "TypeScript", "Firebase", "FCM"],
+    links: [{ label: "Website", url: "https://scoremy.co.uk" }],
+  },
+  {
     title: "POTS by SGTL",
     description:
-      "Community gardening platform built from scratch with UX focused on non-technical users.",
-    image: "/assets/pots-1.jpg",
+      "Community gardening app. Built the full React Native app from scratch with Node.js backend. UX designed for non-technical gardeners, not developers.",
+    image: "/assets/pots-brand.jpg",
     stack: ["React Native", "TypeScript", "Node.js", "Firebase"],
     links: [{ label: "Website", url: "https://potsbysgtl.com" }],
   },
   {
-    title: "Freelance & Contracts",
+    title: "Ramzineh & Contracts",
     description:
-      "Full-stack contract work including Ramzineh attendance system with IoT integration and banking-grade auth.",
-    image: "/assets/freelance-1.jpg",
-    stack: ["React Native", "Node.js", "PostgreSQL", "OAuth 2.0"],
+      "Led a 3-person team building a multi-platform attendance system with IoT integration, OAuth 2.0 auth, and banking-grade security standards.",
+    image: "/assets/freelance-dashboards.jpg",
+    stack: ["React Native", "Node.js", "OAuth 2.0", "IoT"],
     links: [],
   },
 ];
