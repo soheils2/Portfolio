@@ -187,34 +187,38 @@ function TerminalCard() {
         >
           <TerminalLines lines={terminal.lines} />
 
-          {/* Active input line with blinking cursor effect */}
+          {/* Active input line */}
           <div className="flex items-center gap-1.5 mt-1">
-            <span className="text-emerald-500 flex-shrink-0">❯</span>
+            <span className={`flex-shrink-0 ${terminal.connectStep !== "idle" ? "text-amber-500" : "text-emerald-500"}`}>❯</span>
             <input
               ref={localInputRef}
               type="text"
               value={terminal.input}
               onChange={(e) => terminal.setInput(e.target.value)}
               onKeyDown={terminal.handleKeyDown}
-              className="flex-1 bg-transparent text-emerald-100 outline-none caret-emerald-400 text-[11px] font-mono placeholder:text-zinc-700"
+              className={`flex-1 bg-transparent outline-none text-[11px] font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
               spellCheck={false}
               autoComplete="off"
               aria-label="Terminal input"
-              placeholder="type help..."
+              placeholder={terminal.connectStep === "idle" ? "type help..." : ""}
             />
           </div>
         </div>
 
-        {/* Bottom bar - interactive hint */}
+        {/* Bottom bar - status */}
         <div className="flex-shrink-0 px-4 py-1.5 border-t border-emerald-500/8 bg-[#0a0e14] flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${terminal.connectStep !== "idle" ? "bg-amber-400" : "bg-emerald-400"}`} />
+              <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${terminal.connectStep !== "idle" ? "bg-amber-500" : "bg-emerald-500"}`} />
             </span>
-            <span className="text-[9px] font-mono text-emerald-500/50 uppercase tracking-wider">interactive</span>
+            <span className={`text-[9px] font-mono uppercase tracking-wider ${terminal.connectStep !== "idle" ? "text-amber-500/60" : "text-emerald-500/50"}`}>
+              {terminal.connectStep !== "idle" ? "connect flow" : "interactive"}
+            </span>
           </div>
-          <span className="text-[9px] font-mono text-zinc-700">click to expand</span>
+          <span className="text-[9px] font-mono text-zinc-700">
+            {terminal.connectStep !== "idle" ? "type cancel to exit" : "click to expand"}
+          </span>
         </div>
       </div>
     </FadeIn>
@@ -339,31 +343,44 @@ function TerminalFullscreen() {
 
               {/* Active input */}
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-emerald-500 flex-shrink-0 text-sm">❯</span>
+                <span className={`flex-shrink-0 text-sm ${terminal.connectStep !== "idle" ? "text-amber-500" : "text-emerald-500"}`}>❯</span>
                 <input
                   ref={fullscreenInputRef}
                   type="text"
                   value={terminal.input}
                   onChange={(e) => terminal.setInput(e.target.value)}
                   onKeyDown={terminal.handleKeyDown}
-                  className="flex-1 bg-transparent text-emerald-100 outline-none caret-emerald-400 text-xs sm:text-sm font-mono placeholder:text-zinc-700"
+                  className={`flex-1 bg-transparent outline-none text-xs sm:text-sm font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
                   spellCheck={false}
                   autoComplete="off"
                   aria-label="Terminal input (fullscreen)"
-                  placeholder="type a command..."
+                  placeholder={terminal.connectStep === "idle" ? "type a command..." : ""}
                 />
               </div>
             </div>
 
             {/* Footer hint */}
-            <div className="flex-shrink-0 px-5 py-2 border-t border-emerald-500/8 bg-[#0a0e14]">
-              <p className="text-[10px] font-mono text-zinc-600 text-center">
-                type <span className="text-emerald-500/60">help</span> for commands
-                {" · "}
-                <span className="text-zinc-700">esc</span> to minimize
-                {" · "}
-                <span className="text-zinc-700">↑↓</span> history
-              </p>
+            <div className="flex-shrink-0 px-5 py-2 border-t border-emerald-500/8 bg-[#0a0e14] flex items-center justify-between">
+              {terminal.connectStep !== "idle" ? (
+                <>
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-60" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500" />
+                    </span>
+                    <span className="text-[10px] font-mono text-amber-500/60 uppercase tracking-wider">connect flow</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-zinc-700">esc or type cancel to exit</span>
+                </>
+              ) : (
+                <p className="text-[10px] font-mono text-zinc-600 text-center w-full">
+                  type <span className="text-emerald-500/60">help</span> for commands
+                  {" · "}
+                  <span className="text-emerald-500/60">connect</span> to reach out
+                  {" · "}
+                  <span className="text-zinc-700">esc</span> to minimize
+                </p>
+              )}
             </div>
           </motion.div>
         </motion.div>

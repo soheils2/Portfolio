@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FadeIn } from "./ui/FadeIn";
@@ -42,17 +42,6 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
     setHovered(false);
   };
 
-  // Mobile intersection observer
-  useEffect(() => {
-    if (window.innerWidth > 768) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHovered(entry.isIntersecting),
-      { threshold: 0.3 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <FadeIn delay={index * 0.1}>
       <motion.div
@@ -62,6 +51,8 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
         onMouseMove={handleMouse}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleLeave}
+        onTouchStart={() => setHovered(true)}
+        onTouchEnd={() => setHovered(false)}
       >
         {/* Background glow */}
         <motion.div
@@ -71,16 +62,9 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
         />
 
         <div className="relative rounded-2xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 transition-colors duration-300">
-          {/* Number badge */}
-          <div className="absolute top-5 left-5 z-20 flex items-center gap-2">
-            <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm text-xs font-bold text-zinc-900 dark:text-zinc-100 border border-zinc-200/50 dark:border-zinc-700/50">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
             {/* Image section — cinematic */}
-            <div className="relative h-48 sm:h-56 lg:h-auto lg:min-h-[320px] overflow-hidden">
+            <div className="relative h-44 sm:h-52 lg:h-auto lg:min-h-[280px] overflow-hidden">
               <motion.div
                 className="absolute inset-0"
                 animate={{ scale: hovered ? 1.05 : 1 }}
@@ -107,28 +91,28 @@ function FeaturedCard({ study, index }: { study: CaseStudyType; index: number })
             </div>
 
             {/* Content section */}
-            <div className="relative p-5 sm:p-6 lg:p-7 flex flex-col justify-center">
+            <div className="relative p-4 sm:p-5 lg:p-6 flex flex-col justify-center">
               {/* Label */}
-              <span className="hidden lg:inline-block w-fit px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-blue-500/8 text-blue-600 dark:text-blue-400 border border-blue-500/15 mb-3">
+              <span className="hidden lg:inline-block w-fit px-3 py-1 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-blue-500/8 text-blue-600 dark:text-blue-400 border border-blue-500/15 mb-2">
                 {study.label}
               </span>
 
               {/* Title */}
-              <h3 className="hidden lg:block text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-3">
+              <h3 className="hidden lg:block text-xl sm:text-2xl lg:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 mb-2">
                 {study.title}
               </h3>
 
               {/* Context */}
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 mb-4">
+              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400 mb-3 line-clamp-3">
                 {study.context}
               </p>
 
               {/* Role */}
-              <div className="mb-4">
-                <p className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-1.5">
+              <div className="mb-3">
+                <p className="text-xs font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500 mb-1">
                   What I Built
                 </p>
-                <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 line-clamp-3">
+                <p className="text-xs sm:text-sm leading-relaxed text-zinc-600 dark:text-zinc-300 line-clamp-2">
                   {study.role}
                 </p>
               </div>
@@ -151,16 +135,6 @@ function SecondaryCard({ study, index }: { study: CaseStudyType; index: number }
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (window.innerWidth > 768) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHovered(entry.isIntersecting),
-      { threshold: 0.3 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <FadeIn delay={index * 0.1}>
       <motion.div
@@ -168,6 +142,8 @@ function SecondaryCard({ study, index }: { study: CaseStudyType; index: number }
         className="group relative h-full rounded-2xl overflow-hidden cursor-pointer"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onTouchStart={() => setHovered(true)}
+        onTouchEnd={() => setHovered(false)}
         whileHover={{ y: -6 }}
         transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -179,13 +155,6 @@ function SecondaryCard({ study, index }: { study: CaseStudyType; index: number }
         />
 
         <div className="relative h-full rounded-2xl overflow-hidden border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 transition-colors duration-300">
-          {/* Number badge */}
-          <div className="absolute top-4 left-4 z-20">
-            <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm text-[10px] font-bold text-zinc-900 dark:text-zinc-100 border border-zinc-200/50 dark:border-zinc-700/50">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-          </div>
-
           {/* Image */}
           <div className="relative h-52 sm:h-56 overflow-hidden">
             <motion.div
@@ -251,7 +220,7 @@ function LinkBadges({ study }: { study: CaseStudyType }) {
 
 function ImpactBar({ impact }: { impact: string }) {
   return (
-    <div className="flex items-start gap-3 mb-4 p-3 rounded-xl bg-gradient-to-r from-blue-500/5 to-violet-500/5 dark:from-blue-500/8 dark:to-violet-500/8 border border-blue-500/10 dark:border-blue-500/10">
+    <div className="flex items-start gap-2.5 mb-3 p-2.5 rounded-lg bg-gradient-to-r from-blue-500/5 to-violet-500/5 dark:from-blue-500/8 dark:to-violet-500/8 border border-blue-500/10 dark:border-blue-500/10">
       <Sparkles className="w-3.5 h-3.5 text-blue-500 mt-0.5 flex-shrink-0" />
       <p className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 leading-relaxed">
         {impact}
