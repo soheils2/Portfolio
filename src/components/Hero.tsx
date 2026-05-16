@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, FileText } from "lucide-react";
 import { TypeWriter } from "./ui/TypeWriter";
 import { personalInfo, heroRoles, socialLinks, stats, clientBrands } from "../data/portfolio";
+import { asset } from "../utils/asset";
 
 const CODE_SNIPPETS = [
   "const ship = () => deploy();",
@@ -236,7 +237,7 @@ export function Hero() {
             </a>
           ))}
           <a
-            href={personalInfo.resumeUrl}
+            href={asset(personalInfo.resumeUrl)}
             className="flex items-center gap-1.5 text-xs min-h-[44px] min-w-[44px] justify-center py-2 px-3 rounded-lg text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-blue-500"
           >
             <FileText className="w-3.5 h-3.5" />

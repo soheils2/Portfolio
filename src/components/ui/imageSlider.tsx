@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { asset } from "../../utils/asset";
 
 interface ImageSliderProps {
   images: string[];
@@ -41,7 +42,7 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
       aria-label={`${alt}, ${images.length} screenshots`}
     >
       <img
-        src={images[0]}
+        src={asset(images[0])}
         alt={alt}
         loading="lazy"
         draggable={false}
@@ -54,7 +55,7 @@ export function ImageSlider({ images, alt, hovered }: ImageSliderProps) {
         return (
           <img
             key={src}
-            src={src}
+            src={asset(src)}
             alt={`${alt} - screenshot ${imageIndex + 1}`}
             loading="lazy"
             draggable={false}
