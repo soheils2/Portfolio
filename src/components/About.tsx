@@ -196,9 +196,10 @@ function TerminalCard() {
               value={terminal.input}
               onChange={(e) => terminal.setInput(e.target.value)}
               onKeyDown={terminal.handleKeyDown}
-              className={`flex-1 bg-transparent outline-none text-[11px] font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
+              className={`flex-1 bg-transparent outline-none text-[16px] sm:text-[11px] font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
               spellCheck={false}
               autoComplete="off"
+              autoCapitalize="off"
               aria-label="Terminal input"
               placeholder={terminal.connectStep === "idle" ? "type help..." : ""}
             />
@@ -350,9 +351,10 @@ function TerminalFullscreen() {
                   value={terminal.input}
                   onChange={(e) => terminal.setInput(e.target.value)}
                   onKeyDown={terminal.handleKeyDown}
-                  className={`flex-1 bg-transparent outline-none text-xs sm:text-sm font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
+                  className={`flex-1 bg-transparent outline-none text-[16px] sm:text-sm font-mono placeholder:text-zinc-700 ${terminal.connectStep !== "idle" ? "text-amber-100 caret-amber-400" : "text-emerald-100 caret-emerald-400"}`}
                   spellCheck={false}
                   autoComplete="off"
+                  autoCapitalize="off"
                   aria-label="Terminal input (fullscreen)"
                   placeholder={terminal.connectStep === "idle" ? "type a command..." : ""}
                 />

@@ -63,21 +63,50 @@ export function EasterEgg() {
     };
   }, [handleKey]);
 
-  // Name triple-click trigger
+  // Name triple-click/tap trigger
   useEffect(() => {
-    const handleTripleClick = (e: MouseEvent) => {
+    let tapCount = 0;
+    let tapTimer: ReturnType<typeof setTimeout>;
+
+    const trigger = () => {
+      setActive(true);
+      setTriggerCount((c) => c + 1);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setActive(false), 5000);
+    };
+
+    // Desktop: native click detail
+    const handleClick = (e: MouseEvent) => {
       if (e.detail >= 3) {
         const target = e.target as HTMLElement;
-        if (target.closest("h1")) {
-          setActive(true);
-          setTriggerCount((c) => c + 1);
-          if (timeoutRef.current) clearTimeout(timeoutRef.current);
-          timeoutRef.current = setTimeout(() => setActive(false), 5000);
-        }
+        if (target.closest("h1")) trigger();
       }
     };
-    window.addEventListener("click", handleTripleClick);
-    return () => window.removeEventListener("click", handleTripleClick);
+
+    // Mobile: manual triple-tap counter on h1
+    const handleTouch = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("h1")) {
+        tapCount = 0;
+        return;
+      }
+      tapCount++;
+      clearTimeout(tapTimer);
+      if (tapCount >= 3) {
+        tapCount = 0;
+        trigger();
+      } else {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 500);
+      }
+    };
+
+    window.addEventListener("click", handleClick);
+    window.addEventListener("touchend", handleTouch);
+    return () => {
+      window.removeEventListener("click", handleClick);
+      window.removeEventListener("touchend", handleTouch);
+      clearTimeout(tapTimer);
+    };
   }, []);
 
   // Console easter egg

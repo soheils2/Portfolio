@@ -37,7 +37,7 @@ export function ContactForm() {
   };
 
   const inputClasses =
-    "w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none text-sm transition-colors";
+    "w-full px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 dark:placeholder-zinc-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none text-[16px] sm:text-sm transition-colors";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>

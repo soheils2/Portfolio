@@ -53,7 +53,10 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
     if (spotlightRef.current) spotlightRef.current.style.opacity = "0";
   }, []);
 
-  const active = projects[activeIndex];
+  // Desktop always needs a valid project — when mobile collapses (index === -1),
+  // desktop is hidden but React still evaluates the JSX. Fallback to 0.
+  const desktopIndex = activeIndex >= 0 ? activeIndex : 0;
+  const active = projects[desktopIndex];
 
   return (
     <>
@@ -113,7 +116,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
             project={project}
             index={i}
             isActive={i === activeIndex}
-            onClick={() => setActiveIndex((prev) => (prev === i ? prev : i))}
+            onClick={() => setActiveIndex((prev) => (prev === i ? -1 : i))}
           />
         ))}
       </div>
@@ -126,10 +129,12 @@ function DetailPanel({
   project,
   imageHovered,
   onImageHover,
+  autoSlideshow = false,
 }: {
   project: Project;
   imageHovered: boolean;
   onImageHover: (h: boolean) => void;
+  autoSlideshow?: boolean;
 }) {
   const { Icon, label: platformLabel, bg, text, border } = platformMeta(project.platform);
 
@@ -144,7 +149,7 @@ function DetailPanel({
         onTouchEnd={() => onImageHover(false)}
       >
         <div className="absolute inset-0">
-          <ImageSlider images={project.images} alt={project.title} hovered={imageHovered} />
+          <ImageSlider images={project.images} alt={project.title} hovered={imageHovered || autoSlideshow} />
         </div>
 
         <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-900/95 via-white/20 dark:via-zinc-900/30 to-transparent pointer-events-none" />
@@ -331,14 +336,31 @@ function MobileAccordionItem({
   isActive: boolean;
   onClick: () => void;
 }) {
-  const [imageHovered, setImageHovered] = useState(false);
+  const rowRef = useRef<HTMLDivElement>(null);
   const { Icon, label: platformLabel, bg, text, border } = platformMeta(project.platform);
 
+  // Auto-scroll so the opened item is comfortably visible (below navbar).
+  // When switching between items, the previously open one collapses and releases
+  // height — we wait for that collapse animation to finish (350ms) before scrolling
+  // so the layout is stable and our scroll target is accurate.
+  const handleClick = useCallback(() => {
+    onClick();
+    if (!isActive) {
+      setTimeout(() => {
+        if (!rowRef.current) return;
+        const rect = rowRef.current.getBoundingClientRect();
+        const navbarHeight = 80;
+        const targetY = window.scrollY + rect.top - navbarHeight;
+        window.scrollTo({ top: targetY, behavior: "smooth" });
+      }, 380);
+    }
+  }, [onClick, isActive]);
+
   return (
-    <div className={index > 0 ? "border-t border-zinc-100 dark:border-zinc-800/60" : ""}>
+    <div ref={rowRef} className={index > 0 ? "border-t border-zinc-100 dark:border-zinc-800/60" : ""}>
       {/* Row header */}
       <button
-        onClick={onClick}
+        onClick={handleClick}
         className={`w-full text-left px-4 py-3.5 flex items-center gap-3 transition-colors duration-200 relative ${
           isActive ? "bg-blue-500/5 dark:bg-blue-500/8" : "active:bg-zinc-50 dark:active:bg-zinc-800/30"
         }`}
@@ -405,8 +427,9 @@ function MobileAccordionItem({
             <div className="bg-white dark:bg-zinc-900/80">
               <DetailPanel
                 project={project}
-                imageHovered={imageHovered}
-                onImageHover={setImageHovered}
+                imageHovered={false}
+                onImageHover={() => {}}
+                autoSlideshow
               />
             </div>
           </motion.div>

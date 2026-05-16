@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -15,6 +16,36 @@ import { TerminalProvider } from "./context/TerminalContext";
 function App() {
   const isLoading = useLoading();
   const { isDark, setIsDark } = useTheme();
+
+  // Prevent pinch-zoom & Ctrl+scroll zoom on desktop browsers
+  useEffect(() => {
+    const preventZoom = (e: WheelEvent) => {
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+      }
+    };
+    const preventKeyZoom = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "+" || e.key === "-" || e.key === "=" || e.key === "0")) {
+        e.preventDefault();
+      }
+    };
+    const preventGestureStart = (e: Event) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener("wheel", preventZoom, { passive: false });
+    document.addEventListener("keydown", preventKeyZoom);
+    // Safari gesture events
+    document.addEventListener("gesturestart", preventGestureStart);
+    document.addEventListener("gesturechange", preventGestureStart);
+
+    return () => {
+      document.removeEventListener("wheel", preventZoom);
+      document.removeEventListener("keydown", preventKeyZoom);
+      document.removeEventListener("gesturestart", preventGestureStart);
+      document.removeEventListener("gesturechange", preventGestureStart);
+    };
+  }, []);
 
   return (
     <TerminalProvider>

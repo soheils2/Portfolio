@@ -1,22 +1,53 @@
 import { useState, useEffect, useCallback } from 'react';
 
+const THEME_KEY = 'theme';
+const MANUAL_KEY = 'theme-manual';
+
+function getSystemDark() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
 export function useTheme() {
-  const [isDark, setIsDark] = useState(() => {
-    // Default: light mode on first visit. Only dark if user explicitly chose it before.
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark';
+  const [isDark, setIsDarkRaw] = useState(() => {
+    const manual = localStorage.getItem(MANUAL_KEY);
+    if (manual === '1') {
+      // User previously toggled manually — respect their saved choice
+      return localStorage.getItem(THEME_KEY) === 'dark';
+    }
+    // First visit or no manual override — follow system preference
+    return getSystemDark();
   });
 
-  const updateTheme = useCallback((dark: boolean) => {
-    // Simply add or remove the dark class
+  const applyTheme = useCallback((dark: boolean) => {
     document.documentElement.classList[dark ? 'add' : 'remove']('dark');
+    // Keep browser chrome theme-color in sync
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#0a0a0b' : '#ffffff');
   }, []);
 
+  // Manual toggle — marks preference as user-chosen
+  const setIsDark = useCallback((dark: boolean) => {
+    localStorage.setItem(MANUAL_KEY, '1');
+    localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+    setIsDarkRaw(dark);
+  }, []);
+
+  // Apply class whenever isDark changes
   useEffect(() => {
-    // Apply theme immediately
-    updateTheme(isDark);
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }, [isDark, updateTheme]);
+    applyTheme(isDark);
+  }, [isDark, applyTheme]);
+
+  // Listen for system preference changes (only affects non-manual users)
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem(MANUAL_KEY) !== '1') {
+        setIsDarkRaw(e.matches);
+      }
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   return { isDark, setIsDark };
 }
