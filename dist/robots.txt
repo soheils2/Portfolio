@@ -1,0 +1,20 @@
+# https://soeil.net — Soheil Asami Portfolio
+User-agent: *
+Allow: /
+Disallow: /assets/SOHEIL_ASAMI_Resume.pdf
+
+# Sitemaps
+Sitemap: https://soeil.net/sitemap.xml
+
+# Allow social media crawlers
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Host
+Host: https://soeil.net
