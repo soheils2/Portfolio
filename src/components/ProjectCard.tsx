@@ -8,7 +8,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ImageSlider } from "./ui/ImageSlider";
+import { ImageSlider } from "./ui/imageSlider";
 import type { Project } from "../data/portfolio";
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
