@@ -1,0 +1,10 @@
+node_modules/
+dist/
+src/
+.vite/
+*.config.*
+package*.json
+tsconfig*.json
+eslint.config.js
+postcss.config.js
+tailwind.config.js
