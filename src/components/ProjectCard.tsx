@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageSlider } from "./ui/imageSlider";
+import { asset } from "../utils/asset";
 import type { Project } from "../data/portfolio";
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
@@ -283,7 +284,7 @@ function ProjectRow({
 
       {/* Thumbnail */}
       <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-zinc-200/50 dark:border-zinc-700/50">
-        <img src={project.images[0]} alt="" loading="lazy" draggable={false} className="w-full h-full object-cover select-none" />
+        <img src={asset(project.images[0])} alt="" loading="lazy" draggable={false} className="w-full h-full object-cover select-none" />
       </div>
 
       {/* Info */}
@@ -382,7 +383,7 @@ function MobileAccordionItem({
 
         {/* Thumbnail */}
         <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0 border border-zinc-200/50 dark:border-zinc-700/50">
-          <img src={project.images[0]} alt="" loading="lazy" draggable={false} className="w-full h-full object-cover select-none" />
+          <img src={asset(project.images[0])} alt="" loading="lazy" draggable={false} className="w-full h-full object-cover select-none" />
         </div>
 
         {/* Info */}
